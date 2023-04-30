@@ -1,0 +1,223 @@
+<div class="header  py-7 py-lg-7" style="background-image: linear-gradient(87deg ,  rgb(88 227 201) 0px, rgb(35 48 143) 100%) !important;
+background-color: initial !important;">
+  <div class="container">
+    <div class="header-body text-center mb-7">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-6">
+          <h1 class="text-white">Welcome!</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="separator separator-bottom separator-skew zindex-100">
+    <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+    </svg>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container mt--8 pb-5">
+  <!-- Table -->
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+      <div class="card bg-secondary shadow border-0">
+        <div class="card-header bg-transparent pb-0">
+          <div class="text-muted text-center mt-2 mb-4"><small>Sign up with</small></div>
+          
+        </div>
+        <div class="card-body px-lg-5 py-lg-5">
+        
+          
+            <form role="form" [formGroup]="SignUpForm" (ngSubmit)="signUp()">
+            <div class="form-group">
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class=" fas fa-user"></i></span>
+                </div>
+                <input formControlName="firstName" class="form-control" placeholder="First Name*" type="text"><br>
+                <span  class="input-group-text"><i *ngIf="this.SignUpForm.controls['firstName'].valid" style="color: green;"  class="fas fa-solid fa-check"></i></span>
+
+
+              </div>
+              <div class="help-block" style="color:red;font-size: small;" *ngIf="(SignUpForm.get('firstName').dirty)
+              && SignUpForm.get('firstName').errors">
+                   <div *ngIf="SignUpForm.get('firstName').errors.required">
+                       Please enter your first name.
+                   </div>
+                  </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </div>
+                <input formControlName="lastName" class="form-control" placeholder="Last Name*" type="text">
+                <span  class="input-group-text"><i *ngIf="this.SignUpForm.controls['lastName'].valid" style="color: green;"  class="fas fa-solid fa-check"></i></span>
+
+              </div>
+              <span class="help-block" style="color:red;font-size: small;" *ngIf="(SignUpForm.get('lastName').dirty)
+              && SignUpForm.get('lastName').errors">
+                   <span *ngIf="SignUpForm.get('lastName').errors.required">
+                     Please enter your last name.
+                   </span>
+               </span>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-city"></i></span>
+                </div>
+                <input formControlName="city" class="form-control" placeholder="City" type="text">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                </div>
+
+               <!-- <input formControlName="phoneNumber" class="form-control" placeholder="Phone number*" type="text" maxlength="12"> -->
+               <ngx-mat-intl-tel-input
+                [cssClass]="'custom'"
+                [enableSearch]="true"
+                name="phoneNumber"
+                #phoneInput
+                formControlName="phoneNumber"
+                ></ngx-mat-intl-tel-input>
+               <span  class="input-group-text"><i *ngIf="this.SignUpForm.controls['phoneNumber'].valid" style="color: green;"  class="fas fa-solid fa-check"></i></span>
+               
+              </div>
+              <div  *ngIf="SignUpForm.get('phoneNumber').invalid && SignUpForm.get('phoneNumber').dirty">
+                <div  style="font-size: small;"[style.color] = "SignUpForm.get('phoneNumber').errors?.required  ? 'red' : 'green'" *ngIf="SignUpForm.get('phoneNumber').errors?.required || SignUpForm.get('phoneNumber').invalid">Phone number is required <span><i *ngIf="!SignUpForm.get('phoneNumber').errors?.required " style="color: green;"  class="fas fa-solid fa-check"></i><i *ngIf="SignUpForm.get('phoneNumber').errors?.required" style="color: red;"  class="fa fa-times"></i></span></div>
+                <div style="font-size: small;"  [style.color] = "SignUpForm.get('phoneNumber').errors?.validatePhoneNumber ? 'red' : 'green'" *ngIf="SignUpForm.get('phoneNumber').errors?.validatePhoneNumber">Invalid phone number<span><i *ngIf=" !SignUpForm.get('phoneNumber').errors?.validatePhoneNumber " style="color: green;"  class="fas fa-solid fa-check"></i><i *ngIf="SignUpForm.get('phoneNumber').errors?.required" style="color: red;"  class=" fa fa-times"></i></span></div>
+              </div>
+
+              <div class="help-block"  style="color:red ; font-size: small;" *ngIf="SignUpForm.get('phoneNumber').dirty
+                        && SignUpForm.get('phoneNumber').errors">
+                           <span *ngIf="SignUpForm.get('phoneNumber').errors.pattern">
+                                   Please enter a valid Phone Number.
+                                       </span>
+                </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                </div>
+                <input formControlName="email" class="form-control" placeholder="Email*" type="email">
+                <span  class="input-group-text"><i *ngIf="this.SignUpForm.controls['email'].valid" style="color: green;"  class="fas fa-solid fa-check"></i></span>
+             
+              </div>
+              <span class="help-block" style="color:red;font-size: small;" *ngIf="(SignUpForm.get('email').dirty)
+              && SignUpForm.get('email').errors">
+                   <span *ngIf="SignUpForm.get('email').errors.email">
+                    Please enter a valid Email.
+                   </span>
+                  <span *ngIf="SignUpForm.get('email').errors.required">
+                    Please enter your Email.
+                  </span>
+                  
+</span>    
+            </div>
+            <div class="form-group">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                </div>
+                <input formControlName="password" matInput class="form-control" placeholder="Password*" [type]="hide ? 'password':'text'">
+                <span  class="input-group-text"><i *ngIf="this.SignUpForm.controls['password'].valid" style="color: green;"  class="fas fa-solid fa-check"></i></span>
+                <button mat-icon-button matSuffix (click)="hide = !hide" type="button" [attr.aria-label]="hide ? 'Hide password' : 'Show password'">
+                
+               
+                <i *ngIf="!hide" class="fas fa-eye-slash"></i>
+                <i *ngIf="hide"class="fas fa-eye"></i>
+                
+                </button>
+               
+              </div>
+              <div  *ngIf="SignUpForm.get('password').invalid && SignUpForm.get('password').dirty">
+                <div  style="font-size: small;"[style.color] = "SignUpForm.get('password').errors?.required  ? 'red' : 'green'" *ngIf="SignUpForm.get('password').errors?.required || SignUpForm.get('password').invalid">Please enter your password. <span><i *ngIf="!SignUpForm.get('password').errors?.required " style="color: green;"  class="fas fa-solid fa-check"></i><i *ngIf="SignUpForm.get('password').errors?.required" style="color: red;"  class="fa fa-times"></i></span></div>
+
+                <div style="font-size: small;"  [style.color] = "SignUpForm.get('password').errors?.minlength || SignUpForm.get('password').errors?.required ? 'red' : 'green'" *ngIf="SignUpForm.get('password').errors?.minlength || SignUpForm.get('password').invalid">The Password must be Longer than 8 characters. <span><i *ngIf="!SignUpForm.get('password').errors?.minlength  && !SignUpForm.get('password').errors?.required " style="color: green;"  class="fas fa-solid fa-check"></i><i *ngIf="SignUpForm.get('password').errors?.minlength || SignUpForm.get('password').errors?.required" style="color: red;"  class=" fa fa-times"></i></span></div>
+                <div  style="font-size: small;" [style.color] = "SignUpForm.get('password').errors?.invalidPassword   || SignUpForm.get('password').errors?.required ? 'red' : 'green'" *ngIf="SignUpForm.get('password').errors?.invalidPassword || SignUpForm.get('password').invalid">At least 2 uppercase , 2 lowercase , 2 digits,  1 special character <span><i *ngIf="!SignUpForm.get('password').errors?.invalidPassword  && !SignUpForm.get('password').errors?.required " style="color: green;"  class="fas fa-solid fa-check"></i><i *ngIf="SignUpForm.get('password').errors?.invalidPassword || SignUpForm.get('password').errors?.required" style="color: red;"  class=" fa fa-times"></i></span></div>
+              </div>
+              <div *ngIf="SignUpForm.get('password').dirty"class="text-muted font-italic">
+                <small>password strength:
+                 <span *ngIf="SignUpForm.get('password').errors?.minlength" class="text-danger font-weight-700">low</span>
+                 <span *ngIf="!SignUpForm.get('password').errors?.minlength && SignUpForm.get('password').invalid" class="text-warning font-weight-700">medium</span>
+                 <span *ngIf="SignUpForm.get('password').valid" class="text-success font-weight-700">strong</span>
+                </small>
+              </div>
+              <!-- <span class="help-block"  style="color:red;font-size: small;" *ngIf="SignUpForm.get('password').dirty
+              && SignUpForm.get('password').errors">
+                   <div *ngIf="SignUpForm.get('password').errors.required">
+                       Please enter your password.
+                   </div>
+                   <div *ngIf="SignUpForm.get('password').errors.minlength">
+                    The Password must be Longer than 8 characters.
+                   </div>
+                   <div *ngIf="SignUpForm.get('password').errors.invalidPassword && SignUpForm.get('password').value.length !==0">
+                    Password should match at least 2 uppercase letters, 2 lowercase letters, 2 digits, and 1 special character
+                   </div>
+               </span>-->
+             
+            </div>
+
+            <div class="form-group">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                </div>
+                <input formControlName="confirmPassword" matInput class="form-control" placeholder="Confirm password*" [type]="hideConfirm ? 'password':'text'">
+                <span  class="input-group-text"><i *ngIf="this.SignUpForm.controls['confirmPassword'].valid" style="color: green;"  class="fas fa-solid fa-check"></i></span>
+
+                <button mat-icon-button matSuffix (click)="hideConfirm = !hideConfirm" [attr.aria-label]="hideConfirm ? 'Hide password' : 'Show password'">
+               
+               
+                <i *ngIf="!hideConfirm" class="fas fa-eye-slash"></i>
+                <i *ngIf="hideConfirm"class="fas fa-eye"></i>
+                
+                </button>
+              </div>
+              <span class="help-block"  style="color:red;font-size: small;" *ngIf="SignUpForm.get('confirmPassword').dirty
+                        && SignUpForm.get('confirmPassword').errors">
+                                       <span *ngIf="SignUpForm.get('confirmPassword').errors.required">
+                                          Please enter your password.
+                                       </span>
+                            <span *ngIf="SignUpForm.get('confirmPassword').errors.mustMatch">
+                              Passwords are not same.
+                          </span>
+                          
+                      </span>
+            </div>
+
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
+                </div>
+                <select formControlName="position" class="form-control" placeholder="Select person position">
+                  <option value="" disabled selected>Select person position</option>
+                  <option *ngFor="let option of positions">{{option}}</option>
+                  
+                </select>
+              </div>
+            </div>
+            <div class="row my-4">
+              <div class="col-12">
+               
+              </div>
+            </div>
+            <div class="text-center">
+              <button type="submit" [disabled]="!SignUpForm.valid" class="btn btn-primary mt-4">Create account</button>
+            </div>
+          </form>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
