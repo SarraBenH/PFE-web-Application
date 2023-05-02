@@ -189,7 +189,7 @@ deleteTransactions(){
           'success'
         )
         .then(()=>{
-
+            window.location.reload()
         })
       }
       )
