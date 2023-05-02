@@ -94,60 +94,43 @@
 </div>
 <div class="container-fluid mt--7">
   <div class="row">
-    <div class="col-xl-8 mb-5 mb-xl-0">
-      <div class="card bg-gradient-default shadow">
-        <div class="card-header bg-transparent">
-          <div class="row align-items-center">
-            <div class="col">
-              <h6 class="text-uppercase text-light ls-1 mb-1">Overview</h6>
-              <h2 class="text-white mb-0">Sales value</h2>
-            </div>
-            <div class="col">
-              <ul class="nav nav-pills justify-content-end">
-                <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales"  (click)="data=datasets[0];updateOptions()">
-                  <a href="javascript:void(0)" class="nav-link py-2 px-3" [ngClass]="{'active':clicked===true}" data-toggle="tab" (click)="clicked=true;clicked1=false">
-                    <span class="d-none d-md-block">Month</span>
-                    <span class="d-md-none">M</span>
-                  </a>
-                </li>
-                <li class="nav-item" data-toggle="chart" data-target="#chart-sales"  (click)="data=datasets[1];updateOptions()">
-                  <a href="javascript:void(0)" class="nav-link py-2 px-3" [ngClass]="{'active':clicked1===true}" data-toggle="tab" (click)="clicked=false;clicked1=true">
-                    <span class="d-none d-md-block">Week</span>
-                    <span class="d-md-none">W</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
-          <!-- Chart -->
-          <div class="chart">
-            <!-- Chart wrapper -->
-            <canvas id="chart-sales" class="chart-canvas"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-xl-4">
-      <div class="card shadow">
-        <div class="card-header bg-transparent">
-          <div class="row align-items-center">
-            <div class="col">
-              <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
-              <h2 class="mb-0">Total orders</h2>
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
-          <!-- Chart -->
-          <div class="chart">
-            <canvas id="chart-orders" class="chart-canvas"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <mat-card style="height:460px; display: grid; margin:7px 0px 7px 0px !important;">
+        <mat-card-header>
+          Number of Rides for last week days
+        </mat-card-header> 
+        <mat-card-content style="padding-bottom: 0px">
+          <!--
+            <ngx-charts-line-chart
+          [view]="view"
+          [scheme]="colorScheme"
+          [legend]="legend"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxis]="xAxis"
+          [yAxis]="yAxis"
+          [animations]="animations"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+          [timeline]="timeline"
+          [results]="multi"
+          (select)="onSelect($event)"
+          (activate)="onActivate($event)"
+          (deactivate)="onDeactivate($event)"
+  >
+    </ngx-charts-line-chart> 
+
+          --> 
+         
+    <ngx-charts-bar-vertical [view]="view" [scheme] ="colorScheme" [results]="single" [gradient]="gradient" [xAxis]="showXAxis"
+    [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+  </ngx-charts-bar-vertical>
+       </mat-card-content>
+     </mat-card>
+   </div>
+   
+ </div>
   <div class="row mt-5">
     <div class="col-xl-8 mb-5 mb-xl-0">
       <div class="card shadow">

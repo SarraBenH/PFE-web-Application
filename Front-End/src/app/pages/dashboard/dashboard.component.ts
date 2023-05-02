@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import Chart from 'chart.js';
 import { UserService } from 'src/app/services/user.service';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 // core components
 import {
@@ -10,6 +11,7 @@ import {
   chartExample1,
   chartExample2
 } from "../../variables/charts";
+import { multi, single } from './data';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,10 +26,132 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
 
-constructor(private router :Router , private userService :UserService, private route: ActivatedRoute){
+  single = [
+    {
+      "name": "Germany",
+      "value": 8940000
+    },
+    {
+      "name": "USA",
+      "value": 5000000
+    },
+    {
+      "name": "France",
+      "value": 7200000
+    } 
+  ];
+
+  view: any[] = [700, 400];
+  multi  = [
+    {
+      "name": "Germany",
+      "series": [
+        {
+          "name": "1990",
+          "value": 62000000
+        },
+        {
+          "name": "2010",
+          "value": 73000000
+        },
+        {
+          "name": "2011",
+          "value": 89400000
+        }
+      ]
+    },
+  
+    {
+      "name": "USA",
+      "series": [
+        {
+          "name": "1990",
+          "value": 250000000
+        },
+        {
+          "name": "2010",
+          "value": 309000000
+        },
+        {
+          "name": "2011",
+          "value": 311000000
+        }
+      ]
+    },
+  
+    {
+      "name": "France",
+      "series": [
+        {
+          "name": "1990",
+          "value": 58000000
+        },
+        {
+          "name": "2010",
+          "value": 50000020
+        },
+        {
+          "name": "2011",
+          "value": 58000000
+        }
+      ]
+    },
+    {
+      "name": "UK",
+      "series": [
+        {
+          "name": "1990",
+          "value": 57000000
+        },
+        {
+          "name": "2010",
+          "value": 62000000
+        }
+      ]
+    }
+  ];
+
+  //options
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showLegend = true;
+  showXAxisLabel = true;
+  xAxisLabel = 'Country';
+  showYAxisLabel = true;
+  yAxisLabel = 'Population';
+
+  /* options
+  legend: boolean = true;
+  showLabels: boolean = true;
+  animations: boolean = true;
+  xAxis: boolean = true;
+  yAxis: boolean = true;
+  showYAxisLabel: boolean = true;
+  showXAxisLabel: boolean = true;
+  xAxisLabel: string = 'Year';
+  yAxisLabel: string = 'Population';
+  timeline: boolean = true;*/
+
+  
+
+  colorScheme = {
+    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+  };
+constructor(private router :Router , private userService :UserService, private route: ActivatedRoute ){
 
 }
 
+onSelect(event) {
+  console.log(event);
+}
+onActivate(data): void {
+  console.log('Activate', JSON.parse(JSON.stringify(data)));
+}
+
+onDeactivate(data): void {
+  console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+}
 
   ngOnInit() {
     const userId = this.route.snapshot.paramMap.get('id');
@@ -39,42 +163,28 @@ constructor(private router :Router , private userService :UserService, private r
         }
        
       });
+
     }
+    /*
+    chartAnimation: ChartAnimation = {
+      load: {
+        duration: 1000,
+        easing: 'easeInOutQuad'
+      },
+      update: {
+        duration: 500,
+        easing: 'easeInOutQuad'
+      }
+    };*/
   
     
    
 
-    this.datasets = [
-      [0, 20, 10, 30, 15, 40, 20, 60, 60],
-      [0, 20, 5, 25, 10, 30, 15, 40, 40]
-    ];
-    this.data = this.datasets[0];
+   
+ 
+  
 
 
-    var chartOrders = document.getElementById('chart-orders');
-
-    parseOptions(Chart, chartOptions());
-
-
-    var ordersChart = new Chart(chartOrders, {
-      type: 'bar',
-      options: chartExample2.options,
-      data: chartExample2.data
-    });
-
-    var chartSales = document.getElementById('chart-sales');
-
-    this.salesChart = new Chart(chartSales, {
-			type: 'line',
-			options: chartExample1.options,
-			data: chartExample1.data
-		});
+ 
   }
-
-
-  public updateOptions() {
-    this.salesChart.data.datasets[0].data = this.data;
-    this.salesChart.update();
-  }
-
 }

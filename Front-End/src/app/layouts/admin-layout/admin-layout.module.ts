@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { ClipboardModule } from 'ngx-clipboard';
-
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { IconsComponent } from '../../pages/icons/icons.component';
@@ -19,6 +17,10 @@ import {MatIconModule} from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GabDialogComponent } from 'src/app/components/gab-dialog/gab-dialog.component';
 import { TransactionsComponent } from 'src/app/pages/transactions/transactions.component';
+import { NgxChartsModule  } from '@swimlane/ngx-charts';
+import { MatCardModule } from "@angular/material/card";
+import { BrowserModule  } from '@angular/platform-browser';
+//import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ToastrModule } from 'ngx-toastr';
 
 
@@ -30,14 +32,17 @@ import { TransactionsComponent } from 'src/app/pages/transactions/transactions.c
     FormsModule,
     HttpClientModule,
     NgbModule,
-  
     ClipboardModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
     MatProgressBarModule,
     AgGridModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    NgxChartsModule,
+    MatCardModule ,
+   // BrowserModule,
+    //BrowserAnimationsModule
 
    
   ],
