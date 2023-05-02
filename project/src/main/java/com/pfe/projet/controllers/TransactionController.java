@@ -38,8 +38,8 @@ public class TransactionController {
     	  return ResponseEntity.of(transactionService.updateTransaction(id , transactionRequest)) ;
     }
 
-    @DeleteMapping("transactions/{ids}")
-    public void deleteTransactionsByIds(@PathVariable List<Long> ids) {
+    @DeleteMapping("transactions")
+    public void deleteTransactionsByIds(@RequestBody List<Long> ids) {
         transactionService.deleteTransactionsByIds(ids);
      
     }

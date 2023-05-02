@@ -4,8 +4,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ClipboardModule } from 'ngx-clipboard';
-import { ModuleRegistry } from '@ag-grid-community/core';
-import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
@@ -23,7 +21,6 @@ import { GabDialogComponent } from 'src/app/components/gab-dialog/gab-dialog.com
 import { TransactionsComponent } from 'src/app/pages/transactions/transactions.component';
 // import { ToastrModule } from 'ngx-toastr';
 
-ModuleRegistry.registerModules([ ServerSideRowModelModule ]);
 
 
 @NgModule({

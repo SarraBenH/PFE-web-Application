@@ -20,10 +20,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BtnCustomComponent } from './components/btn-custom/btn-custom.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
-import { ModuleRegistry } from 'ag-grid-community';
 
-ModuleRegistry.registerModules([ ServerSideRowModelModule ]);
 
 registerLocaleData(fr);
 
