@@ -14,9 +14,9 @@
         </div>
       </div>
     </form>
- 
+
     <!--notification
-    <div style="display :flex ;flex-direction: row-reverse"> 
+    <div style="display :flex ;flex-direction: row-reverse">
       <div class="notification-icon" (click)="showNotifications()">
         <i class="fas fa-bell"></i>
         <span class="notification-count" *ngIf="alerts.length > 0 && user?.alert_ids === null ">{{this.alerts.length}}</span>
@@ -25,11 +25,11 @@
       </div>
       <div class="notifications-panel" *ngIf="showNotificationsPanel">
         <div class="notifications-header">You have {{alerts?.length}} notifications</div>
-    
+
         <div *ngFor="let notification of viewAll ? alerts: alerts?.slice(0,4)" (click)="markAsRead(notification)" class="notification-item">
           <div class="notification-avatar"><img [src]="this.getStatus(notification)" alt=""></div>
           <div class="notification-details">
-            <div class="notification-title">{{notification.message}} 
+            <div class="notification-title">{{notification.message}}
               <span *ngIf="!user?.alert_ids?.includes(notification.id) " style="float: right;" class="dot" ></span>
             </div>
             <div class="notification-date">{{notification.dateAlerte | date: 'MMM d, y'}}</div>
@@ -40,14 +40,14 @@
         </div>
         <div *ngIf="alerts?.length == 0" class="no-notifications">No notifications</div>
       </div>
-      
+
     </div>
-    
+
     -->
-    <div style="display :flex ;flex-direction: row-reverse"> 
+    <div style="display :flex ;flex-direction: row-reverse">
       <div class="notification-icon" (click)="showNotifications()">
         <i class="fas fa-bell"></i>
-        <span class="notification-count" *ngIf="this.alerts?.length !== user?.alert_ids?.length ">{{this.alerts?.length - user?.alert_ids?.length}}</span>
+        <span class="notification-count" *ngIf="this.alerts?.length !== user?.alert_ids?.length && this.user?.alert_ids !== null">{{this.alerts?.length - user?.alert_ids?.length}}</span>
       </div>
       <div class="notifications-panel" *ngIf="showNotificationsPanel">
         <div class="notifications-header">You have {{alerts?.length}} notifications</div>
@@ -64,7 +64,7 @@
         <div *ngFor="let notification of viewAll ? filteredAlerts: filteredAlerts?.slice(0,4)" (click)="markAsRead(notification)" class="notification-item">
           <div class="notification-avatar"><img [src]="this.getStatus(notification)" alt=""></div>
           <div class="notification-details">
-            <div class="notification-title">{{notification.message}} 
+            <div class="notification-title">{{notification.message}}
               <span *ngIf="!user?.alert_ids?.includes(notification.id) " style="float: right;" class="dot" ></span>
             </div>
             <div class="notification-date">{{notification.dateAlerte | date: 'MMM d, y, h:mm a'}}</div>
@@ -76,10 +76,10 @@
         </div>
       </div>
     </div>
-    
- 
-  
-  
+
+
+
+
     <!-- User -->
     <ul class="navbar-nav align-items-center d-none d-md-flex">
       <li class="nav-item" ngbDropdown placement="bottom-right">

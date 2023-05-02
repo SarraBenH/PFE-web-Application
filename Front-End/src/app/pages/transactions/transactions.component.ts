@@ -14,37 +14,37 @@ import Swal from 'sweetalert2';
 })
 export class TransactionsComponent implements OnInit {
 user :User ;
-  constructor(private userService :UserService , private route: ActivatedRoute , private transactionService :TransactionService) { }
-  title = 'app';
+  constructor(private userService :UserService , private route: ActivatedRoute , private transactionService :TransactionService) {
+
+  }
   private gridApi;
   private gridColumnApi;
   gridOptions: GridOptions;
-  rowModelType = 'serverSide'; // earlier it was like this -> rowModelType: 'serverSide';
   performance : number ;
   selectedRows = [];
+  rowData: any[];
   selectedRowsIds = [];
-  private serverSideDatasource;
-
+  pageSize =1000;
 	columnDefs = [
-    {headerName: 'id', field: 'id' , resizable: true, minWidth: 140,  tooltipField: 'id', sortable: true, filter: true , hide: true,suppressToolPanel: true} ,
-		{headerName: 'Credit card number', field: 'numeroCarte' , resizable: true, minWidth: 140,  tooltipField: 'numeroCarte', sortable: true, filter: true , editable : true},
-		{headerName: 'BIN', field: 'bin', resizable: true, minWidth: 140,  tooltipField: 'bin', sortable: true, filter: true , editable : true },
-		{headerName: 'Bank brand', field: 'enseigne' , resizable: true, minWidth: 140,  tooltipField: 'enseigne', sortable: true, filter: true , editable : true},
-    {headerName: 'Operation date', field: 'dateOperation' , resizable: true, minWidth: 140,  tooltipField: 'dateOperation', sortable: true, filter: true , editable : true} ,
-    {headerName: 'Operation status', field: 'statutOperation' , resizable: true, minWidth: 140,  tooltipField: 'statutOperation', sortable: true, filter: true , editable : true} ,
-    {headerName: 'Transaction type', field: 'typeTransaction', resizable: true, minWidth: 140,  tooltipField: 'typeTransaction', sortable: true, filter: true , editable : true },
+    {headerName: 'id', field: 'id' , resizable: true, minWidth: 200,  tooltipField: 'id', sortable: true, filter: true , hide: true,suppressToolPanel: true} ,
+		{headerName: 'Credit card number', field: 'numeroCarte' , resizable: true, minWidth: 200,  tooltipField: 'numeroCarte', sortable: true, filter: true , editable : true},
+		{headerName: 'BIN', field: 'bin', resizable: true, minWidth: 200,  tooltipField: 'bin', sortable: true, filter: true , editable : true },
+		{headerName: 'Bank brand', field: 'enseigne' , resizable: true, minWidth: 200,  tooltipField: 'enseigne', sortable: true, filter: true , editable : true},
+    {headerName: 'Operation date', field: 'dateOperation' , resizable: true, minWidth: 200,  tooltipField: 'dateOperation', sortable: true, filter: true , editable : true} ,
+    {headerName: 'Operation status', field: 'statutOperation' , resizable: true, minWidth: 200,  tooltipField: 'statutOperation', sortable: true, filter: true , editable : true} ,
+    {headerName: 'Transaction type', field: 'typeTransaction', resizable: true, minWidth: 200,  tooltipField: 'typeTransaction', sortable: true, filter: true , editable : true },
 
-    {headerName: 'Operation type', field: 'typeOperation', resizable: true, minWidth: 140,  tooltipField: 'typeOperation', sortable: true, filter: true , editable : true },
-    {headerName: 'Amount', field: 'montantOperation', resizable: true, minWidth: 140,  tooltipField: 'montantOperation', sortable: true, filter: true , editable : true },
-    {headerName: 'Response Code', field: 'codeReponse', resizable: true, minWidth: 140,  tooltipField: 'codeReponse', sortable: true, filter: true, editable : true },
-    {headerName: 'Extended code response', field: 'extendedCodeReponse', resizable: true, minWidth: 140,  tooltipField: 'extendedCodeReponse', sortable: true, filter: true, editable : true },
-    {headerName: 'Extended message response', field: 'extendedMsgReponse', resizable: true, minWidth: 140,  tooltipField: 'extendedMsgReponse', sortable: true, filter: true, editable : true },
-    {headerName: 'Terminal code', field: 'codeTerminal', resizable: true, minWidth: 140,  tooltipField: 'codeTerminal', sortable: true, filter: true, editable : true },
+    {headerName: 'Operation type', field: 'typeOperation', resizable: true, minWidth: 200,  tooltipField: 'typeOperation', sortable: true, filter: true , editable : true },
+    {headerName: 'Amount', field: 'montantOperation', resizable: true, minWidth: 200,  tooltipField: 'montantOperation', sortable: true, filter: true , editable : true },
+    {headerName: 'Response Code', field: 'codeReponse', resizable: true, minWidth: 200,  tooltipField: 'codeReponse', sortable: true, filter: true, editable : true },
+    {headerName: 'Extended code response', field: 'extendedCodeReponse', resizable: true, minWidth: 200,  tooltipField: 'extendedCodeReponse', sortable: true, filter: true, editable : true },
+    {headerName: 'Extended message response', field: 'extendedMsgReponse', resizable: true, minWidth: 200,  tooltipField: 'extendedMsgReponse', sortable: true, filter: true, editable : true },
+    {headerName: 'Terminal code', field: 'codeTerminal', resizable: true, minWidth: 200,  tooltipField: 'codeTerminal', sortable: true, filter: true, editable : true },
 
-    {headerName: 'Affiliate code', field: 'codeAffilie', resizable: true, minWidth: 140,  tooltipField: 'codeAffilie', sortable: true, filter: true, editable : true },
+    {headerName: 'Affiliate code', field: 'codeAffilie', resizable: true, minWidth: 200,  tooltipField: 'codeAffilie', sortable: true, filter: true, editable : true },
 
-    {headerName: 'Country', field: 'pays', resizable: true, minWidth: 140,  tooltipField: 'pays', sortable: true, filter: true, editable : true },
-    {headerName: 'MCC', field: 'mcc', resizable: true, minWidth: 140,  tooltipField: 'mcc', sortable: true, filter: true, editable : true },
+    {headerName: 'Country', field: 'pays', resizable: true, minWidth: 200,  tooltipField: 'pays', sortable: true, filter: true, editable : true },
+    {headerName: 'MCC', field: 'mcc', resizable: true, minWidth: 200,  tooltipField: 'mcc', sortable: true, filter: true, editable : true },
 
 
 
@@ -58,10 +58,8 @@ user :User ;
       rowMultiSelectWithClick:true,
       rowSelection:"multiple",
       pagination:true,
-      paginationPageSize:20,
+      paginationPageSize:1000,
       columnDefs: this.columnDefs,
-      rowModelType: 'serverSide',
-      serverSideDatasource: this.serverSideDatasource,
     };
     const userId = this.route.snapshot.paramMap.get('id');
 
@@ -70,7 +68,7 @@ user :User ;
         if(result !==null){
           this.userService.updateUserVariable(result.data)  ;
         }
-       
+
       });
     }
   }
@@ -82,18 +80,18 @@ user :User ;
     });
     }
   onCellEditingStopped(event){
-    console.log(event.data);
     this.transactionService.updateTransaction(event.data.id , event.data).subscribe() ;
 
   }
   onCellEditingStarted(event){
 
   }
+
   onGridReady(params){
-   
+
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-   
+
     params.api.sizeColumnsToFit();
     window.addEventListener('resize', function () {
       setTimeout(function () {
@@ -101,48 +99,39 @@ user :User ;
       });
     });
     params.api.sizeColumnsToFit();
-    this.serverSideDatasource = {
-      getRows: (params: IServerSideGetRowsParams) => {
-        let pageNumber = this.gridApi.paginationGetCurrentPage()
-        if(pageNumber === 0){
-          this.transactionService.getAllTransactions(0,20)
-          .subscribe((response) => {
-            const rowsThisPage = response['response'];
-            const lastRow = response['totalRows'];
+    this.getPageTransactions(0);
 
-            params.successCallback(rowsThisPage, lastRow);
-          });
-        }
-        
-      },
-    };
+   }
 
-    this.gridApi.setServerSideDatasource(this.serverSideDatasource);
-  }
-
-  onBtnExport(): void {
-    const params = { suppressQuotes:  true };
-    this.gridApi.exportDataAsCsv(params);
-  
+// Function to retrieve transactions for a specific page
+getPageTransactions(pageNumber: number) {
+  this.gridApi.showLoadingOverlay();
+  const startIndex = pageNumber * this.pageSize;
+  this.transactionService.getAllTransactions(pageNumber, this.pageSize).subscribe((response) => {
+    const data = response['response'];
+    const total = response['totalRows']
+    let rowData: any[] = Array(total).fill({});
+    rowData.splice(startIndex, this.pageSize, ...data);
+    this.rowData = rowData
+  },()=>{},()=>{this.gridApi.hideOverlay();}
+  );
 }
 
+// Function to handle pagination events from the grid
+onPaginationChanged(event: any) {
+ if(event.newPage){
+  let currentPageNumber = this.gridApi.paginationGetCurrentPage();
+  this.getPageTransactions(currentPageNumber)
+ }
+}
 
-loadPage (pageNumber){
-  this.serverSideDatasource = {
-    getRows: (params: IServerSideGetRowsParams) => {
-      const startRow = params.request.startRow;
-      const endRow = params.request.endRow;
+  onBtnExport(): void {
+    let currentPageNumber = this.gridApi.paginationGetCurrentPage();
+    const startIndex = currentPageNumber * this.pageSize;
+    const params = { suppressQuotes:  true , rowPosition: { start: 0, end: 999 }
 
-      this.transactionService.getAllTransactions(pageNumber,20)
-        .subscribe((response) => {
-          const rowsThisPage = response['response'];
-          const lastRow = response['totalRows'];
-
-          params.successCallback(rowsThisPage, lastRow);
-        });
-    },
-  };
-  this.gridApi.setServerSideDatasource(this.serverSideDatasource);
+    };
+    this.gridApi.exportDataAsCsv(params);
 
 }
 
@@ -170,11 +159,11 @@ deleteTransactions(){
           'success'
         )
         .then(()=>{
-         
+
         })
       }
-      )    
-     
+      )
+
     }
   })
 }

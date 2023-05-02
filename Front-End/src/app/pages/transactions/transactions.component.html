@@ -95,29 +95,28 @@ background-color: initial !important;">
       </div>
     </div>
   </div>
- 
+
 </div>
 <!-- Page content -->
 <div class="container-fluid " style="background-image: linear-gradient(87deg, rgb(88 227 201) 0px, rgb(35 48 143) 100%) !important;
 background-color: initial !important;">
 
 <div >
- 
-  <!-- Table -->
-  <ag-grid-angular  
+
+  <ag-grid-angular
   style="width: 100%; height: 536px;"
   [frameworkComponents]="frameworkComponents"
   class="ag-theme-alpine-dark"
- 
   [gridOptions]="gridOptions"
-
   (gridReady)="onGridReady($event)"
+  [rowData]="this.rowData"
+  (paginationChanged) ="onPaginationChanged($event)"
   (cellEditingStarted)="onCellEditingStarted($event)"
   (cellEditingStopped)="onCellEditingStopped($event)"
   (selectionChanged)="selectionChanged($event)"
   >
 </ag-grid-angular>
-  <!-- Dark table 
+  <!-- Dark table
    <div class="row mt-5">
     <div class="col">
       <div class="card bg-default shadow">
