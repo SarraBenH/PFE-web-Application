@@ -6,6 +6,7 @@ import { User } from 'src/app/models/user.model';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
+import { merge,isEqual } from 'lodash';
 
 @Component({
   selector: 'app-transactions',
@@ -22,7 +23,7 @@ user :User ;
   gridOptions: GridOptions;
   performance : number ;
   selectedRows = [];
-  rowData: any[];
+  rowData: any[]=[];
   selectedRowsIds = [];
   pageSize =1000;
 	columnDefs = [
@@ -58,7 +59,7 @@ user :User ;
       rowMultiSelectWithClick:true,
       rowSelection:"multiple",
       pagination:true,
-      paginationPageSize:1000,
+      paginationPageSize:this.pageSize,
       columnDefs: this.columnDefs,
     };
     const userId = this.route.snapshot.paramMap.get('id');
@@ -102,33 +103,61 @@ user :User ;
     this.getPageTransactions(0);
 
    }
+onFilter(e){
+    console.log(this.gridApi.isAnyFilterPresent())
 
+}
 // Function to retrieve transactions for a specific page
 getPageTransactions(pageNumber: number) {
-  this.gridApi.showLoadingOverlay();
   const startIndex = pageNumber * this.pageSize;
-  this.transactionService.getAllTransactions(pageNumber, this.pageSize).subscribe((response) => {
-    const data = response['response'];
-    const total = response['totalRows']
-    let rowData: any[] = Array(total).fill({});
-    rowData.splice(startIndex, this.pageSize, ...data);
-    this.rowData = rowData
-  },()=>{},()=>{this.gridApi.hideOverlay();}
-  );
-}
+  if(this.isDataEmptyFromIndex(startIndex)){
+    this.gridApi.showLoadingOverlay();
+    this.transactionService.getAllTransactions(pageNumber, this.pageSize).subscribe((response) => {
+      const data = response['response'];
+      const total = response['totalRows']
+      if(this.rowData.length===0){
+        this.rowData = new Array(total).fill({});
+      }
 
+      for(let i=startIndex; i<startIndex+this.pageSize;i++){
+          if(i<total){
+           this.rowData[i] = data[i-startIndex]
+          }
+      }
+      this.gridApi.setRowData(this.rowData);
+    },()=>{},()=>{this.gridApi.hideOverlay();}
+    );
+  }
+
+}
+isDataEmptyFromIndex(startIndex){
+  if(Math.floor(this.rowData.length / this.pageSize) === startIndex/this.pageSize){
+    return true
+  }
+  if(this.rowData.length !== 0){
+    for(let i=startIndex; i<startIndex+this.pageSize;i++){
+      if(!isEqual(this.rowData[i],{})){
+        return false
+      }
+    }
+   return true;
+ }else{
+  return true;
+ }
+}
 // Function to handle pagination events from the grid
 onPaginationChanged(event: any) {
  if(event.newPage){
   let currentPageNumber = this.gridApi.paginationGetCurrentPage();
   this.getPageTransactions(currentPageNumber)
+
  }
 }
 
   onBtnExport(): void {
     let currentPageNumber = this.gridApi.paginationGetCurrentPage();
     const startIndex = currentPageNumber * this.pageSize;
-    const params = { suppressQuotes:  true , rowPosition: { start: 0, end: 999 }
+    const params = { suppressQuotes:  true , rowPosition: { start: startIndex, end: startIndex+this.pageSize-1 }
 
     };
     this.gridApi.exportDataAsCsv(params);
