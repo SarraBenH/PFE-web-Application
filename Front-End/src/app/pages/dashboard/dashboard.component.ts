@@ -38,10 +38,11 @@ export class DashboardComponent implements OnInit {
     {
       "name": "France",
       "value": 7200000
-    } 
+    }
   ];
 
-  view: any[] = [700, 400];
+  view: any[] = [575, 400];
+  view1: any[] = [700, 200];
   multi  = [
     {
       "name": "Germany",
@@ -60,7 +61,7 @@ export class DashboardComponent implements OnInit {
         }
       ]
     },
-  
+
     {
       "name": "USA",
       "series": [
@@ -78,7 +79,7 @@ export class DashboardComponent implements OnInit {
         }
       ]
     },
-  
+
     {
       "name": "France",
       "series": [
@@ -121,20 +122,28 @@ export class DashboardComponent implements OnInit {
   showYAxisLabel = true;
   yAxisLabel = 'Population';
 
-  /* options
-  legend: boolean = true;
-  showLabels: boolean = true;
-  animations: boolean = true;
-  xAxis: boolean = true;
-  yAxis: boolean = true;
-  showYAxisLabel: boolean = true;
-  showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Year';
-  yAxisLabel: string = 'Population';
-  timeline: boolean = true;*/
+  // options line
+  legend1: boolean = true;
+  showLabels1: boolean = true;
+  animations1: boolean = true;
+  xAxis1: boolean = true;
+  yAxis1: boolean = true;
+  showYAxisLabel1: boolean = true;
+  showXAxisLabel1: boolean = true;
+  xAxisLabel1: string = 'Year';
+  yAxisLabel1: string = 'Population';
+  timeline1: boolean = true;
 
-  
+ // options pie
+  gradient3: boolean = true;
+  showLegend3: boolean = true;
+  showLabels3: boolean = true;
+  isDoughnut3: boolean = false;
+  legendPosition3: string = 'below';
 
+ colorScheme1 = {
+    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+  };
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
@@ -161,7 +170,7 @@ onDeactivate(data): void {
         if(result !==null){
           this.userService.updateUserVariable(result.data)  ;
         }
-       
+
       });
 
     }
@@ -176,15 +185,15 @@ onDeactivate(data): void {
         easing: 'easeInOutQuad'
       }
     };*/
-  
-    
-   
-
-   
- 
-  
 
 
- 
+
+
+
+
+
+
+
+
   }
 }
