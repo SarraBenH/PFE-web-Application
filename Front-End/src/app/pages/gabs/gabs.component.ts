@@ -38,7 +38,7 @@ user :User ;
   };
 
 	rowData = [
-		
+
 
 
 	];
@@ -50,7 +50,7 @@ user :User ;
         if(result !==null){
           this.userService.updateUserVariable(result.data)  ;
         }
-       
+
       });
     }
     this.gabService.getGabs().subscribe((result)=>{
@@ -94,7 +94,7 @@ user :User ;
   onBtnExport(): void {
     const params = { suppressQuotes:  true };
     this.gridApi.exportDataAsCsv(params);
-  
+
 }
 deleteGabs(){
   Swal.fire({
@@ -129,8 +129,8 @@ deleteGabs(){
           })
         })
       }
-      )    
-     
+      )
+
     }
   })
 }

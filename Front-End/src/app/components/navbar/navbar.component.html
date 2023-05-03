@@ -9,8 +9,14 @@
           <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-search"></i></span>
           </div>
-          <input class="form-control" placeholder="Search" type="text" (focus)="focus = true"
+          <input (input)="searchProfiles($event)" matInput [matAutocomplete]="auto" class="form-control" placeholder="Search" type="text" (focus)="focus = true"
           (blur)="focus = false">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option (onSelectionChange)="goToProfile(option.id)" *ngFor="let option of options" [value]="option.firstName+' '+ option.lastName">
+              <img width="30" style="border-radius: 50%;" height="30" [src]="option.image">
+              {{option?.firstName}} {{option?.lastName}}
+            </mat-option>
+          </mat-autocomplete>
         </div>
       </div>
     </form>
@@ -101,7 +107,7 @@
             <i class="ni ni-single-02"></i>
             <span>My profile</span>
           </a>
-          <a routerLinkActive="active" [routerLink]="['/user-profile']" class="dropdown-item">
+         <!-- <a routerLinkActive="active" [routerLink]="['/user-profile']" class="dropdown-item">
             <i class="ni ni-settings-gear-65"></i>
             <span>Settings</span>
           </a>
@@ -112,9 +118,9 @@
           <a routerLinkActive="active" [routerLink]="['/user-profile']" class="dropdown-item">
             <i class="ni ni-support-16"></i>
             <span>Support</span>
-          </a>
+          </a>-->
           <div class="dropdown-divider"></div>
-          <a (click)="Logout()" class="dropdown-item">
+          <a style="cursor:pointer" (click)="Logout()" class="dropdown-item">
             <i class="ni ni-user-run"></i>
             <span>Logout</span>
           </a>

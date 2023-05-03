@@ -36,7 +36,10 @@ public class UserController {
     ResponseEntity<UserResponse> getUserByEmail(@PathVariable String email){
         return ResponseEntity.of(userService.getUserByEmail(email));
     }
-    
+    @GetMapping("/user/name/{name}")
+    ResponseEntity<List<UserResponse>> getUserByName(@PathVariable String name){
+        return ResponseEntity.of(userService.getUserByName(name));
+    }
     @PutMapping("/user/{id}")
      ResponseEntity<UserResponse> updateUser(@PathVariable String id ,@RequestBody UserRequest userRequest) {
         return ResponseEntity.of(userService.updateUser(id , userRequest)) ;

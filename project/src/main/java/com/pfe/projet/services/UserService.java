@@ -14,7 +14,8 @@ public interface UserService {
 
     List<UserResponse> getAllUsers();
     Optional<UserResponse> getUserByEmail(String email);
-    
+    Optional<List<UserResponse>> getUserByName(String name);
+
     Optional<UserResponse> updateUser(String id ,UserRequest userRequest);
 
     

@@ -8,6 +8,7 @@ import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { IconsComponent } from '../../pages/icons/icons.component';
 import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
+import { ProfileComponent } from '../../pages/profile/profile.component';
 import { GabsComponent } from '../../pages/gabs/gabs.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -20,6 +21,7 @@ import { TransactionsComponent } from 'src/app/pages/transactions/transactions.c
 import { NgxChartsModule  } from '@swimlane/ngx-charts';
 import { MatCardModule } from "@angular/material/card";
 import { BrowserModule  } from '@angular/platform-browser';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ToastrModule } from 'ngx-toastr';
 
@@ -41,14 +43,16 @@ import { BrowserModule  } from '@angular/platform-browser';
     MatDialogModule,
     NgxChartsModule,
     MatCardModule ,
+    MatAutocompleteModule
    // BrowserModule,
     //BrowserAnimationsModule
 
-   
+
   ],
   declarations: [
     DashboardComponent,
     UserProfileComponent,
+    ProfileComponent,
     GabsComponent,
     IconsComponent,
     MapsComponent,

@@ -68,6 +68,14 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
+	public Optional<List<UserResponse>> getUserByName(String name) {
+		if(name != null) {
+			List<User> users = userRepository.getUsersByName(name);
+			return UserMapper.convertUserObjectsToUserResponses(users);
+		}
+		return Optional.empty();	}
+
+	@Override
 	public  Optional<UserResponse> updateUser(String id ,UserRequest userRequest) {
         Optional<User> optionalUserToUpdate = userRepository.findById(id);
         

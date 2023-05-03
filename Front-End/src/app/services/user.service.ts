@@ -62,4 +62,8 @@ export class UserService {
     return this.http.get<User>(this.baseUrl+ '/email/'+ `${email}`);
  
   }
+
+  getUserByName(name :string):Observable<User[]> {
+    return this.http.get<User[]>(this.baseUrl+ '/name/'+ `${name}`);
+  }
 }

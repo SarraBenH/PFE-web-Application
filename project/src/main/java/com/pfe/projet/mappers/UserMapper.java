@@ -3,13 +3,12 @@ package com.pfe.projet.mappers;
 import com.pfe.projet.dtos.requests.UserRequest;
 import com.pfe.projet.dtos.responses.UserResponse;
 import com.pfe.projet.models.User;
+import org.springframework.util.CollectionUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 public class UserMapper {
     /*
@@ -19,6 +18,21 @@ public class UserMapper {
     * UserRequest =====> UserObject =====> UserResponse
     *
     * */
+    public static Optional<List<UserResponse>> convertUserObjectsToUserResponses(List<User> users){
+
+        if (CollectionUtils.isEmpty(users)){
+            return Optional.empty();
+        }
+        List<UserResponse> userResponses = new ArrayList<>() ;
+        users.forEach(user -> {
+            Optional<UserResponse> optionalUser = convertUserObjectToUserResponse(user);
+            optionalUser.ifPresent(userResponses::add);
+        });
+
+        return Optional.of(userResponses);
+    }
+
+
     public static Optional<UserResponse> convertUserObjectToUserResponse(User user){
         if (Objects.isNull(user)){
             return Optional.empty();

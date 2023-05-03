@@ -9,6 +9,7 @@ import { CommonModule, registerLocaleData } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -39,8 +40,8 @@ registerLocaleData(fr);
     CommonModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    MatDialogModule
-
+    MatDialogModule,
+    MatAutocompleteModule
   ],
   declarations: [
     AppComponent,
@@ -48,7 +49,7 @@ registerLocaleData(fr);
     AuthLayoutComponent,
     LoaderComponent,
     BtnCustomComponent
-    
+
   ],
   providers: [
   ],

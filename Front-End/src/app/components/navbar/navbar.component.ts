@@ -28,9 +28,9 @@ export class NavbarComponent implements OnInit {
   originalTitle : string ;
   PROCESSED_ALERTS_KEY = 'processedAlerts';
   interval :any ;
+  options = [];
 
-  
-  
+
 
   constructor(location: Location,  private element: ElementRef, private router: Router , private authService:AuthService , private userService :UserService , private alertService :AlertService ,
     private titleService : Title ) {
@@ -43,7 +43,7 @@ export class NavbarComponent implements OnInit {
   }
   ngOnInit() {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
-  
+
     this.userService.user$.subscribe(value => {
     this.user = value;
     });
@@ -55,9 +55,9 @@ export class NavbarComponent implements OnInit {
         return dateB.getTime() - dateA.getTime() ;
       });
       this.alertCount=this.alerts.length ;
-  
+
     })
-    
+
     this.interval = setInterval(()=>{
       this.alertService.getAlerts().subscribe((result) =>{
         this.alerts=result ;
@@ -88,12 +88,12 @@ export class NavbarComponent implements OnInit {
         }) ;
 
        }
-    
+
       })
     } , 600000 //600000
 
     )
-    
+
   }
   getTitle(){
     var titlee = this.location.prepareExternalUrl(this.location.path());
@@ -112,10 +112,10 @@ export class NavbarComponent implements OnInit {
   showNotifications(){
     this.showNotificationsPanel= !this.showNotificationsPanel ;
   }
- 
+
   showAllNotifications(){
   this.viewAll=true ;
-  
+
 }
 
 getStatus(notification:Alert){
@@ -123,10 +123,10 @@ getStatus(notification:Alert){
     switch (notification.etatAlerte) {
       case "UNTREATED":
         return "assets/img/icons/common/yellow.png"
-      
+
       case "TREATED":
         return "assets/img/icons/common/orange.png"
-        
+
       case "UNRESOLVED":
         return "assets/img/icons/common/red.png"
       default:
@@ -153,7 +153,7 @@ markAsRead(notification: Alert) {
 
     }
   this.userService.updateUser(this.user.id , this.user).subscribe((userResult) => this.user=userResult ) ;
-  
+
 }
 
 
@@ -167,6 +167,18 @@ filterNotifications() {
     this.filteredAlerts = this.alerts;
   }
 }
+  searchProfiles(e){
+    let searchInput = e.target.value;
+    if(searchInput.length>=3){
+      this.userService.getUserByName(searchInput).subscribe((result: User[])=>{
+        //let suggestions = result.map((user)=> user.firstName + " " + user.lastName);
+        this.options = result.filter((user)=> user.id !== this.user.id);
+      })
+    }
+  }
+  goToProfile(id){
+     this.router.navigate(['/profile',id]);
+  }
 ngOnDestroy(){
   clearInterval(this.interval) ;
 }

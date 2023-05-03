@@ -14,7 +14,7 @@ export class UserProfileComponent implements OnInit {
   positions:string[]=[
     "Technical maintenance team" ,
     "IT Team" ,
-    "The Monetics business team", 
+    "The Monetics business team",
     "The Monetics server team" ,
     "CEO of the bank",
     "Central Director of IT Projects"]
@@ -36,7 +36,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
 
-    
+
     const userId = this.route.snapshot.paramMap.get('id');
     this.isLoading=true;
     this.userService.getUserById(userId).subscribe((result)=>{
@@ -59,7 +59,7 @@ export class UserProfileComponent implements OnInit {
     );
 
 
-      
+
   }
   openBrowseFile() {
     if(this.checkSessionId){
@@ -78,7 +78,7 @@ export class UserProfileComponent implements OnInit {
         this.userService.updateUser(this.user.id, this.user).subscribe((result)=>{
           this.isLoading=false ;
           this.userService.updateUserVariable(result);
-  
+
         });
         };
       });
@@ -103,8 +103,8 @@ export class UserProfileComponent implements OnInit {
           this.isLoading=false ;
           this.user =result ;
           this.userService.updateUserVariable(result);
-    
-        });    
+
+        });
         Swal.fire(
           'Updated!',
           'Your profile has been updated.',
@@ -112,9 +112,9 @@ export class UserProfileComponent implements OnInit {
         )
       }
     })
-   
+
   }
 
-  
+
 
 }
