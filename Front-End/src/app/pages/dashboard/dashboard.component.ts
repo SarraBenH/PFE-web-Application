@@ -12,6 +12,7 @@ import {
   chartExample2
 } from "../../variables/charts";
 import { multi, single } from './data';
+import { TransactionService } from 'src/app/services/transaction.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,13 +20,13 @@ import { multi, single } from './data';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
+  chart1Values = [];
   public datasets: any;
   public data: any;
   public salesChart;
   public clicked: boolean = true;
   public clicked1: boolean = false;
-
+  isDataLoaded = false;
   single = [
     {
       "name": "Germany",
@@ -42,7 +43,7 @@ export class DashboardComponent implements OnInit {
   ];
 
   view: any[] = [575, 400];
-  view1: any[] = [700, 200];
+  view1: any[] = [900, 200];
   multi  = [
     {
       "name": "Germany",
@@ -141,13 +142,13 @@ export class DashboardComponent implements OnInit {
   isDoughnut3: boolean = false;
   legendPosition3: string = 'below';
 
- colorScheme1 = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+ chart1ColorScheme = {
+    domain: ['#b3b2ad', '#f0ed92', '#f7b972', '#b572f7',"#bafca2","#aef1f5","#f5aeef"]
   };
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
-constructor(private router :Router , private userService :UserService, private route: ActivatedRoute ){
+constructor(private router :Router , private transactionService: TransactionService, private userService :UserService, private route: ActivatedRoute ){
 
 }
 
@@ -174,17 +175,27 @@ onDeactivate(data): void {
       });
 
     }
-    /*
-    chartAnimation: ChartAnimation = {
-      load: {
-        duration: 1000,
-        easing: 'easeInOutQuad'
-      },
-      update: {
-        duration: 500,
-        easing: 'easeInOutQuad'
-      }
-    };*/
+
+    this.transactionService.getTransactionCountForLastThreeMonths().subscribe((result)=>{
+        this.isDataLoaded = false;
+        if(result!== null){
+          const map = new Map(Object.entries(result));   
+          let array =[]; 
+          for (const key of map.keys()) {            
+            let value = {
+
+              "name": Intl.DateTimeFormat('en', { month: 'long' }).format(new Date(2000, Number(key) - 1)),
+              "value": map.get(key)
+            }  
+            array.push(value);       
+          }
+          this.chart1Values = array;
+        }
+
+    },()=>{},()=>{this.isDataLoaded=true})
+
+
+
 
 
 
@@ -196,4 +207,5 @@ onDeactivate(data): void {
 
 
   }
+
 }

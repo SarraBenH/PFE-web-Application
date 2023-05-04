@@ -18,9 +18,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,6 +42,21 @@ public class TransactionServiceImpl implements TransactionService {
         
         return response;
     }
+    @Override
+    public Map<String, Integer> getTransactionCountForLastSixMonths() {
+        Map<String, Integer> transactionCountByMonth = new HashMap<>();
+
+        LocalDate now = LocalDate.now();
+        for (int i = 0; i < 6; i++) {
+            String month = String.valueOf(String.format("%02d", now.minusMonths(i).getMonth().ordinal()+1));
+            String pattern = month+"/"+ now.minusMonths(i).getYear();
+            int transactionCount = transactionRepository.countByMonth(pattern);
+            transactionCountByMonth.put(month, transactionCount);
+        }
+
+        return transactionCountByMonth;
+    }
+
 
     @Override
     public Optional<TransactionResponse> getTransactionById(Long id) {

@@ -22,8 +22,9 @@ export class TransactionService {
   getTransactionById(transactionId: number): Observable<Transaction> {
     return this.http.get<Transaction>(this.baseUrl +`/${transactionId}`);
   }
-
-
+  getTransactionCountForLastThreeMonths(): Observable<any> {
+    return this.http.get<any>(this.baseUrl +`/six-last-months`);
+  }
   updateTransaction(transactionId: number, transaction: Transaction): Observable<Transaction> {
     return this.http.put<Transaction>(this.baseUrl + `/${transactionId}`, transaction);
   }

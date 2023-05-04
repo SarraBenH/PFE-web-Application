@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
@@ -27,7 +28,14 @@ public class TransactionController {
         }
         return ResponseEntity.ok(transactionResponses);
     }
-
+    @GetMapping("/transactions/six-last-months")
+    public ResponseEntity<Map<String,Integer>> getTransactionCountForLastSixMonths() {
+        Map<String,Integer> count = transactionService.getTransactionCountForLastSixMonths();
+        if (count == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(count);
+    }
     @GetMapping("transactions/{id}")
     public ResponseEntity<TransactionResponse> getTransactionById(@PathVariable Long id) {
     	 return ResponseEntity.of(transactionService.getTransactionById(id)); 
