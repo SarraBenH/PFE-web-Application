@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
   isDataLoaded = false;
+  totalGabs;
   single = [
     {
       "name": "Germany",
@@ -204,6 +205,7 @@ onDeactivate(data): void {
         const countInService = gabCountResult.filter(gab => gab.etatGab === 'IN_SERVICE').length;
         const countOutOfService = gabCountResult.filter(gab => gab.etatGab === 'OUT_OF_SERVICE').length;
         const countFunctional = gabCountResult.filter(gab => gab.etatGab === 'FUNCTIONAL').length;
+        this.totalGabs = countFunctional+countInMaintenance+countInService+countOutOfService;
         const chart2Values = [
           { name: 'In Maintenance', value: countInMaintenance },
           { name: 'In Service', value: countInService },

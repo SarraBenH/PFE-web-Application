@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
@@ -29,7 +29,6 @@ export class NavbarComponent implements OnInit {
   PROCESSED_ALERTS_KEY = 'processedAlerts';
   interval :any ;
   options = [];
-
 
 
   constructor(location: Location,  private element: ElementRef, private router: Router , private authService:AuthService , private userService :UserService , private alertService :AlertService ,
@@ -177,7 +176,7 @@ filterNotifications() {
     }
   }
   goToProfile(id){
-     this.router.navigate(['/profile',id]);
+    this.router.navigate(['/profile',id]);
   }
 ngOnDestroy(){
   clearInterval(this.interval) ;
