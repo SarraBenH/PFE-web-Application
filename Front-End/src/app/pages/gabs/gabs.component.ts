@@ -43,7 +43,7 @@ user :User ;
 
 	];
   ngOnInit() {
-    const userId = this.route.snapshot.paramMap.get('id');
+    const userId = localStorage.getItem("userId");
 
     if(userId !== null){
       this.userService.getUserById(userId).subscribe((result)=>{

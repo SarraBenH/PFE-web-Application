@@ -24,7 +24,14 @@ export class ProfileComponent implements OnInit {
  progress = 0 ;
  checkSessionId=false;
   constructor(private userService : UserService , private route: ActivatedRoute, private fb: FormBuilder) {
-
+    this.EditProfileForm = this.fb.group({
+      lastName: ['',],
+      firstName: ['', ],
+      email: ['', ],
+      city: ['', ],
+      phoneNumber: ['',],
+      position:['' ,]
+      })
    }
 
   ngOnInit() {
@@ -50,7 +57,15 @@ export class ProfileComponent implements OnInit {
     }
     );
 
-
+  const currentUserId = localStorage.getItem("userId");
+    this.isLoading=true;
+    this.userService.getUserById(currentUserId).subscribe((result)=>{
+      this.isLoading=false ;
+      this.progress = result?.progress ;
+      this.userService.updateUserVariable(result?.data)  ;
+    } , ()=>{},()=>{
+    }
+    );
 
   }
 
