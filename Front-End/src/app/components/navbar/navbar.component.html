@@ -54,6 +54,7 @@
       <div class="notification-icon" (click)="showNotifications()">
         <i class="fas fa-bell"></i>
         <span class="notification-count" *ngIf="this.alerts?.length !== user?.alert_ids?.length && this.user?.alert_ids !== null">{{this.alerts?.length - user?.alert_ids?.length}}</span>
+        <span class="notification-count" *ngIf="this.alerts?.length !== 0 && this.user?.alert_ids === null">{{this.alerts?.length}}</span>
       </div>
       <div class="notifications-panel" *ngIf="showNotificationsPanel">
         <div class="notifications-header">You have {{alerts?.length}} notifications</div>

@@ -37,7 +37,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
 
 
-    const userId = this.route.snapshot.paramMap.get('id');
+    const userId = localStorage.getItem("userId");
     this.isLoading=true;
     this.userService.getUserById(userId).subscribe((result)=>{
       this.user=result?.data ;
