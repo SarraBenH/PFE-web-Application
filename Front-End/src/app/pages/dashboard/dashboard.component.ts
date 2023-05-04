@@ -13,6 +13,8 @@ import {
 } from "../../variables/charts";
 import { multi, single } from './data';
 import { TransactionService } from 'src/app/services/transaction.service';
+import { GabService } from 'src/app/services/gab.service';
+import { forkJoin, map } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +23,11 @@ import { TransactionService } from 'src/app/services/transaction.service';
 })
 export class DashboardComponent implements OnInit {
   chart1Values = [];
+  chart2Values = [];
+  chart3Values = [];
+  chart4Values = [];
+  chart5Values = [];
+
   public datasets: any;
   public data: any;
   public salesChart;
@@ -119,9 +126,9 @@ export class DashboardComponent implements OnInit {
   gradient = false;
   showLegend = true;
   showXAxisLabel = true;
-  xAxisLabel = 'Country';
+  xAxisLabel = 'Gab status';
   showYAxisLabel = true;
-  yAxisLabel = 'Population';
+  yAxisLabel = 'Number';
 
   // options line
   legend1: boolean = true;
@@ -146,9 +153,9 @@ export class DashboardComponent implements OnInit {
     domain: ['#b3b2ad', '#f0ed92', '#f7b972', '#b572f7',"#bafca2","#aef1f5","#f5aeef"]
   };
   colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: ['#f0ab3c', '#5AA454','#f5e042','#A10A28' ]
   };
-constructor(private router :Router , private transactionService: TransactionService, private userService :UserService, private route: ActivatedRoute ){
+constructor(private router :Router , private gabService:GabService, private transactionService: TransactionService, private userService :UserService, private route: ActivatedRoute ){
 
 }
 
@@ -176,25 +183,43 @@ onDeactivate(data): void {
 
     }
 
-    this.transactionService.getTransactionCountForLastThreeMonths().subscribe((result)=>{
-        this.isDataLoaded = false;
-        if(result!== null){
-          const map = new Map(Object.entries(result));   
-          let array =[]; 
-          for (const key of map.keys()) {            
-            let value = {
-
-              "name": Intl.DateTimeFormat('en', { month: 'long' }).format(new Date(2000, Number(key) - 1)),
-              "value": map.get(key)
-            }  
-            array.push(value);       
-          }
-          this.chart1Values = array;
+    const transactionCount$ = this.transactionService.getTransactionCountForLastThreeMonths();
+    const gabCount$ = this.gabService.getGabs();
+    
+    forkJoin([transactionCount$, gabCount$]).pipe(
+      map(([transactionCountResult, gabCountResult]) => {
+        // Process the transaction count result
+        const transactionMap = new Map(Object.entries(transactionCountResult));
+        const chart1Values = [];
+        for (const key of transactionMap.keys()) {
+          const value = {
+            name: Intl.DateTimeFormat('en', { month: 'long' }).format(new Date(2000, Number(key) - 1)),
+            value: transactionMap.get(key),
+          };
+          chart1Values.push(value);
         }
-
-    },()=>{},()=>{this.isDataLoaded=true})
-
-
+    
+        // Process the GAB count result
+        const countInMaintenance = gabCountResult.filter(gab => gab.etatGab === 'IN_MAINTENANCE').length;
+        const countInService = gabCountResult.filter(gab => gab.etatGab === 'IN_SERVICE').length;
+        const countOutOfService = gabCountResult.filter(gab => gab.etatGab === 'OUT_OF_SERVICE').length;
+        const countFunctional = gabCountResult.filter(gab => gab.etatGab === 'FUNCTIONAL').length;
+        const chart2Values = [
+          { name: 'In Maintenance', value: countInMaintenance },
+          { name: 'In Service', value: countInService },
+          { name: 'Functional', value: countFunctional },
+          { name: 'Out of service', value: countOutOfService },
+        ];
+      
+        // Return the final result
+        return { chart1Values, chart2Values };
+      })
+    ).subscribe(result => {
+      this.isDataLoaded = false;
+      this.chart1Values = result.chart1Values
+      this.chart2Values = result.chart2Values
+      console.log(result)
+    },()=>{},()=>{this.isDataLoaded = true});
 
 
 
