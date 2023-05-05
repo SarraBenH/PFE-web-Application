@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder,FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
@@ -22,7 +22,9 @@ export class UserProfileComponent implements OnInit {
  isLoading=false ;
  EditProfileForm: FormGroup;
  progress = 0 ;
- checkSessionId=false;
+ checkSessionId=true;
+ hideConfirm=true;
+ hide=true;
   constructor(private userService : UserService , private route: ActivatedRoute, private fb: FormBuilder) {
     this.EditProfileForm = this.fb.group({
       lastName: ['',],
@@ -30,10 +32,41 @@ export class UserProfileComponent implements OnInit {
       email: ['', ],
       city: ['', ],
       phoneNumber: ['',],
-      position:['' ,]
-      })
+      position:['' ,],
+      password:['',this.passwordValidator],
+      confirmPassword:['',],
+
+    },
+     {
+      validator: this.MustMatch('password', 'confirmPassword')
+    }
+    )
    }
 
+   MustMatch(controlName: string, matchingControlName: string): any {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+      if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+        return;
+      }
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ mustMatch: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
+    }
+   }
+
+   passwordValidator(control: FormControl): any {
+    // Match at least 2 uppercase letters, 2 lowercase letters, 2 digits, and 1 special character
+    const pattern = /^(?=.*[A-Z].*[A-Z])(?=.*[a-z].*[a-z])(?=.*\d.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.{8,})/
+    if ((control.value.length>0 && !control.value?.match(pattern))|| (control.value.length>0 && control.value.length < 8)) {
+      return {invalidPassword: true};
+    }else{
+      control.setErrors(null)
+    }
+  }
   ngOnInit() {
 
 
@@ -51,6 +84,8 @@ export class UserProfileComponent implements OnInit {
         city: this.user?.city,
         phoneNumber: this.user?.phoneNumber,
         position: this.user?.position,
+        password:"",
+        confirmPassword:""
       });
     } , ()=>{},()=>{
       this.checkSessionId = localStorage.getItem('sessionId') === this.user.sessionId ;

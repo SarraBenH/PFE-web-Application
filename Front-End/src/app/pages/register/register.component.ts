@@ -103,8 +103,7 @@ export class RegisterComponent implements OnInit {
 
    passwordValidator(control: FormControl): {[s: string]: boolean} {
     // Match at least 2 uppercase letters, 2 lowercase letters, 2 digits, and 1 special character
-    const pattern = /^(?=.*?[A-Z]{2})(?=.*?[a-z]{2})(?=.*?[0-9]{2})(?=.*?[!@#$%^&*()\-_=+{};:,<.>/?]).{8,}$/;
-      console.log("hello")
+    const pattern = /^(?=.*[A-Z].*[A-Z])(?=.*[a-z].*[a-z])(?=.*\d.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.{8,})/
     if (!control.value.match(pattern)) {
       return {invalidPassword: true};
     }

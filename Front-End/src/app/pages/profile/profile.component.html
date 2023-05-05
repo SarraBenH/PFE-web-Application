@@ -1,6 +1,6 @@
 <mat-progress-bar *ngIf="this.progress!==100" color="primary" mode="determinate" [value]="this.progress"></mat-progress-bar>
 
-<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(assets/img/icons/common/cover.jpg); background-size: cover; background-position: center top;">
+<div class="header pb-7 pt-5 pt-lg-8 d-flex align-items-center" style="background-image: url(assets/img/icons/common/cover.jpg); background-size: cover; background-position: center top;">
   <!-- Mask -->
   <span class="mask opacity-8" style="background-image: linear-gradient(87deg, rgb(88 227 201) 0px, rgb(35 48 143) 100%) !important;
   background-color: initial !important;"></span>
@@ -10,7 +10,8 @@
     </div>
   </div>
 </div>
-<div class="container-fluid mt--7">
+<div  style="background-image: linear-gradient(87deg, rgb(88 227 201) 0px, rgb(35 48 143) 100%) !important;
+background-color: initial !important;" class="container-fluid pb-5 mt--3">
   <div class="row">
     <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
       <div class="card card-profile shadow">
@@ -30,7 +31,7 @@
             <a href="javascript:void(0)" class="btn btn-sm btn-default float-right">Message</a>
           </div>
         </div>
-        <div class="card-body pt-0 pt-md-4">
+        <div class="card-body pb-6 pt-0 pt-md-4">
           <div class="row">
             <div class="col">
               <div class="card-profile-stats d-flex justify-content-center mt-md-5">
@@ -72,7 +73,7 @@
         <div class="card-header bg-white border-0">
           <div class="row align-items-center">
             <div class="col-8">
-              <h3 class="mb-0">My account</h3>
+              <h3 class="mb-0">User Profile</h3>
             </div>
           </div>
         </div>
@@ -85,13 +86,13 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">First name</label>
-                    <input formControlName="firstName" type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name">
+                    <input disabled formControlName="firstName" type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-last-name">Last name</label>
-                    <input formControlName="lastName"  type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" value="Jesse">
+                    <input disabled formControlName="lastName"  type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" value="Jesse">
                   </div>
                 </div>
               </div>
@@ -104,12 +105,13 @@
                 <div class="col-md-12">
                     <div class="form-group">
                       <label class="form-control-label" for="input-email">Email address</label>
-                      <input formControlName="email"  type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com">
+                      <input disabled formControlName="email"  type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com">
                     </div>
                   </div>
 
               </div>
-              <div class="row">
+              <!--
+                   <div class="row">
                 <div class="col-lg-4">
                   <div class="form-group">
                     <label class="form-control-label" for="input-city">City</label>
@@ -132,6 +134,8 @@
                   </div>
                 </div>
               </div>
+              -->
+             
             </div>
             <!--   <hr class="my-4" />
 
