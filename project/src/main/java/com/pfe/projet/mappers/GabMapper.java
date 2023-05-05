@@ -26,6 +26,7 @@ public class GabMapper {
         gab.setEtatCommunication(gabRequest.getEtatCommunication());
         gab.setIdentifiant(gabRequest.getIdentifiant());
         gab.setEtatKeys(gabRequest.getEtatKeys());
+        gab.setAddress(gabRequest.getAddress());
         Set<Alert> alerts = new HashSet<>();
      /*   if (gabRequest.getAlerts() != null) {
             for (Alert alert : gabRequest.getAlerts()) {
@@ -51,6 +52,7 @@ public class GabMapper {
         gabResponse.setJDAB(gab.getJDAB());
         gabResponse.setEtatCommunication(gab.getEtatCommunication());
         gabResponse.setEtatKeys(gab.getEtatKeys());
+        gabResponse.setAddress(gab.getAddress());
         Set<Alert> alerts = new HashSet<>();
       /*  if (gab.getAlerts() != null) {
             for (Alert alert : gab.getAlerts()) {

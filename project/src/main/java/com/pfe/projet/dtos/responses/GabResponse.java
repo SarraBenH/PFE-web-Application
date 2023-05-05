@@ -18,6 +18,7 @@ public class GabResponse {
 	    private String JDAB;
 	    private String etatCommunication;
 	    private String etatKeys;
+	    private String address ;
 	 //   private Set<Alert> alerts ;
 
 }

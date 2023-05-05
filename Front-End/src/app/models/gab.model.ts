@@ -10,6 +10,7 @@ export class Gab {
     JDAB: string;
     etatCommunication: string;
     etatKeys: string;
+    address :string ;
     alerts: Alert[];
   
     constructor(
@@ -20,6 +21,7 @@ export class Gab {
       JDAB: string,
       etatCommunication: string,
       etatKeys: string,
+      address :string ,
       alerts: Alert[]
     ) {
       this.etatService = etatService;
@@ -30,6 +32,7 @@ export class Gab {
       this.etatCommunication = etatCommunication;
       this.etatKeys = etatKeys;
       this.alerts = alerts;
+      this.address =address ;
     }
   
     public static fromJson(jsonObj: any): Gab {
@@ -41,6 +44,7 @@ export class Gab {
         jsonObj['JDAB'],
         jsonObj['etatCommunication'],
         jsonObj['etatKeys'],
+        jsonObj['address'],
         jsonObj['alerts'].map((jsonAlert: any) => Alert.fromJson(jsonAlert))
       );
     }

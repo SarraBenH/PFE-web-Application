@@ -26,7 +26,10 @@ user :User ;
 		{headerName: 'Identifiant', field: 'identifiant' , resizable: true, minWidth: 140,  tooltipField: 'identifiant', sortable: true, filter: true , editable : true},
 		{headerName: 'Etat Service', field: 'etatService', resizable: true, minWidth: 140,  tooltipField: 'etatService', sortable: true, filter: true , editable : true },
 		{headerName: 'Enseigne', field: 'enseigne' , resizable: true, minWidth: 140,  tooltipField: 'enseigne', sortable: true, filter: true , editable : true},
-    {headerName: 'Etat Gab', field: 'etatGab' , resizable: true, minWidth: 140,  tooltipField: 'etatGab', sortable: true, filter: true , cellRenderer : 'BtnCellRenderer'} ,
+    {headerName: 'Address', field: 'address', resizable: true, minWidth: 140,  tooltipField: 'address', sortable: true, filter: true, editable : true },
+    {headerName: 'Etat Keys', field: 'etatKeys', resizable: true, minWidth: 140,  tooltipField: 'etatKeys', sortable: true, filter: true, editable : true },
+
+    {headerName: 'Etat Gab', field: 'etatGab' , resizable: true, minWidth: 150,  tooltipField: 'etatGab', sortable: true, filter: true , cellRenderer : 'BtnCellRenderer'} ,
     {headerName: 'Etat K7', field: 'etatK7', resizable: true, minWidth: 140,  tooltipField: 'etatK7', sortable: true, filter: true , editable : true },
     {headerName: 'JDAB', field: 'jdab', resizable: true, minWidth: 140,  tooltipField: 'jdab', sortable: true, filter: true , editable : true },
     {headerName: 'Etat Communication', field: 'etatCommunication', resizable: true, minWidth: 140,  tooltipField: 'etatCommunication', sortable: true, filter: true, editable : true },

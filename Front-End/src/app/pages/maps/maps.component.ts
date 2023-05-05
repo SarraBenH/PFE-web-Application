@@ -57,21 +57,27 @@ export class MapsComponent implements OnInit {
     marker.addTo(this.map);
     this.gabService.getGabs().subscribe((result)=>{
       // Add a marker with the name of the city
-    const city = "Tunis, Gouvernorat Tunis, Tunisie";
-    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${city}`;
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        if(data){
-          console.log(data)
-          const lat = data[0].lat;
-          const lon = data[0].lon;
-          const marker = L.marker([lat, lon],{icon}).addTo(this.map);
-          marker.bindPopup(city);
-        }
-      });
-          console.log(result)
-        })
+      if(result.length > 0) {
+        result.forEach((gab) => {
+          const city = gab.address;
+          const url = `https://nominatim.openstreetmap.org/search?format=json&q=${city}`;
+          fetch(url)
+            .then(response => response.json())
+            .then(data => {
+              if(data){
+                console.log(data)
+                const lat = data[0].lat;
+                const lon = data[0].lon;
+                const marker = L.marker([lat, lon],{icon}).addTo(this.map);
+                marker.bindPopup(city);
+              }
+            });
+                console.log(result)
+              })
+
+        } })
+      }
+
   }
 
-}
+

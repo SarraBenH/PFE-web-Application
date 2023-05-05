@@ -48,6 +48,9 @@ public class Gab {
     
     @Column(name = "etat_keys")
     private String etatKeys;
+   
+    @Column(name="address")
+    private String address ;
  /*   
     @OneToMany(mappedBy = "gab")
     private Set<Alert> alerts ;*/

@@ -100,6 +100,9 @@ public class GabServiceImpl implements GabService {
     	           if (gabRequest.getJDAB() != null && !gabRequest.getJDAB().isEmpty()) {
     	        	   gabToUpdate.setJDAB(gabRequest.getJDAB());
     	           }
+    	           if (gabRequest.getAddress() != null && !gabRequest.getAddress().isEmpty()) {
+    	        	   gabToUpdate.setAddress(gabRequest.getAddress());
+    	           }
     	        //   if (gabRequest.getAlerts() != null && !gabRequest.getAlerts().isEmpty()) {
     	        //	   gabToUpdate.setAlerts(gabRequest.getAlerts());
     	        //   }
