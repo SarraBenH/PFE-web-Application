@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-declare const google: any;
+import * as L from 'leaflet';
+import { Observable, Subscriber } from 'rxjs';
+import { GabService } from 'src/app/services/gab.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-maps',
@@ -8,49 +11,67 @@ declare const google: any;
 })
 export class MapsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService : UserService, private gabService:GabService) { }
 
   ngOnInit() {
-    let map = document.getElementById('map-canvas');
-    let lat = map.getAttribute('data-lat');
-    let lng = map.getAttribute('data-lng');
+    const userId = localStorage.getItem("userId");
 
-    var myLatlng = new google.maps.LatLng(lat, lng);
-    var mapOptions = {
-        zoom: 12,
-        scrollwheel: false,
-        center: myLatlng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        styles: [
-          {"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},
-          {"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},
-          {"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},
-          {"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},
-          {"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},
-          {"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},
-          {"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},
-          {"featureType":"water","elementType":"all","stylers":[{"color":'#5e72e4'},{"visibility":"on"}]}]
+    if(userId !== null){
+      this.userService.getUserById(userId).subscribe((result)=>{
+        if(result !==null){
+          this.userService.updateUserVariable(result.data)  ;
+        }
+
+      });
+
     }
+  }
 
-    map = new google.maps.Map(map, mapOptions);
+  map: any;
 
-    var marker = new google.maps.Marker({
-        position: myLatlng,
-        map: map,
-        animation: google.maps.Animation.DROP,
-        title: 'Hello World!'
+  public ngAfterViewInit(): void {
+    this.loadMap();
+  }
+
+
+
+  private loadMap(): void {
+    this.map = L.map('map').setView([0, 0], 1);
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: 'mapbox/streets-v11',
+      tileSize: 512,
+      zoomOffset: -1,
+      accessToken:  'pk.eyJ1Ijoicm9kcmlnb2thbWFkYSIsImEiOiJjbGZ5NTVhenAwanBzM3Fta3Y3b29temE5In0.PkdHrkHBrx9RALYhyLMRxA',
+    }).addTo(this.map);
+    this.map.flyTo([34.85,10.15], 7);
+    
+    const icon = L.icon({
+      iconUrl: 'https://res.cloudinary.com/rodrigokamada/image/upload/v1637581626/Blog/angular-leaflet/marker-icon.png',
+      shadowUrl: 'https://res.cloudinary.com/rodrigokamada/image/upload/v1637581626/Blog/angular-leaflet/marker-shadow.png',
+      popupAnchor: [13, 0],
     });
 
-    var contentString = '<div class="info-window-content"><h2>Argon Dashboard</h2>' +
-        '<p>A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</p></div>';
-
-    var infowindow = new google.maps.InfoWindow({
-        content: contentString
-    });
-
-    google.maps.event.addListener(marker, 'click', function() {
-        infowindow.open(map, marker);
-    });
+    const marker = L.marker([34.85,10.15], { icon }).bindPopup('Angular Leaflet');
+    marker.addTo(this.map);
+    this.gabService.getGabs().subscribe((result)=>{
+      // Add a marker with the name of the city
+    const city = "Tunis, Gouvernorat Tunis, Tunisie";
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${city}`;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        if(data){
+          console.log(data)
+          const lat = data[0].lat;
+          const lon = data[0].lon;
+          const marker = L.marker([lat, lon],{icon}).addTo(this.map);
+          marker.bindPopup(city);
+        }
+      });
+          console.log(result)
+        })
   }
 
 }

@@ -10,14 +10,14 @@ import { AuthGuard } from 'src/app/services/auth.guard';
 import { TransactionsComponent } from 'src/app/pages/transactions/transactions.component';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard/:id',
+    { path: 'dashboard',
         component: DashboardComponent ,
         canActivate: [AuthGuard]
  },
-    { path: 'user-profile/:id',   component: UserProfileComponent,     canActivate: [AuthGuard]},
+    { path: 'user-profile',   component: UserProfileComponent,     canActivate: [AuthGuard]},
     { path: 'profile/:id',   component: ProfileComponent,     canActivate: [AuthGuard]},
-    { path: 'gabs/:id',         component: GabsComponent ,     canActivate: [AuthGuard]},
-    { path: 'transactions/:id',         component: TransactionsComponent ,     canActivate: [AuthGuard]},
+    { path: 'gabs',         component: GabsComponent ,     canActivate: [AuthGuard]},
+    { path: 'transactions',         component: TransactionsComponent ,     canActivate: [AuthGuard]},
 
     { path: 'icons',          component: IconsComponent,     canActivate: [AuthGuard]
 },

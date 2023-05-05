@@ -220,7 +220,6 @@ onDeactivate(data): void {
       this.isDataLoaded = false;
       this.chart1Values = result.chart1Values
       this.chart2Values = result.chart2Values
-      console.log(result)
     },()=>{},()=>{this.isDataLoaded = true});
 
 

@@ -36,6 +36,7 @@
             ],
             "styles": [
               "src/styles.scss",
+              "node_modules/leaflet/dist/leaflet.css",
               "src/assets/scss/argon.scss"
 
             ],
