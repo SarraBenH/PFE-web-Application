@@ -11,6 +11,8 @@ public interface AlertService {
 
 	Optional<AlertResponse>  createAlert (AlertRequest alertRequest) ;
 	Optional<AlertResponse>  getAlertById(Long id) ;
+	void deleteAlertsByIds(List<Long> ids);
+	void  deleteAlertById(Long id) ;
 	List<AlertResponse> getAllAlerts() ;
 	void updateAlertEmail(List<Long> ids) ;
 }

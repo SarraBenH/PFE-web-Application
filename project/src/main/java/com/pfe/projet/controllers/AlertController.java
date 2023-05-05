@@ -1,18 +1,12 @@
 package com.pfe.projet.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.pfe.projet.dtos.requests.AlertRequest;
 import com.pfe.projet.dtos.requests.GabRequest;
@@ -31,11 +25,18 @@ public class AlertController {
 	private AlertService alertService ;
 
 
-	  @PostMapping("/alert")
+	    @PostMapping("/alert")
 	    public ResponseEntity<AlertResponse> createAlert(@RequestBody AlertRequest alertRequest) {
 	    	 return ResponseEntity.of(alertService.createAlert(alertRequest));  
 	    	 }
-
+		@DeleteMapping("/alert/{id}")
+		public void deleteAlert(@PathVariable Long id) {
+			alertService.deleteAlertById(id);
+		}
+		@DeleteMapping("/alerts")
+		void deleteAlerts(@RequestBody ArrayList<Long> ids) {
+			alertService.deleteAlertsByIds(ids);
+		}
 	    @GetMapping("/alert/{id}")
 	    public ResponseEntity<AlertResponse> getAlertById(@PathVariable Long id) {
 	    	  return ResponseEntity.of(alertService.getAlertById(id)); 

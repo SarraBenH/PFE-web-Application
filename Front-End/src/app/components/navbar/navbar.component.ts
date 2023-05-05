@@ -30,6 +30,7 @@ export class NavbarComponent implements OnInit {
   PROCESSED_ALERTS_KEY = 'processedAlerts';
   interval :any ;
   interval2 : any ;
+  interval3 :any;
   options = [];
 
 
@@ -95,15 +96,39 @@ export class NavbarComponent implements OnInit {
 
     )
 
-    
     this.interval2 = setInterval(()=>{
+      this.alertService.getAlerts().subscribe((result)=>{
+        if(this.user.alert_ids !== null && this.user.alert_ids?.length>0){
+          let alertsSeen = result.filter((alert)=>this.user.alert_ids.includes(alert.id))
+          const oneWeekAgo = new Date();
+          oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+          let expiredSeenAlerts = alertsSeen.filter(alert => new Date(alert.dateAlerte) < oneWeekAgo).map((alert)=>alert.id)
+          console.log(expiredSeenAlerts)
+          if(expiredSeenAlerts.length>0){
+            this.alertService.deleteAlertsByIds(expiredSeenAlerts).subscribe(()=>{});            
+            this.user.alert_ids = this.user?.alert_ids.filter((id)=>!expiredSeenAlerts.includes(id))
+            this.alerts = this.alerts.filter((alert)=>!expiredSeenAlerts.includes(alert.id))
+            this.filteredAlerts = this.filteredAlerts.filter((alert)=>!expiredSeenAlerts.includes(alert.id))
+            this.userService.updateUser(this.user.id , this.user).subscribe((userResult) =>{
+              this.user=userResult;
+              
+            }) ;            
+          }
+        }
+      })
+
+       
+    } , 6000 //600000
+
+    )    
+    this.interval3 = setInterval(()=>{
       this.gabService.getGabs().subscribe((result) =>{
          if(result.length > 0) {
           let nbGabOutOfService = result.filter((gab)=> gab.etatGab === "OUT_OF_SERVICE").length ;
           if((nbGabOutOfService / result.length) * 100 > 35 && !this.containCriticalAlert()){
             const now: Date = new Date();
            
-            let alert :Alert= new Alert("Gabs out of service > 35%: Critical alert!" , now.toISOString() , 'CRITICAL' ,null  , true) ;
+            let alert :Alert= new Alert("Gabs out of service > 35% : Critical alert!" , now.toISOString() , 'CRITICAL' ,null  , true) ;
             this.alertService.createAlert(alert).subscribe((result2)=> {
               if(!this.alerts.includes(result2)) {
                 this.alerts.push(result2) ;
@@ -119,7 +144,19 @@ export class NavbarComponent implements OnInit {
 
           }
           else if(this.containCriticalAlert() && (nbGabOutOfService / result.length) * 100 <= 35) {
-          this.alerts = this.alerts.filter((alert)=> alert.etatAlerte !== "CRITICAL") ;
+            let criticalAlert = this.filteredAlerts.filter((alert)=> alert.etatAlerte === "CRITICAL");
+            this.alertService.deleteAlert(criticalAlert[0].id).subscribe();
+            this.alerts = this.alerts.filter((alert)=> alert.etatAlerte !== "CRITICAL") ;
+            this.filteredAlerts =  this.alerts.sort(function compare(a, b) {
+              var dateA = new Date(a.dateAlerte);
+              var dateB = new Date(b.dateAlerte);
+              return dateB.getTime() - dateA.getTime() ;
+            });
+            if(this.user.alert_ids!==null && this.user.alert_ids?.includes(criticalAlert[0].id)){
+              this.user.alert_ids = this.user.alert_ids.filter((id)=>id !== criticalAlert[0].id);
+              this.userService.updateUser(this.user.id , this.user).subscribe((userResult) => this.user=userResult ) ;
+            }
+
           }
          }
         });

@@ -31,6 +31,22 @@ export class AlertService {
   createAlert(alert :Alert):Observable<Alert>{
    return this.http.post<Alert>(this.baseUrl + '/alert' , alert)
   }
+
+  deleteAlert(alertId :number){
+    return this.http.delete(this.baseUrl + '/alert/'+alertId)
+  }
+
+  deleteAlertsByIds(ids: number[]) {
+    const options = {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: ids 
+      
+    };
+    return this.http.delete(this.baseUrl + '/alerts', options);
+  }
+
   updateAlertEmail(ids : number[]) : Observable<any>{
    return this.http.post<any>(this.baseUrl + '/alerts/email' , {
     ids 

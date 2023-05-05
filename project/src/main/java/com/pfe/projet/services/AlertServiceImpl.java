@@ -44,6 +44,22 @@ public class AlertServiceImpl implements AlertService {
 	}
 
 	@Override
+	public void deleteAlertsByIds(List<Long> ids) {
+		if(!ids.isEmpty()) {
+			ids.forEach((id) -> {
+				deleteAlertById(id);
+			});
+		}
+	}
+
+	@Override
+	public void deleteAlertById(Long id) {
+		if(alertRepo.existsById(id)) {
+			alertRepo.deleteById(id);
+		}
+	}
+
+	@Override
 	public List<AlertResponse> getAllAlerts() {
 
 		  List<Alert> alerts = alertRepo.findAll();
