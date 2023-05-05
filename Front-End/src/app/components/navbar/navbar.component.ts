@@ -84,9 +84,9 @@ export class NavbarComponent implements OnInit {
         const processedAlerts: number[] = this.alerts.filter((alert)=>alert.emailSent === true).map((alert)=> alert.id) ;
         const newAlerts = this.alerts.filter((alert)=> !processedAlerts.includes(alert.id)) ;
         if(newAlerts.length > 0){
-        this.alertService.sendEmail(newAlerts).subscribe((result)=>{
+          this.alertService.sendEmail(newAlerts).subscribe((result)=>{
           let newAlertIds =newAlerts.map((alert)=> alert.id)
-        this.alertService.updateAlertEmail(newAlertIds).subscribe();
+          this.alertService.updateAlertEmail(newAlertIds).subscribe();
         }) ;
 
        }
@@ -103,7 +103,6 @@ export class NavbarComponent implements OnInit {
           const oneWeekAgo = new Date();
           oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
           let expiredSeenAlerts = alertsSeen.filter(alert => new Date(alert.dateAlerte) < oneWeekAgo).map((alert)=>alert.id)
-          console.log(expiredSeenAlerts)
           if(expiredSeenAlerts.length>0){
             this.alertService.deleteAlertsByIds(expiredSeenAlerts).subscribe(()=>{});            
             this.user.alert_ids = this.user?.alert_ids.filter((id)=>!expiredSeenAlerts.includes(id))
@@ -136,8 +135,8 @@ export class NavbarComponent implements OnInit {
                 var dateA = new Date(a.dateAlerte);
                 var dateB = new Date(b.dateAlerte);
                 return dateB.getTime() - dateA.getTime() ;
-              });
-
+                });
+                this.alertService.sendEmail([alert]).subscribe() ;
               }
               
             }) ;

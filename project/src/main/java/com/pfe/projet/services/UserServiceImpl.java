@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService{
 	           if (userRequest.getEmail() != null && !userRequest.getEmail().isEmpty()) {
 	        	   userToUpdate.setEmail(userRequest.getEmail());
 	           }
-	           if (userRequest.getAlert_ids() != null && userRequest.getAlert_ids().length !=0) {
+	           if (userRequest.getAlert_ids() != null) {
 	        	   userToUpdate.setAlert_ids(userRequest.getAlert_ids());
 	           }
 	           if (userRequest.getSessionId() != null && !userRequest.getSessionId().isEmpty()) {
