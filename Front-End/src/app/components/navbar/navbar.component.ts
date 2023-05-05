@@ -8,6 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { Alert } from 'src/app/models/alert.model';
 import { Title } from '@angular/platform-browser';
+import { GabService } from 'src/app/services/gab.service';
 
 @Component({
   selector: 'app-navbar',
@@ -28,11 +29,12 @@ export class NavbarComponent implements OnInit {
   originalTitle : string ;
   PROCESSED_ALERTS_KEY = 'processedAlerts';
   interval :any ;
+  interval2 : any ;
   options = [];
 
 
   constructor(location: Location,  private element: ElementRef, private router: Router , private authService:AuthService , private userService :UserService , private alertService :AlertService ,
-    private titleService : Title ) {
+    private titleService : Title , private gabService :GabService ) {
     this.location = location;
     this.originalTitle=this.titleService.getTitle();
   }
@@ -93,7 +95,46 @@ export class NavbarComponent implements OnInit {
 
     )
 
+    
+    this.interval2 = setInterval(()=>{
+      this.gabService.getGabs().subscribe((result) =>{
+         if(result.length > 0) {
+          let nbGabOutOfService = result.filter((gab)=> gab.etatGab === "OUT_OF_SERVICE").length ;
+          if((nbGabOutOfService / result.length) * 100 > 35 && !this.containCriticalAlert()){
+            const now: Date = new Date();
+           
+            let alert :Alert= new Alert("Gabs out of service > 35%: Critical alert!" , now.toISOString() , 'CRITICAL' ,null  , true) ;
+            this.alertService.createAlert(alert).subscribe((result2)=> {
+              if(!this.alerts.includes(result2)) {
+                this.alerts.push(result2) ;
+                this.filteredAlerts =  this.alerts.sort(function compare(a, b) {
+                var dateA = new Date(a.dateAlerte);
+                var dateB = new Date(b.dateAlerte);
+                return dateB.getTime() - dateA.getTime() ;
+              });
+
+              }
+              
+            }) ;
+
+          }
+          else if(this.containCriticalAlert() && (nbGabOutOfService / result.length) * 100 <= 35) {
+          this.alerts = this.alerts.filter((alert)=> alert.etatAlerte !== "CRITICAL") ;
+          }
+         }
+        });
+
+       
+    } , 6000 //600000
+
+    )
+
+
   }
+  containCriticalAlert(){
+  return  this.alerts.filter((alert)=> alert.etatAlerte === "CRITICAL").length > 0 ;
+  }
+
   getTitle(){
     var titlee = this.location.prepareExternalUrl(this.location.path());
     if(titlee.charAt(0) === '#'){
@@ -128,6 +169,8 @@ getStatus(notification:Alert){
 
       case "UNRESOLVED":
         return "assets/img/icons/common/red.png"
+      case "CRITICAL" :
+        return "assets/img/icons/common/critical.png"
       default:
         return "assets/img/icons/common/green.png"
 

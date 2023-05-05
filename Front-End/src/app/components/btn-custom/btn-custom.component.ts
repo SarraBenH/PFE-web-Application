@@ -42,6 +42,7 @@ export class BtnCustomComponent implements OnInit {
         
       case "FUNCTIONAL":
         return "primary"
+      
       default:
         return "warning"
 

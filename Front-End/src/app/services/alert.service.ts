@@ -28,6 +28,9 @@ export class AlertService {
 
     })
   }
+  createAlert(alert :Alert):Observable<Alert>{
+   return this.http.post<Alert>(this.baseUrl + '/alert' , alert)
+  }
   updateAlertEmail(ids : number[]) : Observable<any>{
    return this.http.post<any>(this.baseUrl + '/alerts/email' , {
     ids 
