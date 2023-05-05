@@ -118,7 +118,7 @@ export class NavbarComponent implements OnInit {
       })
 
        
-    } , 6000 //600000
+    } , 600000 //600000
 
     )    
     this.interval3 = setInterval(()=>{
@@ -162,7 +162,7 @@ export class NavbarComponent implements OnInit {
         });
 
        
-    } , 6000 //600000
+    } , 600000 //600000
 
     )
 
