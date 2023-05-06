@@ -95,7 +95,7 @@ export class NavbarComponent implements OnInit {
     } , 600000 //600000
 
     )
-
+   /*
     this.interval2 = setInterval(()=>{
       this.alertService.getAlerts().subscribe((result)=>{
         const oneWeekAgo = new Date();
@@ -116,7 +116,7 @@ export class NavbarComponent implements OnInit {
        
     } , 3600000 //600000
 
-    )    
+    ) */   
     this.interval3 = setInterval(()=>{
       this.gabService.getGabs().subscribe((result) =>{
          if(result.length > 0) {
