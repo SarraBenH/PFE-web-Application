@@ -98,11 +98,9 @@ export class NavbarComponent implements OnInit {
 
     this.interval2 = setInterval(()=>{
       this.alertService.getAlerts().subscribe((result)=>{
-        if(this.user.alert_ids !== null && this.user.alert_ids?.length>0){
-          let alertsSeen = result.filter((alert)=>this.user.alert_ids.includes(alert.id))
-          const oneWeekAgo = new Date();
+        const oneWeekAgo = new Date();
           oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-          let expiredSeenAlerts = alertsSeen.filter(alert => new Date(alert.dateAlerte) < oneWeekAgo).map((alert)=>alert.id)
+          let expiredSeenAlerts = result.filter(alert => new Date(alert.dateAlerte) < oneWeekAgo).map((alert)=>alert.id)
           if(expiredSeenAlerts.length>0){
             this.alertService.deleteAlertsByIds(expiredSeenAlerts).subscribe(()=>{});            
             this.user.alert_ids = this.user?.alert_ids.filter((id)=>!expiredSeenAlerts.includes(id))
@@ -113,11 +111,10 @@ export class NavbarComponent implements OnInit {
               
             }) ;            
           }
-        }
       })
 
        
-    } , 600000 //600000
+    } , 3600000 //600000
 
     )    
     this.interval3 = setInterval(()=>{
