@@ -9,7 +9,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-search"></i></span>
           </div>
-          <input (input)="searchProfiles($event)" matInput [matAutocomplete]="auto" class="form-control" placeholder="Search" type="text" (focus)="focus = true"
+          <input (input)="searchProfiles($event)" matInput [matAutocomplete]="auto" class="form-control" placeholder="Search profile" type="text" (focus)="focus = true"
           (blur)="focus = false">
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option (onSelectionChange)="goToProfile(option.id)" *ngFor="let option of options" [value]="option.firstName+' '+ option.lastName">

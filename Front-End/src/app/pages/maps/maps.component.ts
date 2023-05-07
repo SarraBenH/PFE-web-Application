@@ -25,6 +25,8 @@ export class MapsComponent implements OnInit {
       });
 
     }
+
+
   }
 
   map: any;
@@ -53,8 +55,6 @@ export class MapsComponent implements OnInit {
       popupAnchor: [13, 0],
     });
 
-    const marker = L.marker([34.85,10.15], { icon }).bindPopup('Angular Leaflet');
-    marker.addTo(this.map);
     this.gabService.getGabs().subscribe((result)=>{
       // Add a marker with the name of the city
       if(result.length > 0) {
@@ -65,14 +65,25 @@ export class MapsComponent implements OnInit {
             .then(response => response.json())
             .then(data => {
               if(data){
-                console.log(data)
                 const lat = data[0].lat;
                 const lon = data[0].lon;
                 const marker = L.marker([lat, lon],{icon}).addTo(this.map);
-                marker.bindPopup(city);
+                marker.bindPopup(  "Gab ID : <b>" +
+                gab.identifiant +
+                "</b><br>"+
+                "Gab Address : <b>" +
+                gab.address +
+                "</b><br>"+
+                "Gab Brand : <b>" +
+                gab.enseigne +
+                "</b><br>"+
+                "Gab Status : <b>" +
+                gab.etatGab
+                +"</b>"
+               
+                );
               }
             });
-                console.log(result)
               })
 
         } })
