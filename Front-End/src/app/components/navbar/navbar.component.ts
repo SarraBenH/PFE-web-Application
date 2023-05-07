@@ -158,7 +158,7 @@ export class NavbarComponent implements OnInit {
         });
 
        
-    } , 600000 //600000
+    } , 600000   //600000
 
     )
 

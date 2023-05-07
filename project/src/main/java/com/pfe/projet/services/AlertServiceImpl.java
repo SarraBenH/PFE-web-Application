@@ -104,7 +104,7 @@ public class AlertServiceImpl implements AlertService {
 				if (user.getAlert_ids()!=null){
 					List<Long> alertIds = Arrays.asList(user.getAlert_ids());
 					List<Long> oldAlertIds = oldAlerts.stream().map(Alert::getId).collect(Collectors.toList());
-					alertIds = alertIds.stream().filter((oldAlertIds::contains)).collect(Collectors.toList());
+					alertIds = alertIds.stream().filter(((aLong -> !oldAlertIds.contains(aLong)))).collect(Collectors.toList());
 					if (CollectionUtils.isEmpty(alertIds)){
 						user.setAlert_ids(null);
 					}else{
