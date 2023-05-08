@@ -3,6 +3,7 @@ import * as L from 'leaflet';
 import { Observable, Subscriber } from 'rxjs';
 import { GabService } from 'src/app/services/gab.service';
 import { UserService } from 'src/app/services/user.service';
+import 'leaflet-easybutton';
 
 @Component({
   selector: 'app-maps',
@@ -10,9 +11,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./maps.component.scss']
 })
 export class MapsComponent implements OnInit {
-
+  markers :any[];
   constructor(private userService : UserService, private gabService:GabService) { }
-
+  map:any
   ngOnInit() {
     const userId = localStorage.getItem("userId");
 
@@ -25,20 +26,45 @@ export class MapsComponent implements OnInit {
       });
 
     }
-
+   
 
   }
 
-  map: any;
 
   public ngAfterViewInit(): void {
     this.loadMap();
   }
+  
+  getColorToDisplay(etat: string){
+    switch (etat.toLowerCase()) {
+      case "out_of_service":
+        return "red"
+      
+      case "in_service":
+        return "green"
+        
+      case "functional":
+        return "blue"
+      
+      default:
+        return "orange"
 
+  } 
+  }
 
 
   private loadMap(): void {
     this.map = L.map('map').setView([0, 0], 1);
+    L.easyButton('fa-crosshairs fa-lg cssbtn', function(btn,map){
+      var  group = new L.FeatureGroup();
+      map.eachLayer((layer)=>{
+        if(layer instanceof L.Marker){
+          group.addLayer(layer)
+        }
+      })
+      // set the map view to the bounds of all markers
+      map.fitBounds(group.getBounds(),{maxZoom:7,animate:true,duration:0.2});
+    },"center","centerBtn").addTo(this.map);
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
       maxZoom: 18,
@@ -47,6 +73,7 @@ export class MapsComponent implements OnInit {
       zoomOffset: -1,
       accessToken:  'pk.eyJ1Ijoicm9kcmlnb2thbWFkYSIsImEiOiJjbGZ5NTVhenAwanBzM3Fta3Y3b29temE5In0.PkdHrkHBrx9RALYhyLMRxA',
     }).addTo(this.map);
+   
     this.map.flyTo([34.85,10.15], 7);
     
     const icon = L.icon({
@@ -58,6 +85,7 @@ export class MapsComponent implements OnInit {
     this.gabService.getGabs().subscribe((result)=>{
       // Add a marker with the name of the city
       if(result.length > 0) {
+        this.markers =[];
         result.forEach((gab) => {
           const city = gab.address;
           const url = `https://nominatim.openstreetmap.org/search?format=json&q=${city}`;
@@ -67,7 +95,11 @@ export class MapsComponent implements OnInit {
               if(data){
                 const lat = data[0].lat;
                 const lon = data[0].lon;
-                const marker = L.marker([lat, lon],{icon}).addTo(this.map);
+                const marker = L.marker([lat, lon],{icon}).addTo(this.map).on("click",(e)=>{
+                  this.map.setView(e.latlng, 15);
+                });
+                this.markers.push(marker)
+                const colorGab =  this.getColorToDisplay(gab.etatGab)
                 marker.bindPopup(  "Gab ID : <b>" +
                 gab.identifiant +
                 "</b><br>"+
@@ -77,10 +109,8 @@ export class MapsComponent implements OnInit {
                 "Gab Brand : <b>" +
                 gab.enseigne +
                 "</b><br>"+
-                "Gab Status : <b>" +
-                gab.etatGab
-                +"</b>"
-               
+                `Gab Status : <b><span style='color:${colorGab}'>${gab.etatGab}</span></b>`
+                           
                 );
               }
             });

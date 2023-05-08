@@ -33,14 +33,14 @@ export class BtnCustomComponent implements OnInit {
     return params.valueFormatted ? params.valueFormatted : params.value;
   }
   getColorToDisplay(){
-    switch (this.cellValue) {
-      case "OUT_OF_SERVICE":
+    switch (this.cellValue.toLowerCase()) {
+      case "out_of_service":
         return "danger"
       
-      case "IN_SERVICE":
+      case "in_service":
         return "success"
         
-      case "FUNCTIONAL":
+      case "functional":
         return "primary"
       
       default:
