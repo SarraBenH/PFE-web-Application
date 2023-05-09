@@ -8,6 +8,7 @@ import { ProfileComponent } from '../../pages/profile/profile.component';
 import { GabsComponent } from '../../pages/gabs/gabs.component';
 import { AuthGuard } from 'src/app/services/auth.guard';
 import { TransactionsComponent } from 'src/app/pages/transactions/transactions.component';
+import { InterfacesComponent } from 'src/app/pages/interfaces/interfaces.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',
@@ -18,7 +19,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'profile/:id',   component: ProfileComponent,     canActivate: [AuthGuard]},
     { path: 'gabs',         component: GabsComponent ,     canActivate: [AuthGuard]},
     { path: 'transactions',         component: TransactionsComponent ,     canActivate: [AuthGuard]},
-
+    { path: 'interfaces',         component: InterfacesComponent ,     canActivate: [AuthGuard]},
     { path: 'icons',          component: IconsComponent,     canActivate: [AuthGuard]
 },
     { path: 'maps',           component: MapsComponent ,     canActivate: [AuthGuard]

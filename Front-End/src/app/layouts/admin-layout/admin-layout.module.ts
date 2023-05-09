@@ -22,6 +22,7 @@ import { NgxChartsModule  } from '@swimlane/ngx-charts';
 import { MatCardModule } from "@angular/material/card";
 import { BrowserModule  } from '@angular/platform-browser';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { InterfacesComponent } from 'src/app/pages/interfaces/interfaces.component';
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ToastrModule } from 'ngx-toastr';
 
@@ -54,6 +55,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     UserProfileComponent,
     ProfileComponent,
     GabsComponent,
+    InterfacesComponent,
     IconsComponent,
     MapsComponent,
     TransactionsComponent ,
