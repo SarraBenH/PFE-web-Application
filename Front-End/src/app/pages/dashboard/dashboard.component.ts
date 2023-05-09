@@ -15,6 +15,7 @@ import { multi, single } from './data';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { GabService } from 'src/app/services/gab.service';
 import { forkJoin, map } from 'rxjs';
+import { InterfaceService } from 'src/app/services/interface.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -35,6 +36,7 @@ export class DashboardComponent implements OnInit {
   public clicked1: boolean = false;
   isDataLoaded = false;
   totalGabs;
+  totalInterfaces ;
   single = [
     {
       "name": "Germany",
@@ -156,7 +158,8 @@ export class DashboardComponent implements OnInit {
   colorScheme = {
     domain: ['#f0ab3c', '#5AA454','#f5e042','#A10A28' ]
   };
-constructor(private router :Router , private gabService:GabService, private transactionService: TransactionService, private userService :UserService, private route: ActivatedRoute ){
+constructor(private router :Router , private gabService:GabService, private transactionService: TransactionService, private userService :UserService,
+   private route: ActivatedRoute , private interfaceService :InterfaceService ){
 
 }
 
@@ -186,9 +189,10 @@ onDeactivate(data): void {
 
     const transactionCount$ = this.transactionService.getTransactionCountForLastThreeMonths();
     const gabCount$ = this.gabService.getGabs();
+    const interfaceCount$ = this.interfaceService.getInterfaces() ;
     
-    forkJoin([transactionCount$, gabCount$]).pipe(
-      map(([transactionCountResult, gabCountResult]) => {
+    forkJoin([transactionCount$, gabCount$ , interfaceCount$]).pipe(
+      map(([transactionCountResult, gabCountResult , interfaceCountResult]) => {
         // Process the transaction count result
         const transactionMap = new Map(Object.entries(transactionCountResult));
         const chart1Values = [];
@@ -210,16 +214,33 @@ onDeactivate(data): void {
           { name: 'In Maintenance', value: countInMaintenance },
           { name: 'In Service', value: countInService },
           { name: 'Functional', value: countFunctional },
-          { name: 'Out of service', value: countOutOfService },
+          { name: 'Out Of Service', value: countOutOfService },
         ];
+
+        //Process the inter'face count result
+        const countStarting = interfaceCountResult.filter(int => int.status === 3).length;
+        const countIntInService = interfaceCountResult.filter(int => int.status === 4).length;
+        const countIntOutOfService = interfaceCountResult.filter(int => int.status === 0).length;
+        const countIntInMaintenance = interfaceCountResult.filter(int => int.status === 1).length;
+        this.totalInterfaces = countStarting+countIntInService+countIntOutOfService+countIntInMaintenance;
+        const chart3Values = [
+          { name: 'In Maintenance', value: countIntInMaintenance },
+          { name: 'In Service', value: countIntInService },
+          { name: 'Starting Up', value: countStarting },
+          { name: 'Out Of Service', value: countIntOutOfService },
+        ];
+
+
       
         // Return the final result
-        return { chart1Values, chart2Values };
+        return { chart1Values, chart2Values  , chart3Values};
       })
     ).subscribe(result => {
       this.isDataLoaded = false;
       this.chart1Values = result.chart1Values
       this.chart2Values = result.chart2Values
+      this.chart3Values = result.chart3Values
+
     },()=>{},()=>{this.isDataLoaded = true});
 
 

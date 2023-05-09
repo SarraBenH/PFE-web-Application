@@ -119,7 +119,7 @@
     <div class="col-lg-6 col-md-6 col-sm-6">
       <mat-card class="card1" style="height:460px; display: grid; margin:7px 0px 7px 0px !important;">
         <mat-card-header>
-          <span>Gab Status distribution : &nbsp;</span>
+          <span>Gabs Status Distribution : &nbsp;</span>
           <span *ngIf="isDataLoaded"> (Total Gabs : {{this.totalGabs}})</span>
         </mat-card-header>
         <mat-spinner color="accent" *ngIf="!isDataLoaded" diameter="40"></mat-spinner>
@@ -135,17 +135,23 @@
     <div class="col-lg-6 col-md-6 col-sm-6">
       <mat-card style="height:460px; display: grid; margin:7px 0px 7px 0px !important;">
         <mat-card-header>
-          Number of Rides for last week days
+           
+           <span>Interfaces Status Distribution : &nbsp;</span>
+          <span *ngIf="isDataLoaded"> (Total Interfaces : {{this.totalInterfaces}})</span>
         </mat-card-header>
+        <mat-spinner color="accent" *ngIf="!isDataLoaded" diameter="40"></mat-spinner>
+
+
         <mat-card-content style="padding-bottom: 0px">
           <ngx-charts-pie-chart
             [view]="view"
             [scheme]="colorScheme"
-            [results]="single"
+            [results]="chart3Values"
             [gradient]="gradient3"
             [legend]="showLegend3"
             [labels]="showLabels3"
             [doughnut]="isDoughnut3"
+
           >
           </ngx-charts-pie-chart>
         </mat-card-content>

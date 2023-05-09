@@ -73,7 +73,7 @@ public class InterfaceServiceImpl implements InterfaceService {
         if (optionalInterface.isPresent()) {
             Interface interfaceToUpdate = optionalInterface.get();
 
-            if (interfaceRequest.getIntCode() != 0) {
+            if ((Integer)interfaceRequest.getIntCode() != null) {
                 interfaceToUpdate.setIntCode(interfaceRequest.getIntCode());
             }
             if (interfaceRequest.getIntIden() != null && !interfaceRequest.getIntIden().isEmpty()) {
@@ -82,13 +82,13 @@ public class InterfaceServiceImpl implements InterfaceService {
             if (interfaceRequest.getIntLabe() != null && !interfaceRequest.getIntLabe().isEmpty()) {
                 interfaceToUpdate.setIntLabe(interfaceRequest.getIntLabe());
             }
-            if (interfaceRequest.getIntPrimPort() != 0) {
+            if ((Integer)interfaceRequest.getIntPrimPort() != null) {
                 interfaceToUpdate.setIntPrimPort(interfaceRequest.getIntPrimPort());
             }
             if (interfaceRequest.getIntPrimAdre() != null && !interfaceRequest.getIntPrimAdre().isEmpty()) {
                 interfaceToUpdate.setIntPrimAdre(interfaceRequest.getIntPrimAdre());
             }
-            if (interfaceRequest.getStatus() != 0) {
+            if ((Integer)interfaceRequest.getStatus() != null) {
                 interfaceToUpdate.setStatus(interfaceRequest.getStatus());
             }
 

@@ -63,8 +63,18 @@ user :User ;
     });
     }
   onCellEditingStopped(event){
-    this.interfaceService.updateInterface(event.data.id , event.data).subscribe() ;
+   let data = {
+      id: event.data.id,
+      intCode: Number(event.data.intCode),
+      intIden: event.data.intIden,
+      intLabe: event.data.intLabe,
+      intPrimPort: Number(event.data.intPrimPort),
+      intPrimAdre: event.data.intPrimAdre,
+      status: Number(event.data.status)
 
+   }  
+    this.interfaceService.updateInterface(event.data.id , data).subscribe() ;
+    
   }
   onCellEditingStarted(event){
 
