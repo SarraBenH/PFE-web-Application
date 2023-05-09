@@ -3,6 +3,7 @@ import * as L from 'leaflet';
 import { Observable, Subscriber } from 'rxjs';
 import { GabService } from 'src/app/services/gab.service';
 import { UserService } from 'src/app/services/user.service';
+import { HttpClient } from '@angular/common/http';
 import 'leaflet-easybutton';
 
 @Component({
@@ -12,7 +13,7 @@ import 'leaflet-easybutton';
 })
 export class MapsComponent implements OnInit {
   markers :any[];
-  constructor(private userService : UserService, private gabService:GabService) { }
+  constructor(private userService : UserService, private gabService:GabService , private http : HttpClient) { }
   map:any
   ngOnInit() {
     const userId = localStorage.getItem("userId");
@@ -89,9 +90,8 @@ export class MapsComponent implements OnInit {
         result.forEach((gab) => {
           const city = gab.address;
           const url = `https://nominatim.openstreetmap.org/search?format=json&q=${city}`;
-          fetch(url)
-            .then(response => response.json())
-            .then(data => {
+          if(city != null) {
+            this.http.get(url).subscribe((data)=>{
               if(data){
                 const lat = data[0].lat;
                 const lon = data[0].lon;
@@ -113,10 +113,15 @@ export class MapsComponent implements OnInit {
                            
                 );
               }
-            });
-              })
+            }) ;
+       
+          }
+        
+          }
+          )
 
-        } })
+        } }
+      )
       }
 
   }
