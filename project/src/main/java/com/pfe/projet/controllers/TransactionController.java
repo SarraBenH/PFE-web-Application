@@ -51,4 +51,24 @@ public class TransactionController {
         transactionService.deleteTransactionsByIds(ids);
      
     }
+
+    @GetMapping("transactions/stats/most-represented-bank-brand")
+    public List<Map<String, Long>> getMostRepresentedBankBrands() {
+        return transactionService.getMostRepresentedBankBrands();
+    }
+
+    @GetMapping("transactions/stats/most-common-extended-message-response")
+    public List<Map<String, Long>> getMostCommonExtendedMessageResponse() {
+        return transactionService.getMostCommonExtendedMessageResponse();
+    }
+
+    @GetMapping("transactions/stats/mean-amount")
+    public Double getMeanAmount() {
+        return transactionService.getMeanAmount();
+    }
+
+    @GetMapping("transactions/stats/transaction-type-percentage")
+    public List<Map<String, Double>> getTransactionTypePercentage() {
+        return transactionService.getTransactionTypePercentage();
+    }
 }

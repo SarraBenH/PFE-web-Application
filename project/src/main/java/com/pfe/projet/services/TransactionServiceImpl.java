@@ -95,6 +95,25 @@ public class TransactionServiceImpl implements TransactionService {
     		});
     	}
     }
+
+    @Override
+    public List<Map<String, Long>> getMostRepresentedBankBrands() {
+        return transactionRepository.getMostRepresentedBankBrands();
+    }
+
+    @Override
+    public List<Map<String, Long>> getMostCommonExtendedMessageResponse() {
+        return transactionRepository.getMostCommonExtendedMessageResponse();
+    }
+    @Override
+    public Double getMeanAmount() {
+        return transactionRepository.findMeanAmount();
+    }
+    @Override
+    public List<Map<String, Double>> getTransactionTypePercentage() {
+        return transactionRepository.findTransactionTypePercentage();
+    }
+
     @Data
 	public static class PageResponse {
    	List <TransactionResponse> response;

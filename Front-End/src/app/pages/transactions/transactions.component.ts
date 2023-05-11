@@ -15,6 +15,15 @@ import { merge,isEqual } from 'lodash';
 })
 export class TransactionsComponent implements OnInit {
 user :User ;
+average=0;
+mostRepresentedBrands="Calculating...";
+mostRepresentedError="Calculating...";
+mostRepresentedErrorValue=0;
+mostRepresentedValue=0;
+totalRows=1;
+mostRepresentedType="Calculating...";
+mostRepresentedTypeValue=0;
+
   constructor(private userService :UserService , private route: ActivatedRoute , private transactionService :TransactionService) {
 
   }
@@ -72,6 +81,34 @@ user :User ;
 
       });
     }
+
+    this.transactionService.getMeanAmount().subscribe((result)=>{
+      this.average = result
+    })
+
+    this.transactionService.getMostRepresentedBankBrand().subscribe((result)=>{
+      if(result){
+        this.mostRepresentedBrands = result[0].enseigne;
+        this.mostRepresentedValue = result[0].count
+      }
+    })
+
+    this.transactionService.getMostCommonExtendedMessageResponse().subscribe((result)=>{
+      if(result && result[0].extended_msg_reponse !==""){
+        this.mostRepresentedError = result[0].extended_msg_reponse;
+        this.mostRepresentedErrorValue = result[0].count
+      }else if (result[0].extended_msg_reponse ===""){
+        this.mostRepresentedError = result[1].extended_msg_reponse;
+        this.mostRepresentedErrorValue = result[1].count
+      }
+    })
+
+    this.transactionService.getTransactionTypePercentage().subscribe((result)=>{
+      if(result){
+        this.mostRepresentedType = result[0].type_transaction;
+        this.mostRepresentedTypeValue = result[0].count
+      }
+    })
   }
   selectionChanged(event){
     this.selectedRowsIds = [];
@@ -115,6 +152,7 @@ getPageTransactions(pageNumber: number) {
     this.transactionService.getAllTransactions(pageNumber, this.pageSize).subscribe((response) => {
       const data = response['response'];
       const total = response['totalRows']
+      this.totalRows = total;
       if(this.rowData.length===0){
         this.rowData = new Array(total).fill({});
       }
@@ -197,6 +235,9 @@ deleteTransactions(){
     }
   })
 }
+
+
+
 }
 
 

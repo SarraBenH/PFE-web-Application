@@ -38,4 +38,21 @@ export class TransactionService {
     };
     return this.http.delete<any>(this.baseUrl, options);
   }
+
+  getMostRepresentedBankBrand(): Observable<any>{
+    return this.http.get<any>(this.baseUrl+ "/stats/most-represented-bank-brand");
+  }
+
+  getMostCommonExtendedMessageResponse(): Observable<any>{
+    return this.http.get<any>(this.baseUrl+"/stats/most-common-extended-message-response");
+  }
+
+  getMeanAmount():Observable<any>{
+    return this.http.get<any>(this.baseUrl+"/stats/mean-amount");
+  }
+
+  getTransactionTypePercentage(): Observable<any> {
+    return this.http.get<any>(this.baseUrl + "/stats/transaction-type-percentage");
+  
+  }
 }
