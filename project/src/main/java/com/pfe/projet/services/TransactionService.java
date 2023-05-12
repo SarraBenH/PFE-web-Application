@@ -22,7 +22,8 @@ public interface TransactionService {
 	 public void deleteTransactionById(Long id) ;
 	 public List<Map<String, Double>> getTransactionTypePercentage();
 	 public Double getMeanAmount();
-	 public List<Map<String, Long>> getMostCommonExtendedMessageResponse();
-	 public List<Map<String, Long>> getMostRepresentedBankBrands();
+	public Double getTotalAmount();
+	public List<Map<String, Long>> getMostCommonExtendedMessageResponse();
+	public List<Map<String, Long>> getMostRepresentedBankBrands();
 
 }

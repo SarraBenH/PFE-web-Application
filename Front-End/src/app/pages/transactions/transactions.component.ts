@@ -15,7 +15,8 @@ import { merge,isEqual } from 'lodash';
 })
 export class TransactionsComponent implements OnInit {
 user :User ;
-average=0;
+averageAmount=0;
+totalAmount='0';
 mostRepresentedBrands="Calculating...";
 mostRepresentedError="Calculating...";
 mostRepresentedErrorValue=0;
@@ -83,7 +84,16 @@ mostRepresentedTypeValue=0;
     }
 
     this.transactionService.getMeanAmount().subscribe((result)=>{
-      this.average = result
+      this.averageAmount = result
+    })
+
+    this.transactionService.getTotalAmount().subscribe((result)=>{
+      // Convert to money value
+      let moneyValue = parseFloat(result).toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'TND',
+      });
+      this.totalAmount = moneyValue
     })
 
     this.transactionService.getMostRepresentedBankBrand().subscribe((result)=>{

@@ -114,6 +114,11 @@ public class TransactionServiceImpl implements TransactionService {
         return transactionRepository.findTransactionTypePercentage();
     }
 
+    @Override
+    public Double getTotalAmount() {
+        return transactionRepository.findTotalAmount();
+    }
+
     @Data
 	public static class PageResponse {
    	List <TransactionResponse> response;

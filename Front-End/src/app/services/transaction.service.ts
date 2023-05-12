@@ -50,7 +50,9 @@ export class TransactionService {
   getMeanAmount():Observable<any>{
     return this.http.get<any>(this.baseUrl+"/stats/mean-amount");
   }
-
+  getTotalAmount():Observable<any>{
+    return this.http.get<any>(this.baseUrl+"/stats/total-amount");
+  }
   getTransactionTypePercentage(): Observable<any> {
     return this.http.get<any>(this.baseUrl + "/stats/transaction-type-percentage");
   

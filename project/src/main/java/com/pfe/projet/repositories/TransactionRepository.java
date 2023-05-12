@@ -26,6 +26,9 @@ public interface TransactionRepository extends JpaRepository<Transaction , Long>
     @Query("SELECT AVG(CAST(t.montantOperation AS double)) FROM Transaction t")
     Double findMeanAmount();
 
+    @Query("SELECT SUM(CAST(t.montantOperation AS double)) FROM Transaction t")
+    Double findTotalAmount();
+
     @Query(value = "SELECT t.type_transaction, COUNT(t.type_transaction) * 100.0 / (SELECT COUNT(*) FROM Transaction) as count  FROM Transaction t GROUP BY t.type_transaction",nativeQuery = true)
     List<Map<String, Double>> findTransactionTypePercentage();
 }

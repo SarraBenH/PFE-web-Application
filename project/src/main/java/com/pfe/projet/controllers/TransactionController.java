@@ -66,7 +66,10 @@ public class TransactionController {
     public Double getMeanAmount() {
         return transactionService.getMeanAmount();
     }
-
+    @GetMapping("transactions/stats/total-amount")
+    public Double getTotalAmount() {
+        return transactionService.getTotalAmount();
+    }
     @GetMapping("transactions/stats/transaction-type-percentage")
     public List<Map<String, Double>> getTransactionTypePercentage() {
         return transactionService.getTransactionTypePercentage();
