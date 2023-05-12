@@ -1,6 +1,7 @@
 package com.pfe.projet.services;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.pfe.projet.dtos.requests.GabRequest;
@@ -13,4 +14,9 @@ public interface GabService {
 	void deleteGabById(Long id) ;
 	void deleteGabsByIds(List<Long> ids) ;
 	Optional<GabResponse> editGabById(Long id, GabRequest gabRequest);
-	 }
+
+	List<Map<String, Long>> getMostSuccessfulCity();
+
+	List<Map<String, Long>> getWorstCity();
+
+}

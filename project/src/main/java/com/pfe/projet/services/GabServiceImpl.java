@@ -2,6 +2,7 @@ package com.pfe.projet.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,6 +115,16 @@ public class GabServiceImpl implements GabService {
         }
         return Optional.empty();
     }
+
+    @Override
+    public List<Map<String, Long>> getMostSuccessfulCity() {
+        return gabRepository.getMostSuccessfulCity();
+    }
+    @Override
+    public List<Map<String, Long>> getWorstCity() {
+        return gabRepository.getWorstCity();
+    }
+
 
 
 

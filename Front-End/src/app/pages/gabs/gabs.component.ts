@@ -18,6 +18,10 @@ user :User ;
   private gridApi;
   private gridColumnApi;
   performance : number ;
+  mostSuccessfulCity="Calculating...";
+  mostSuccessfulCityValue=0;
+  worstCity="Calculating...";
+  worstCityValue=0;
   nbGabOutOfService =0 ;
   selectedRows = [];
   selectedRowsIds = [];
@@ -63,6 +67,19 @@ user :User ;
       this.nbGabOutOfService = result.filter((gab)=> gab.etatGab == 'OUT_OF_SERVICE').length ;
 
 
+    })
+
+    this.gabService.getMostSuccessfulCity().subscribe((result)=>{
+      if(result){
+        this.mostSuccessfulCity = result[0].address;
+        this.mostSuccessfulCityValue = result[0].count
+      }
+    })
+    this.gabService.getWorstCity().subscribe((result)=>{
+      if(result){
+        this.worstCity = result[0].address;
+        this.worstCityValue = result[0].count
+      }
     })
   }
   selectionChanged(event){

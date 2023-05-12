@@ -2,6 +2,7 @@ package com.pfe.projet.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -75,6 +76,16 @@ public class GabController {
     @DeleteMapping("/gabs")
     void deleteGabs(@RequestBody ArrayList<Long> ids) {
     	gabService.deleteGabsByIds(ids) ;
+    }
+
+    @GetMapping("/gabs/stats/most-successful-city")
+    public List<Map<String, Long>> getMostSuccessfulCity() {
+        return gabService.getMostSuccessfulCity();
+    }
+
+    @GetMapping("/gabs/stats/worst-city")
+    public List<Map<String, Long>> getWorstCity() {
+        return gabService.getWorstCity();
     }
 }
 

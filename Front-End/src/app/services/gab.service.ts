@@ -35,4 +35,10 @@ export class GabService {
     return this.http.delete(this.baseUrl + '/gabs', options);
   }
 
+  getMostSuccessfulCity(): Observable<any>{
+    return this.http.get<any>(this.baseUrl+ "/gabs/stats/most-successful-city");
+  }
+  getWorstCity(): Observable<any>{
+    return this.http.get<any>(this.baseUrl+ "/gabs/stats/worst-city");
+  }
 }
