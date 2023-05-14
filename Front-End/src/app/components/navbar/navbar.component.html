@@ -63,14 +63,15 @@
         <span class="notification-count"style="background-color:#ff00f0" *ngIf="this.messages?.length !== 0 && this.user?.message_ids === null">{{this.messages?.length}}</span>
       </div>
 
-      <div style="padding-right: 15px;" class="notification-icon">
-        <i class="fas fa-user-plus fa-2xs"></i>
+     
        <!--
+         <div style="padding-right: 15px;" class="notification-icon">
+        <i class="fas fa-user-plus fa-2xs"></i>
 <span class="notification-count" style="background-color:#ff00f0" *ngIf="this.messages?.length !== user?.message_ids?.length && this.user?.message_ids !== null">{{this.messages?.length - user?.message_ids?.length}}</span>
         <span class="notification-count"style="background-color:#ff00f0" *ngIf="this.messages?.length !== 0 && this.user?.message_ids === null">{{this.messages?.length}}</span>
+      </div>
       
        --> 
-      </div>
 
       <div class="notifications-panel" *ngIf="showNotificationsPanel">
         <div class="notifications-header">You have {{alerts?.length}} notifications</div>
