@@ -126,7 +126,7 @@ export class NavbarComponent implements OnInit {
           return dateB.getTime() - dateA.getTime() ;
         });
       })
-    } , 600000 //600000
+    } , 10000
 
     )
  
@@ -171,7 +171,7 @@ export class NavbarComponent implements OnInit {
         });
 
        
-    } , 10000
+    } , 600000   //600000
 
     )
 
