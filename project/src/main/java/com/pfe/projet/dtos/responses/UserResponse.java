@@ -14,4 +14,5 @@ public class UserResponse {
     private String image ;
     private String position ;
     private Long[] alert_ids ;
+    private Long[] message_ids ;
 }

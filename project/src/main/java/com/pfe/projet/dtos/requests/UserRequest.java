@@ -14,7 +14,8 @@ public class UserRequest {
     private String position;
     private String password ;
     private Long[] alert_ids ;
-	
+    private Long[] message_ids ;
+
     
     
 }

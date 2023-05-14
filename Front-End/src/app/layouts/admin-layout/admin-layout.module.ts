@@ -23,6 +23,7 @@ import { MatCardModule } from "@angular/material/card";
 import { BrowserModule  } from '@angular/platform-browser';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { InterfacesComponent } from 'src/app/pages/interfaces/interfaces.component';
+import { MessageDialogComponent } from 'src/app/components/message-dialog/message-dialog.component';
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ToastrModule } from 'ngx-toastr';
 
@@ -59,7 +60,8 @@ import { InterfacesComponent } from 'src/app/pages/interfaces/interfaces.compone
     IconsComponent,
     MapsComponent,
     TransactionsComponent ,
-    GabDialogComponent
+    GabDialogComponent,
+    MessageDialogComponent
     //LoaderComponent
 
   ],

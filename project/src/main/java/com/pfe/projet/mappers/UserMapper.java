@@ -49,6 +49,7 @@ public class UserMapper {
         userResponse.setImage(user.getImage());
         userResponse.setPosition(user.getPosition());
         userResponse.setAlert_ids(user.getAlert_ids());
+        userResponse.setMessage_ids(user.getMessage_ids());
 
 
 
@@ -71,6 +72,7 @@ public class UserMapper {
         user.setImage(userRequest.getImage());
         user.setPassword(hashPassword(userRequest.getPassword()));
         user.setAlert_ids(userRequest.getAlert_ids());
+        user.setMessage_ids(userRequest.getMessage_ids());
         return Optional.of(user);
     }
     

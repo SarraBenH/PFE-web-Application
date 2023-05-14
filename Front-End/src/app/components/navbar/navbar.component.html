@@ -56,6 +56,22 @@
         <span class="notification-count" *ngIf="this.alerts?.length !== user?.alert_ids?.length && this.user?.alert_ids !== null">{{this.alerts?.length - user?.alert_ids?.length}}</span>
         <span class="notification-count" *ngIf="this.alerts?.length !== 0 && this.user?.alert_ids === null">{{this.alerts?.length}}</span>
       </div>
+        <div style="padding-right: 15px;"></div>
+      <div  class="notification-icon" (click)="showMessages()">
+        <i class="fas fa-envelope fa-2xs"></i>
+        <span class="notification-count" style="background-color:#ff00f0" *ngIf="this.messages?.length !== user?.message_ids?.length && this.user?.message_ids !== null">{{this.messages?.length - user?.message_ids?.length}}</span>
+        <span class="notification-count"style="background-color:#ff00f0" *ngIf="this.messages?.length !== 0 && this.user?.message_ids === null">{{this.messages?.length}}</span>
+      </div>
+
+      <div style="padding-right: 15px;" class="notification-icon">
+        <i class="fas fa-user-plus fa-2xs"></i>
+       <!--
+<span class="notification-count" style="background-color:#ff00f0" *ngIf="this.messages?.length !== user?.message_ids?.length && this.user?.message_ids !== null">{{this.messages?.length - user?.message_ids?.length}}</span>
+        <span class="notification-count"style="background-color:#ff00f0" *ngIf="this.messages?.length !== 0 && this.user?.message_ids === null">{{this.messages?.length}}</span>
+      
+       --> 
+      </div>
+
       <div class="notifications-panel" *ngIf="showNotificationsPanel">
         <div class="notifications-header">You have {{alerts?.length}} notifications</div>
         <div class="search-container" style="padding: 5px">
@@ -71,7 +87,7 @@
         <div *ngFor="let notification of viewAll ? filteredAlerts: filteredAlerts?.slice(0,4)" (click)="markAsRead(notification)" class="notification-item">
           <div class="notification-avatar"><img [src]="this.getStatus(notification)" alt=""></div>
           <div class="notification-details">
-            <div class="notification-title">{{notification.message}}
+            <div [ngClass]="{'notification-title': !user?.alert_ids?.includes(notification.id)}" class="notification-title">{{notification.message}}
               <span *ngIf="!user?.alert_ids?.includes(notification.id) " style="float: right;" class="dot" ></span>
             </div>
             <div class="notification-date">{{notification.dateAlerte | date: 'MMM d, y, h:mm a'}}</div>
@@ -80,6 +96,38 @@
         <div *ngIf="alerts?.length == 0" class="no-notifications">No notifications</div>
         <div class="see-more-notifications"  *ngIf="alerts?.length > 4" style="padding: 5px">
           <button (click)="showAllNotifications()" class="btn btn-outline-info" style="width: 100%;">See More Alerts</button>
+        </div>
+      </div>
+
+      <div class="notifications-panel" *ngIf="showMessagesPanel">
+        <div class="notifications-header">You have {{messages?.length}} messages</div>
+        <div class="search-container" style="padding: 5px">
+          <div class="container h-100">
+            <div class="d-flex justify-content-center h-100">
+              <div class="searchbar">
+                <input  type="text" [(ngModel)]="searchText" (input)="filterMessages()" placeholder="Search messages by sender name..." class="search_input">
+                <a  class="search_icon"><i class="fas fa-search"></i></a>
+              </div> 
+            </div>
+          </div>
+        </div>
+        <div>
+        </div>
+        <div *ngFor="let message of viewAllMessages ? filteredMessages: filteredMessages?.slice(0,4)" class="notification-item">
+          <div class="notification-avatar"><img [src]="message.image" alt=""></div>
+          <div (click)="markAsMessageRead(message)">
+            <div class="notification-details">
+              <div style="max-height: 100px; width: 400px; overflow: hidden; white-space: nowrap ;text-overflow: ellipsis;"  [ngClass]="{'notification-title': !user?.message_ids?.includes(message.id)}">{{message.content}}
+                <span *ngIf="!user?.message_ids?.includes(message.id) " style="float: right;" class="dot" ></span>
+              </div>
+              <div class="notification-date">{{message.dateMessage | date: 'MMM d, y, h:mm a'}}</div>
+            </div>
+          </div>
+          <div (click)="deleteMessage(message.id)" style="padding-left: 15px;float: right;"><i class="fas fa-trash"></i></div>
+        </div>
+        <div *ngIf="messages?.length == 0" class="no-notifications">No messages</div>
+        <div class="see-more-notifications"  *ngIf="messages?.length > 4" style="padding: 5px">
+          <button (click)="showAllMessages()" class="btn btn-outline-info" style="width: 100%;">See More Messages</button>
         </div>
       </div>
     </div>

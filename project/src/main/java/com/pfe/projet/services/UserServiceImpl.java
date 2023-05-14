@@ -110,6 +110,9 @@ public class UserServiceImpl implements UserService{
 	           if (userRequest.getAlert_ids() != null) {
 	        	   userToUpdate.setAlert_ids(userRequest.getAlert_ids());
 	           }
+			 if (userRequest.getMessage_ids() != null) {
+				 userToUpdate.setMessage_ids(userRequest.getMessage_ids());
+			 }
 	           if (userRequest.getSessionId() != null && !userRequest.getSessionId().isEmpty()) {
 	        	   userToUpdate.setSessionId(userRequest.getSessionId());
 	           }

@@ -9,6 +9,9 @@ import { AlertService } from 'src/app/services/alert.service';
 import { Alert } from 'src/app/models/alert.model';
 import { Title } from '@angular/platform-browser';
 import { GabService } from 'src/app/services/gab.service';
+import { MessageService } from 'src/app/services/message.service';
+import { Message } from 'src/app/models/message.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbar',
@@ -21,20 +24,24 @@ export class NavbarComponent implements OnInit {
   public location: Location;
   user: User ;
   showNotificationsPanel= false ;
+  showMessagesPanel= false ;
   viewAll=false ;
+  viewAllMessages=false;
   alerts !:Alert[] ;
+  messages !:Message[] ;
+  filteredMessages: any[];
+
   filteredAlerts: any[];
   searchText ="" ;
   alertCount = 0 ;
   originalTitle : string ;
-  PROCESSED_ALERTS_KEY = 'processedAlerts';
   interval :any ;
   interval2 : any ;
   interval3 :any;
   options = [];
 
 
-  constructor(location: Location,  private element: ElementRef, private router: Router , private authService:AuthService , private userService :UserService , private alertService :AlertService ,
+  constructor(location: Location, private messageService:MessageService,  private element: ElementRef, private router: Router , private authService:AuthService , private userService :UserService , private alertService :AlertService ,
     private titleService : Title , private gabService :GabService ) {
     this.location = location;
     this.originalTitle=this.titleService.getTitle();
@@ -48,6 +55,17 @@ export class NavbarComponent implements OnInit {
 
     this.userService.user$.subscribe(value => {
     this.user = value;
+    if(this.user?.id){
+      this.messageService.getMessagesByUserId(this.user?.id).subscribe((result) =>{
+        this.messages=result ;
+        this.filteredMessages =  this.messages.sort(function compare(a, b) {
+          var dateA = new Date(a.dateMessage);
+          var dateB = new Date(b.dateMessage);
+          return dateB.getTime() - dateA.getTime() ;
+        });
+      })
+    }
+   
     });
     this.alertService.getAlerts().subscribe((result) =>{
       this.alerts=result ;
@@ -60,6 +78,9 @@ export class NavbarComponent implements OnInit {
 
     })
 
+   
+
+    
     this.interval = setInterval(()=>{
       this.alertService.getAlerts().subscribe((result) =>{
         this.alerts=result ;
@@ -95,28 +116,20 @@ export class NavbarComponent implements OnInit {
     } , 600000 //600000
 
     )
-   /*
+
     this.interval2 = setInterval(()=>{
-      this.alertService.getAlerts().subscribe((result)=>{
-        const oneWeekAgo = new Date();
-          oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-          let expiredSeenAlerts = result.filter(alert => new Date(alert.dateAlerte) < oneWeekAgo).map((alert)=>alert.id)
-          if(expiredSeenAlerts.length>0){
-            this.alertService.deleteAlertsByIds(expiredSeenAlerts).subscribe(()=>{});            
-            this.user.alert_ids = this.user?.alert_ids.filter((id)=>!expiredSeenAlerts.includes(id))
-            this.alerts = this.alerts.filter((alert)=>!expiredSeenAlerts.includes(alert.id))
-            this.filteredAlerts = this.filteredAlerts.filter((alert)=>!expiredSeenAlerts.includes(alert.id))
-            this.userService.updateUser(this.user.id , this.user).subscribe((userResult) =>{
-              this.user=userResult;
-              
-            }) ;            
-          }
+      this.messageService.getMessagesByUserId(this.user?.id).subscribe((result) =>{
+        this.messages=result ;
+        this.filteredMessages =  this.messages.sort(function compare(a, b) {
+          var dateA = new Date(a.dateMessage);
+          var dateB = new Date(b.dateMessage);
+          return dateB.getTime() - dateA.getTime() ;
+        });
       })
+    } , 600000 //600000
 
-       
-    } , 3600000 //600000
-
-    ) */   
+    )
+ 
     this.interval3 = setInterval(()=>{
       this.gabService.getGabs().subscribe((result) =>{
          if(result.length > 0) {
@@ -184,6 +197,17 @@ export class NavbarComponent implements OnInit {
 
   showNotifications(){
     this.showNotificationsPanel= !this.showNotificationsPanel ;
+    this.showMessagesPanel= false ;
+  }
+
+  showMessages(){
+    this.showMessagesPanel= !this.showMessagesPanel ;
+    this.showNotificationsPanel = false;
+  }
+
+  showAllMessages(){
+    this.viewAllMessages=true ;
+  
   }
 
   showAllNotifications(){
@@ -231,7 +255,47 @@ markAsRead(notification: Alert) {
 
 }
 
+markAsMessageRead(message: Message) {
+  if(this.user.message_ids?.length == 0 || this.user.message_ids === null) {
+    this.user.message_ids =[message.id] ;
 
+  }
+  else  if(!this.user.message_ids?.includes(message.id)) {
+    this.user.message_ids.push(message.id) ;
+
+  }
+ 
+  this.userService.updateUser(this.user.id , this.user).subscribe((userResult) => this.user=userResult ) ;
+  Swal.fire({
+    title: 'Message',
+    html: `<div style="max-height:400px">${message.content}</div>` 
+})
+
+}
+
+filterMessages() {
+  if (this.searchText && this.searchText.length>=3) {
+    this.userService.getUserByName(this.searchText).subscribe((users)=>{
+      let foundUsersIds = users.map((user)=>user.id);
+      console.log(foundUsersIds)
+      this.filteredMessages = this.messages.filter(message => {
+        return foundUsersIds.includes(message.source)
+      });  
+          
+      },()=>{this.filteredMessages = [];},()=>{}) 
+  } else {
+    this.filteredMessages = this.messages;
+  }
+}
+
+
+getMessageSourceAvatar(message){
+  let source = message.source;
+  this.userService.getUserById(source).subscribe((user)=>{
+      return user.image;
+  }) 
+
+}
 filterNotifications() {
   if (this.searchText) {
     this.filteredAlerts = this.alerts.filter(notification => {
@@ -253,6 +317,44 @@ filterNotifications() {
   }
   goToProfile(id){
     this.router.navigate(['/profile',id]);
+  }
+
+  deleteMessage(id){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.messageService.deleteMessageById(id).subscribe(()=>{
+  
+        } ,
+        ()=>{
+  
+        },
+        ()=>{
+          this.messageService.getMessagesByUserId(this.user?.id).subscribe((result) =>{
+            this.messages=result ;
+            this.filteredMessages =  this.messages.sort(function compare(a, b) {
+              var dateA = new Date(a.dateMessage);
+              var dateB = new Date(b.dateMessage);
+              return dateB.getTime() - dateA.getTime() ;
+            });
+          })
+          if(this.user?.message_ids !== null){
+            this.user.message_ids = this.user.message_ids.filter((messageId)=>id!==messageId)
+            this.userService.updateUser(this.user.id , this.user).subscribe((userResult) => this.user=userResult ) ;
+
+          }          
+        }
+        )
+  
+      }
+    })
   }
 ngOnDestroy(){
   clearInterval(this.interval) ;

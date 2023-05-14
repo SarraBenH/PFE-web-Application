@@ -1,0 +1,10 @@
+<button class="close" mat-button style="font-size: medium;" (click)="onNoClick()">X</button>
+<h2 mat-dialog-title>Send Message </h2>
+<mat-dialog-content class="mat-typography">
+ <textarea [(ngModel)]="textareaContent" style="height: 100px; width: 600px;">
+
+ </textarea>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn btn-primary" [disabled]="textareaContent.length==0" (click)="sendMessage()" [mat-dialog-close]="true" cdkFocusInitial>Send</button>
+</mat-dialog-actions>

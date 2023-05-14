@@ -10,6 +10,7 @@ export class User {
     position: string;
     image: string;
     alert_ids : number[]
+    message_ids : number[]
     // Autres propriétés spécifiques à l'utilisateur
   
     constructor(
@@ -21,7 +22,8 @@ export class User {
       city: string,
       position: string,
       image: string ,
-      alert_ids:number[]
+      alert_ids:number[],
+      message_ids:number[]
     ) {
       
       this.firstName = firstName;
@@ -33,6 +35,7 @@ export class User {
       this.position = position;
       this.image = image;
       this.alert_ids=alert_ids;
+      this.message_ids = message_ids;
       // Initialisation d'autres propriétés
     } 
 
@@ -48,7 +51,9 @@ export class User {
           jsonObj['city'],
           jsonObj['position'],
           jsonObj['image'],
-          jsonObj['alert_ids']
+          jsonObj['alert_ids'],
+          jsonObj['message_ids']
+
 
 
         //  jsonObj['data'].map((jsonRequest: any) => Request.fromJson(jsonRequest)));

@@ -53,6 +53,9 @@ public class User {
     
     @Column(name="alert_ids")
     private Long[] alert_ids ;
+
+    @Column(name="message_ids")
+    private Long[] message_ids ;
 }
 
 
