@@ -22,7 +22,6 @@ public class MessageMapper {
         message.setDateMessage(messageRequest.getDateMessage());
         message.setSource(messageRequest.getSource());
         message.setTarget(messageRequest.getTarget());
-        message.setImage(messageRequest.getImage());
         return Optional.of(message);
     }
 
@@ -36,7 +35,6 @@ public class MessageMapper {
         messageResponse.setTarget(message.getTarget());
         messageResponse.setSource(message.getSource());
         messageResponse.setContent(message.getContent());
-        messageResponse.setImage(message.getImage());
 
         return Optional.of(messageResponse);
     }

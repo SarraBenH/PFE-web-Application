@@ -11,6 +11,5 @@ public class MessageRequest {
     private Instant dateMessage;
     private String source ;
     private String target;
-    private String image;
 
 }

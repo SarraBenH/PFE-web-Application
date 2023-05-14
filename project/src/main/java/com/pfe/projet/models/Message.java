@@ -15,8 +15,6 @@ public class Message {
     @Column(name="content",columnDefinition = "LONGTEXT")
     private String content;
 
-    @Column(name="image",columnDefinition = "LONGTEXT")
-    private String image;
 
     @Column(name="source")
     private String source;

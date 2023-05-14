@@ -13,5 +13,4 @@ public class MessageResponse {
     private Instant dateMessage;
     private String source ;
     private String target;
-    private String image;
 }

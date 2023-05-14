@@ -31,7 +31,6 @@ export class NavbarComponent implements OnInit  {
   alerts !:Alert[] ;
   messages !:Message[] ;
   filteredMessages: any[];
-
   filteredAlerts: any[];
   searchText ="" ;
   alertCount = 0 ;
@@ -60,6 +59,17 @@ export class NavbarComponent implements OnInit  {
     if(this.user?.id){
       this.messageService.getMessagesByUserId(this.user?.id).subscribe((result) =>{
         this.messages=result ;
+        this.messages.forEach((message)=>{
+          this.userService.getUserById(message.source).subscribe((result)=>{
+            if (result.data){
+              message.displayNameSender = (result?.data?.firstName && result?.data?.lastName) ? 
+              result.data.firstName + ' ' + result.data.lastName : "" ;
+              message.displayImage =result.data.image  ;
+            }
+            
+             
+          }) ;
+        })
         this.filteredMessages =  this.messages.sort(function compare(a, b) {
           var dateA = new Date(a.dateMessage);
           var dateB = new Date(b.dateMessage);
@@ -127,6 +137,13 @@ export class NavbarComponent implements OnInit  {
     this.interval2 = setInterval(()=>{
       this.messageService.getMessagesByUserId(this.user?.id).subscribe((result) =>{
         this.messages=result ;
+        this.messages.forEach((message)=>{
+          this.userService.getUserById(message.source).subscribe((result)=>{
+             message.displayNameSender = result?.data?.firstName + ' ' + result?.data?.lastName ;
+             message.displayImage =result?.data?.image  ;
+             
+          }) ;
+        })
         this.filteredMessages =  this.messages.sort(function compare(a, b) {
           var dateA = new Date(a.dateMessage);
           var dateB = new Date(b.dateMessage);
@@ -300,7 +317,6 @@ filterMessages() {
   if (this.searchText && this.searchText.length>=3) {
     this.userService.getUserByName(this.searchText).subscribe((users)=>{
       let foundUsersIds = users.map((user)=>user.id);
-      console.log(foundUsersIds)
       this.filteredMessages = this.messages.filter(message => {
         return foundUsersIds.includes(message.source)
       });  

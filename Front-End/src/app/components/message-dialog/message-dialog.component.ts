@@ -26,7 +26,7 @@ export class MessageDialogComponent implements OnInit {
 
     sendMessage(){
       const now: Date = new Date();
-      let message: Message = new Message(this.textareaContent,this.dialogData.source,this.dialogData.target, now.toISOString(),this.dialogData.image)
+      let message: Message = new Message(this.textareaContent,this.dialogData.source,this.dialogData.target, now.toISOString())
       this.messageService.createMessage(message).subscribe((result)=>{},()=>{
         Swal.fire({
           icon: 'error',

@@ -77,8 +77,7 @@ export class ProfileComponent implements OnInit {
     const dialogRef = this.dialog.open(MessageDialogComponent , {data: 
       {
         "source": localStorage.getItem("userId"),
-        "target": this.user?.id,
-        "image": this.image
+        "target": this.user?.id
       }
     });
 

@@ -117,10 +117,14 @@
         <div>
         </div>
         <div *ngFor="let message of viewAllMessages ? filteredMessages: filteredMessages?.slice(0,4)" class="notification-item">
-          <div class="notification-avatar"><img [src]="message.image" alt=""></div>
+          <div class="notification-avatar"><img [src]="message.displayImage" alt=""></div>
           <div (click)="markAsMessageRead(message)">
             <div class="notification-details">
-              <div style="max-height: 100px; width: 400px; overflow: hidden; white-space: nowrap ;text-overflow: ellipsis;"  [ngClass]="{'notification-title': !user?.message_ids?.includes(message.id)}">{{message.content}}
+              <span  style="font-size: 15px; color: #517fcc; font-family: Georgia, 'Times New Roman', Times, serif;" > 
+               <b> {{message?.displayNameSender}} </b>
+               </span>
+              <div style="font-size: small; max-height: 100px; width: 400px; overflow: hidden; white-space: nowrap ;text-overflow: ellipsis;"  [ngClass]="{'notification-title': !user?.message_ids?.includes(message.id)}">
+              {{message.content}} 
                 <span *ngIf="!user?.message_ids?.includes(message.id) " style="float: right;" class="dot" ></span>
               </div>
               <div class="notification-date">{{message.dateMessage | date: 'MMM d, y, h:mm a'}}</div>
