@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, SimpleChanges } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
@@ -18,7 +18,8 @@ import Swal from 'sweetalert2';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit  {
+  @ViewChild('notificationAudio', {static: true}) notificationAudio: ElementRef<HTMLAudioElement>;
   public focus;
   public listTitles: any[];
   public location: Location;
@@ -34,6 +35,7 @@ export class NavbarComponent implements OnInit {
   filteredAlerts: any[];
   searchText ="" ;
   alertCount = 0 ;
+  messageCount = 0;
   originalTitle : string ;
   interval :any ;
   interval2 : any ;
@@ -63,6 +65,11 @@ export class NavbarComponent implements OnInit {
           var dateB = new Date(b.dateMessage);
           return dateB.getTime() - dateA.getTime() ;
         });
+        if(this.user?.message_ids !==null){
+          this.messageCount = this.messages?.length - this.user?.message_ids?.length  
+        }else{
+          this.messageCount = this.messages?.length;  
+        }
       })
     }
    
@@ -125,6 +132,22 @@ export class NavbarComponent implements OnInit {
           var dateB = new Date(b.dateMessage);
           return dateB.getTime() - dateA.getTime() ;
         });
+        if(this.user?.message_ids !==null){
+          if(this.messages?.length - this.user?.message_ids?.length>this.messageCount){
+            setTimeout(()=>{
+              this.notificationAudio.nativeElement.play();
+            })
+            this.messageCount = this.messages?.length - this.user?.message_ids?.length
+          }
+        }else{
+          if(this.messages?.length>this.messageCount){
+            setTimeout(()=>{
+              this.notificationAudio.nativeElement.play();
+            })
+            this.messageCount = this.messages?.length - this.user?.message_ids?.length
+          }
+        }
+        
       })
     } , 10000
 

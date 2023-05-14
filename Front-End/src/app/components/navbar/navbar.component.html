@@ -56,8 +56,8 @@
         <span class="notification-count" *ngIf="this.alerts?.length !== user?.alert_ids?.length && this.user?.alert_ids !== null">{{this.alerts?.length - user?.alert_ids?.length}}</span>
         <span class="notification-count" *ngIf="this.alerts?.length !== 0 && this.user?.alert_ids === null">{{this.alerts?.length}}</span>
       </div>
-        <div style="padding-right: 15px;"></div>
-      <div  class="notification-icon" (click)="showMessages()">
+      <div style="padding-right: 15px;"></div>
+      <div class="notification-icon" (click)="showMessages()">
         <i class="fas fa-envelope fa-2xs"></i>
         <span class="notification-count" style="background-color:#ff00f0" *ngIf="this.messages?.length !== user?.message_ids?.length && this.user?.message_ids !== null">{{this.messages?.length - user?.message_ids?.length}}</span>
         <span class="notification-count"style="background-color:#ff00f0" *ngIf="this.messages?.length !== 0 && this.user?.message_ids === null">{{this.messages?.length}}</span>
@@ -98,7 +98,9 @@
           <button (click)="showAllNotifications()" class="btn btn-outline-info" style="width: 100%;">See More Alerts</button>
         </div>
       </div>
-
+      <audio  #notificationAudio id="notificationAudio">
+        <source src="assets/bip.mp3" type="audio/mpeg">
+      </audio>
       <div class="notifications-panel" *ngIf="showMessagesPanel">
         <div class="notifications-header">You have {{messages?.length}} messages</div>
         <div class="search-container" style="padding: 5px">
