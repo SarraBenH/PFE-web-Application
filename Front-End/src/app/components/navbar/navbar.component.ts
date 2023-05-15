@@ -12,7 +12,7 @@ import { GabService } from 'src/app/services/gab.service';
 import { MessageService } from 'src/app/services/message.service';
 import { Message } from 'src/app/models/message.model';
 import Swal from 'sweetalert2';
-
+import {isEqual,sortBy } from 'lodash';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -61,7 +61,7 @@ export class NavbarComponent implements OnInit  {
         this.messages=result ;
         this.messages.forEach((message)=>{
           this.userService.getUserById(message.source).subscribe((result)=>{
-            if (result.data){
+            if (result?.data){
               message.displayNameSender = (result?.data?.firstName && result?.data?.lastName) ? 
               result.data.firstName + ' ' + result.data.lastName : "" ;
               message.displayImage =result.data.image  ;
@@ -136,34 +136,39 @@ export class NavbarComponent implements OnInit  {
 
     this.interval2 = setInterval(()=>{
       this.messageService.getMessagesByUserId(this.user?.id).subscribe((result) =>{
-        this.messages=result ;
-        this.messages.forEach((message)=>{
-          this.userService.getUserById(message.source).subscribe((result)=>{
-             message.displayNameSender = result?.data?.firstName + ' ' + result?.data?.lastName ;
-             message.displayImage =result?.data?.image  ;
-             
-          }) ;
-        })
-        this.filteredMessages =  this.messages.sort(function compare(a, b) {
-          var dateA = new Date(a.dateMessage);
-          var dateB = new Date(b.dateMessage);
-          return dateB.getTime() - dateA.getTime() ;
-        });
-        if(this.user?.message_ids !==null){
-          if(this.messages?.length - this.user?.message_ids?.length>this.messageCount){
-            setTimeout(()=>{
-              this.notificationAudio.nativeElement.play();
-            })
-            this.messageCount = this.messages?.length - this.user?.message_ids?.length
-          }
-        }else{
-          if(this.messages?.length>this.messageCount){
-            setTimeout(()=>{
-              this.notificationAudio.nativeElement.play();
-            })
-            this.messageCount = this.messages?.length - this.user?.message_ids?.length
+        if(!this.isSameMessages(this.messages,result)){
+          this.messages=result ;
+          this.messages.forEach((message)=>{
+            this.userService.getUserById(message.source).subscribe((result)=>{
+              if (result?.data){
+                message.displayNameSender = (result?.data?.firstName && result?.data?.lastName) ? 
+                result.data.firstName + ' ' + result.data.lastName : "" ;
+                message.displayImage =result.data.image  ;
+              }             
+            }) ;
+          })
+          this.filteredMessages =  this.messages.sort(function compare(a, b) {
+            var dateA = new Date(a.dateMessage);
+            var dateB = new Date(b.dateMessage);
+            return dateB.getTime() - dateA.getTime() ;
+          });
+          if(this.user?.message_ids !==null){
+            if(this.messages?.length - this.user?.message_ids?.length>this.messageCount){
+              setTimeout(()=>{
+                this.notificationAudio.nativeElement.play();
+              })
+              this.messageCount = this.messages?.length - this.user?.message_ids?.length
+            }
+          }else{
+            if(this.messages?.length>this.messageCount){
+              setTimeout(()=>{
+                this.notificationAudio.nativeElement.play();
+              })
+              this.messageCount = this.messages?.length - this.user?.message_ids?.length
+            }
           }
         }
+      
         
       })
     } , 10000
@@ -216,6 +221,11 @@ export class NavbarComponent implements OnInit  {
     )
 
 
+  }
+  isSameMessages(messages1,messages2){
+    let messageIds1 = sortBy(messages1.map((message)=>message.id));
+    let messageIds2= sortBy(messages2.map((message)=>message.id));
+    return isEqual(messageIds1,messageIds2)
   }
   containCriticalAlert(){
   return  this.alerts.filter((alert)=> alert.etatAlerte === "CRITICAL").length > 0 ;
