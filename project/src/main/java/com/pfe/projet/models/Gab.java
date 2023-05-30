@@ -25,32 +25,73 @@ public class Gab {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-	@Column(name="identifiant")
+	@Column(name="ID_GAB")
 	private String identifiant ;
     
-    @Column(name = "etat_service")
-    private String etatService;
+    @Column(name="STATUT_GAB")
+	private String  statutGab;
     
-	@Enumerated(EnumType.STRING)
-	private EtatGab  etatGab;
-    
-    @Column(name = "enseigne")
+    @Column(name = "ENSEIGNE")
     private String enseigne;
     
-    @Column(name = "etat_k7")
-    private String etatK7;
     
-    @Column(name = "JDAB")
+    @Column(name = "ETAT_HARD_JOURNAL")
     private String JDAB;
     
-    @Column(name = "etat_communication")
+    @Column(name = "ETAT_COMMUNICATION")
     private String etatCommunication;
     
-    @Column(name = "etat_keys")
-    private String etatKeys;
    
-    @Column(name="address")
+    @Column(name="ADRESSE_GAB")
     private String address ;
+    
+    @Column(name = "LATITUDE")
+    private String latitude;
+    
+    @Column(name = "LONGITUDE")
+    private String longitude;
+    
+    @Column(name="ETAT_HARD_COFFRE")
+    private String etatCoffre ;
+    
+    @Column(name="ETAT_SUPPL_COFFRE")
+    private String etatSuppCoffre ;
+    
+    @Column(name = "ETAT_HARD_K1")
+    private String etatK1;
+    
+    @Column(name = "ETAT_HARD_K2")
+    private String etatK2;
+    
+    @Column(name = "ETAT_HARD_K3")
+    private String etatK3;
+    
+    @Column(name = "ETAT_HARD_K4")
+    private String etatK4;
+    
+    @Column(name = "ETAT_HARD_TICKET_CLIENT")
+    private String etatTicketClient;
+    
+    
+    @Column(name = "ETAT_SUPPL_K1")
+    private String etatSuppK1;
+    
+    @Column(name = "ETAT_SUPPL_K2")
+    private String etatSuppK2;
+    
+    @Column(name = "ETAT_SUPPL_K3")
+    private String etatSuppK3;
+
+    @Column(name = "ETAT_SUPPL_K4")
+    private String etatSuppK4;
+
+    @Column(name = "ETAT_SUPPL_TICKET_CLIENT")
+    private String etatSuppTicket;
+
+    @Column(name = "ETAT_SUPPL_JOURNAL")
+    private String etatSuppJournal;
+
+    
  /*   
     @OneToMany(mappedBy = "gab")
     private Set<Alert> alerts ;*/

@@ -1,49 +1,34 @@
 <button class="close" mat-button style="font-size: medium;" (click)="onNoClick()">X</button>
 <h2 mat-dialog-title>Gab details </h2>
 <mat-dialog-content class="mat-typography">
-  <h3>{{this.dialogData.identifiant}}</h3>
-  <p>Learn one way to build applications with Angular and reuse your code and abilities to build
-    apps for any deployment target. For web, mobile web, native mobile and native desktop.</p>
+  <h3>Identifiant :{{this.dialogData.identifiant}}</h3>
 
-  <h3>Speed &amp; Performance</h3>
-  <p>Achieve the maximum speed possible on the Web Platform today, and take it further, via Web
-    Workers and server-side rendering. Angular puts you in control over scalability. Meet huge
-    data requirements by building data models on RxJS, Immutable.js or another push-model.</p>
+  <h3>Enseigne</h3>
+  <p> {{this.dialogData.enseigne}}.</p>
+  <h3>Adress : </h3>
+  <p>The adress of this GAB is {{this.dialogData.address}}. With latitude : {{this.dialogData.latitude}}  and longitude: {{this.dialogData.longitude}}.</p>
 
-  <h3>Incredible tooling</h3>
-  <p>Build features quickly with simple, declarative templates. Extend the template language with
-    your own components and use a wide array of existing components. Get immediate Angular-specific
-    help and feedback with nearly every IDE and editor. All this comes together so you can focus
-    on building amazing apps rather than trying to make the code work.</p>
+  <h3>The status of this GAB is : {{this.dialogData.statutGab}} </h3>
 
-  <h3>Loved by millions</h3>
-  <p>From prototype through global deployment, Angular delivers the productivity and scalable
-    infrastructure that supports Google's largest applications.</p>
+  <h3>Etat Hard K1 : {{this.dialogData.etatK1}}</h3>
+  <h3>Etat Hard K2 : {{this.dialogData.etatK2}}</h3>
+  <h3>Etat Hard K3 : {{this.dialogData.etatK3}}</h3>
+  <h3>Etat Hard K4 : {{this.dialogData.etatK4}}</h3>
 
-  <h3>What is Angular?</h3>
 
-  <p>Angular is a platform that makes it easy to build applications with the web. Angular
-    combines declarative templates, dependency injection, end to end tooling, and integrated
-    best practices to solve development challenges. Angular empowers developers to build
-    applications that live on the web, mobile, or the desktop</p>
+  <h3>Etat Hard Coffre : {{this.dialogData.etatCoffre}}</h3>
+  <h3>Etat Suppl Coffre : {{this.dialogData.etatSuppCoffre}}</h3>
+  <h3> Etat Hard Ticket Client : {{this.dialogData.etatTicketClient}}</h3>
+  <h3> Etat SUPPL Ticket Client : {{this.dialogData.etatSuppTicket}}</h3>
+  <h3> Etat Suppl K1 : {{this.dialogData.etatSuppK1}}</h3>
+  <h3> Etat Suppl K2 : {{this.dialogData.etatSuppK2}}</h3>
+  <h3> Etat Suppl K3 : {{this.dialogData.etatSuppK3}}</h3>
+  <h3> Etat Suppl K4 : {{this.dialogData.etatSuppK4}}</h3>
+  <h3> Etat Suppl Journal : {{this.dialogData.etatSuppJournal}}</h3>
 
-  <h3>Architecture overview</h3>
 
-  <p>Angular is a platform and framework for building client applications in HTML and TypeScript.
-  Angular is itself written in TypeScript. It implements core and optional functionality as a
-  set of TypeScript libraries that you import into your apps.</p>
-
-  <p>The basic building blocks of an Angular application are NgModules, which provide a compilation
-  context for components. NgModules collect related code into functional sets; an Angular app is
-  defined by a set of NgModules. An app always has at least a root module that enables
-  bootstrapping, and typically has many more feature modules.</p>
-
-  <p>Components define views, which are sets of screen elements that Angular can choose among and
-  modify according to your program logic and data. Every app has at least a root component.</p>
-
-  <p>Components use services, which provide specific functionality not directly related to views.
-  Service providers can be injected into components as dependencies, making your code modular,
-  reusable, and efficient.</p>
+ 
+  
 
   <p>Both components and services are simply classes, with decorators that mark their type and
   provide metadata that tells Angular how to use them.</p>

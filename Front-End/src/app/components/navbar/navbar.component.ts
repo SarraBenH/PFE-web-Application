@@ -178,7 +178,7 @@ export class NavbarComponent implements OnInit  {
     this.interval3 = setInterval(()=>{
       this.gabService.getGabs().subscribe((result) =>{
          if(result.length > 0) {
-          let nbGabOutOfService = result.filter((gab)=> gab.etatGab === "OUT_OF_SERVICE").length ;
+          let nbGabOutOfService = result.filter((gab)=> gab.statutGab === "2").length ;
           if((nbGabOutOfService / result.length) * 100 > 35 && !this.containCriticalAlert()){
             const now: Date = new Date();
            

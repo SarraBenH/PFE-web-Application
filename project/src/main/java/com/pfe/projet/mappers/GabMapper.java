@@ -18,15 +18,31 @@ public class GabMapper {
         }
 
     	Gab gab = new Gab();
-        gab.setEtatService(gabRequest.getEtatService());
-        gab.setEtatGab(gabRequest.getEtatGab());
+        gab.setStatutGab(gabRequest.getStatutGab());
         gab.setEnseigne(gabRequest.getEnseigne());
-        gab.setEtatK7(gabRequest.getEtatK7());
+        gab.setAddress(gabRequest.getAddress());
+        gab.setLatitude(gabRequest.getLatitude());
+        gab.setLongitude(gabRequest.getLongitude());
+        gab.setEtatK1(gabRequest.getEtatK1());
+        gab.setEtatK2(gabRequest.getEtatK2());
+        gab.setEtatK3(gabRequest.getEtatK3());
+        gab.setEtatK4(gabRequest.getEtatK4());
+        
+        gab.setEtatSuppK1(gabRequest.getEtatSuppK1());
+        gab.setEtatSuppK2(gabRequest.getEtatSuppK2());
+        gab.setEtatSuppK3(gabRequest.getEtatSuppK3());
+        gab.setEtatSuppK4(gabRequest.getEtatSuppK4());
+        gab.setEtatSuppJournal(gabRequest.getEtatSuppJournal());
+        gab.setEtatSuppTicket(gabRequest.getEtatSuppTicket());
+        gab.setEtatTicketClient(gabRequest.getEtatTicketClient());
+        
+        gab.setEtatCoffre(gabRequest.getEtatCoffre());
+        gab.setEtatSuppCoffre(gabRequest.getEtatSuppCoffre());
+
+
         gab.setJDAB(gabRequest.getJDAB());
         gab.setEtatCommunication(gabRequest.getEtatCommunication());
         gab.setIdentifiant(gabRequest.getIdentifiant());
-        gab.setEtatKeys(gabRequest.getEtatKeys());
-        gab.setAddress(gabRequest.getAddress());
         Set<Alert> alerts = new HashSet<>();
      /*   if (gabRequest.getAlerts() != null) {
             for (Alert alert : gabRequest.getAlerts()) {
@@ -45,14 +61,34 @@ public class GabMapper {
         GabResponse gabResponse = new GabResponse();
         gabResponse.setId(gab.getId());
         gabResponse.setIdentifiant(gab.getIdentifiant());
-        gabResponse.setEtatService(gab.getEtatService());
-        gabResponse.setEtatGab(gab.getEtatGab());
+        gabResponse.setStatutGab(gab.getStatutGab());
         gabResponse.setEnseigne(gab.getEnseigne());
-        gabResponse.setEtatK7(gab.getEtatK7());
         gabResponse.setJDAB(gab.getJDAB());
         gabResponse.setEtatCommunication(gab.getEtatCommunication());
-        gabResponse.setEtatKeys(gab.getEtatKeys());
         gabResponse.setAddress(gab.getAddress());
+        gabResponse.setLatitude(gab.getLatitude());
+        gabResponse.setLongitude(gab.getLongitude());
+
+        gabResponse.setEtatK1(gab.getEtatK1());
+        gabResponse.setEtatK2(gab.getEtatK2());
+        gabResponse.setEtatK3(gab.getEtatK3());
+        gabResponse.setEtatK4(gab.getEtatK4());
+        
+        gabResponse.setEtatSuppJournal(gab.getEtatSuppJournal());
+        gabResponse.setEtatSuppK1(gab.getEtatSuppK1());
+        gabResponse.setEtatSuppK2(gab.getEtatSuppK2());
+        gabResponse.setEtatSuppK3(gab.getEtatSuppK3());
+        gabResponse.setEtatSuppK4(gab.getEtatSuppK4());
+        gabResponse.setEtatSuppTicket(gab.getEtatSuppTicket());
+        gabResponse.setEtatTicketClient(gab.getEtatTicketClient());
+        
+        gabResponse.setEtatCoffre(gab.getEtatCoffre());
+        gabResponse.setEtatSuppCoffre(gab.getEtatSuppCoffre());
+
+        
+
+
+
         Set<Alert> alerts = new HashSet<>();
       /*  if (gab.getAlerts() != null) {
             for (Alert alert : gab.getAlerts()) {

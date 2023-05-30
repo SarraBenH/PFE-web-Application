@@ -156,7 +156,7 @@ export class DashboardComponent implements OnInit {
     domain: ['#b3b2ad', '#f0ed92', '#f7b972', '#b572f7',"#bafca2","#aef1f5","#f5aeef"]
   };
   colorScheme = {
-    domain: ['#f0ab3c', '#5AA454','#f5e042','#A10A28' ]
+    domain: ['#f0ab3c', '#5AA454','#f5e042','#A10A28' ,'#f5aeef' , '#bafca2' ]
   };
 constructor(private router :Router , private gabService:GabService, private transactionService: TransactionService, private userService :UserService,
    private route: ActivatedRoute , private interfaceService :InterfaceService ){
@@ -205,15 +205,18 @@ onDeactivate(data): void {
         }
     
         // Process the GAB count result
-        const countInMaintenance = gabCountResult.filter(gab => gab.etatGab === 'IN_MAINTENANCE').length;
-        const countInService = gabCountResult.filter(gab => gab.etatGab === 'IN_SERVICE').length;
-        const countOutOfService = gabCountResult.filter(gab => gab.etatGab === 'OUT_OF_SERVICE').length;
-        const countFunctional = gabCountResult.filter(gab => gab.etatGab === 'FUNCTIONAL').length;
-        this.totalGabs = countFunctional+countInMaintenance+countInService+countOutOfService;
+        const countInSuspended = gabCountResult.filter(gab => gab.statutGab === '3').length;
+        const countInService = gabCountResult.filter(gab => gab.statutGab === '1').length;
+        const countOutOfService = gabCountResult.filter(gab => gab.statutGab === '2').length;
+        const countSupervisor = gabCountResult.filter(gab => gab.statutGab === '4').length;
+        const countOFFLine = gabCountResult.filter(gab => gab.statutGab === '6').length;
+
+        this.totalGabs = countSupervisor+countInSuspended+countInService+countOutOfService+countOFFLine;
         const chart2Values = [
-          { name: 'In Maintenance', value: countInMaintenance },
+          { name: 'Suspended', value: countInSuspended },
           { name: 'In Service', value: countInService },
-          { name: 'Functional', value: countFunctional },
+          { name: 'Supervisor', value: countSupervisor },
+          { name: 'Off Line', value: countOFFLine },
           { name: 'Out Of Service', value: countOutOfService },
         ];
 

@@ -13,7 +13,6 @@ import com.pfe.projet.dtos.responses.GabResponse;
 import com.pfe.projet.mappers.GabMapper;
 import com.pfe.projet.mappers.UserMapper;
 import com.pfe.projet.models.Gab;
-import com.pfe.projet.models.User;
 import com.pfe.projet.repositories.GabRepository;
 
 @Service
@@ -82,18 +81,39 @@ public class GabServiceImpl implements GabService {
     	           if (gabRequest.getEtatCommunication() != null && !gabRequest.getEtatCommunication().isEmpty()) {
     	        	   gabToUpdate.setEtatCommunication(gabRequest.getEtatCommunication());
     	           }
-    	           if (gabRequest.getEtatGab() != null && !gabRequest.getEtatGab().equals("")) {
-    	        	   gabToUpdate.setEtatGab(gabRequest.getEtatGab());
+    	           if (gabRequest.getStatutGab() != null && !gabRequest.getStatutGab().equals("")) {
+    	        	   gabToUpdate.setStatutGab(gabRequest.getStatutGab());
     	           }
-    	           if (gabRequest.getEtatK7() != null && !gabRequest.getEtatK7().isEmpty()) {
-    	        	   gabToUpdate.setEtatK7(gabRequest.getEtatK7());
+    	           if (gabRequest.getEtatK1() != null && !gabRequest.getEtatK1().isEmpty()) {
+    	        	   gabToUpdate.setEtatK1(gabRequest.getEtatK1());
     	           }
     	          
-    	           if (gabRequest.getEtatKeys() != null && !gabRequest.getEtatKeys().isEmpty()) {
-    	        	   gabToUpdate.setEtatKeys(gabRequest.getEtatKeys());
+    	           if (gabRequest.getEtatK2() != null && !gabRequest.getEtatK2().isEmpty()) {
+    	        	   gabToUpdate.setEtatK2(gabRequest.getEtatK2());
     	           }
-    	           if (gabRequest.getEtatService() != null && !gabRequest.getEtatService().isEmpty()) {
-    	        	   gabToUpdate.setEtatService(gabRequest.getEtatService());
+    	           if (gabRequest.getEtatK3() != null && !gabRequest.getEtatK3().isEmpty()) {
+    	        	   gabToUpdate.setEtatK3(gabRequest.getEtatK3());
+    	           }
+    	           if (gabRequest.getEtatK4() != null && !gabRequest.getEtatK4().isEmpty()) {
+    	        	   gabToUpdate.setEtatK4(gabRequest.getEtatK4());
+    	           }
+    	           if (gabRequest.getEtatSuppJournal() != null && !gabRequest.getEtatSuppJournal().isEmpty()) {
+    	        	   gabToUpdate.setEtatSuppJournal(gabRequest.getEtatSuppJournal());
+    	           }
+    	           if (gabRequest.getEtatSuppK1() != null && !gabRequest.getEtatSuppK1().isEmpty()) {
+    	        	   gabToUpdate.setEtatSuppK1(gabRequest.getEtatSuppK1());
+    	           }
+    	           if (gabRequest.getEtatSuppK2() != null && !gabRequest.getEtatSuppK2().isEmpty()) {
+    	        	   gabToUpdate.setEtatSuppK2(gabRequest.getEtatSuppK2());
+    	           }
+    	           if (gabRequest.getEtatSuppK3() != null && !gabRequest.getEtatSuppK3().isEmpty()) {
+    	        	   gabToUpdate.setEtatSuppK3(gabRequest.getEtatSuppK3());
+    	           }
+    	           if (gabRequest.getEtatSuppK4() != null && !gabRequest.getEtatSuppK4().isEmpty()) {
+    	        	   gabToUpdate.setEtatSuppK4(gabRequest.getEtatSuppK4());
+    	           }
+    	           if (gabRequest.getEtatSuppTicket() != null && !gabRequest.getEtatSuppTicket().isEmpty()) {
+    	        	   gabToUpdate.setEtatSuppTicket(gabRequest.getEtatSuppTicket());
     	           }
     	           if (gabRequest.getIdentifiant() != null && !gabRequest.getIdentifiant().isEmpty()) {
     	        	   gabToUpdate.setIdentifiant(gabRequest.getIdentifiant());
@@ -103,6 +123,21 @@ public class GabServiceImpl implements GabService {
     	           }
     	           if (gabRequest.getAddress() != null && !gabRequest.getAddress().isEmpty()) {
     	        	   gabToUpdate.setAddress(gabRequest.getAddress());
+    	           }
+    	           if (gabRequest.getLatitude() != null && !gabRequest.getLatitude().isEmpty()) {
+    	        	   gabToUpdate.setLatitude(gabRequest.getLatitude());
+    	           }
+    	           if (gabRequest.getLongitude() != null && !gabRequest.getLongitude().isEmpty()) {
+    	        	   gabToUpdate.setLongitude(gabRequest.getLongitude());
+    	           }
+    	           if (gabRequest.getEtatCoffre() != null && !gabRequest.getEtatCoffre().isEmpty()) {
+    	        	   gabToUpdate.setEtatCoffre(gabRequest.getEtatCoffre());
+    	           }
+    	           if (gabRequest.getEtatSuppCoffre() != null && !gabRequest.getEtatSuppCoffre().isEmpty()) {
+    	        	   gabToUpdate.setEtatCoffre(gabRequest.getEtatSuppCoffre());
+    	           }
+    	           if (gabRequest.getEtatTicketClient() != null && !gabRequest.getEtatTicketClient().isEmpty()) {
+    	        	   gabToUpdate.setEtatTicketClient(gabRequest.getEtatTicketClient());
     	           }
     	        //   if (gabRequest.getAlerts() != null && !gabRequest.getAlerts().isEmpty()) {
     	        //	   gabToUpdate.setAlerts(gabRequest.getAlerts());

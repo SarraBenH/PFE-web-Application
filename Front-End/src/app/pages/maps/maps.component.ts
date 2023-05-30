@@ -5,6 +5,7 @@ import { GabService } from 'src/app/services/gab.service';
 import { UserService } from 'src/app/services/user.service';
 import { HttpClient } from '@angular/common/http';
 import 'leaflet-easybutton';
+import { Gab } from 'src/app/models/gab.model';
 
 @Component({
   selector: 'app-maps',
@@ -38,17 +39,23 @@ export class MapsComponent implements OnInit {
   
   getColorToDisplay(etat: string){
     switch (etat.toLowerCase()) {
-      case "out_of_service":
+      case "2":
         return "red"
       
-      case "in_service":
+      case "1":
         return "green"
         
-      case "functional":
+      case "3":
         return "blue"
+
+      case "4":
+          return "orange"
+          
+      case "6":
+          return "pink"
       
       default:
-        return "orange"
+        return "black"
 
   } 
   }
@@ -88,34 +95,26 @@ export class MapsComponent implements OnInit {
       if(result.length > 0) {
         this.markers =[];
         result.forEach((gab) => {
-          const city = gab.address;
-          const url = `https://nominatim.openstreetmap.org/search?format=json&q=${city}`;
-          if(city != null) {
-            this.http.get(url).subscribe((data)=>{
-              if(data){
-                const lat = data[0].lat;
-                const lon = data[0].lon;
-                const marker = L.marker([lat, lon],{icon}).addTo(this.map).on("click",(e)=>{
-                  this.map.setView(e.latlng, 15);
-                });
-                this.markers.push(marker)
-                const colorGab =  this.getColorToDisplay(gab.etatGab)
-                marker.bindPopup(  "Gab ID : <b>" +
-                gab.identifiant +
-                "</b><br>"+
-                "Gab Address : <b>" +
-                gab.address +
-                "</b><br>"+
-                "Gab Brand : <b>" +
-                gab.enseigne +
-                "</b><br>"+
-                `Gab Status : <b><span style='color:${colorGab}'>${gab.etatGab}</span></b>`
-                           
-                );
-              }
-            }) ;
-       
+          if(gab.latitude !== '' && gab.longitude !== '' ) {
+            const marker = L.marker([Number(gab.latitude.replace(',' , '.')), Number(gab.longitude.replace(',' , '.'))],{icon}).addTo(this.map).on("click",(e)=>{
+              this.map.setView(e.latlng, 15);
+            });
+            this.markers.push(marker)
+            const colorGab =  this.getColorToDisplay(gab.statutGab)
+            marker.bindPopup(  "Gab ID : <b>" +
+            gab.identifiant +
+            "</b><br>"+
+            "Gab Address : <b>" +
+            gab.address +
+            "</b><br>"+
+            "Gab Brand : <b>" +
+            gab.enseigne +
+            "</b><br>"+
+            `Gab Status : <b><span style='color:${colorGab}'>${this.getStatusGab(gab)}</span></b>`
+                       
+            );
           }
+         
         
           }
           )
@@ -124,6 +123,33 @@ export class MapsComponent implements OnInit {
       )
       }
 
+      getStatusGab(gab:Gab) {
+        if(gab.statutGab.toLowerCase()==='1' && Number(gab.etatSuppCoffre) > 1  || Number(gab.JDAB) > 1 || Number(gab.etatCoffre) >1){
+          return 'Critical' ;
+        }
+        switch (gab.statutGab) {
+          case "1":
+            return "IN SERVICE"
+          
+          case "2":
+            return "OUT OF SERVICE"
+            
+          case "3":
+            return "SUSPENDED"
+      
+          case "4":
+            return "SUPERVISOR"
+            
+          case "6":
+             return "OFF LINE"
+             
+          
+          default:
+            return ""
+      
+      } 
+      
+      }
   }
 
 

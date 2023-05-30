@@ -2,8 +2,9 @@ package com.pfe.projet.dtos.responses;
 
 import java.util.Set;
 
+import javax.persistence.Column;
+
 import com.pfe.projet.models.Alert;
-import com.pfe.projet.models.EtatGab;
 
 import lombok.Data;
 
@@ -11,14 +12,31 @@ import lombok.Data;
 public class GabResponse {
 	   private Long id ;
 	   private String identifiant ;
-	    private String etatService;
-	    private EtatGab  etatGab;
+	    private String  statutGab;
 	    private String enseigne;
-	    private String etatK7;
 	    private String JDAB;
 	    private String etatCommunication;
-	    private String etatKeys;
 	    private String address ;
+	    private String latitude;
+	    private String longitude;
+	    
+	    private String etatK1;
+	    private String etatK2;
+	    private String etatK3;
+	    private String etatK4;
+	    
+	    private String etatTicketClient;
+	    private String etatSuppK1;
+	    private String etatSuppK2;
+	    private String etatSuppK3;
+	    private String etatSuppK4;
+	    private String etatSuppTicket;
+	    private String etatSuppJournal;
+	    private String etatCoffre ;
+	    private String etatSuppCoffre ;
+
+
+
 	 //   private Set<Alert> alerts ;
 
 }

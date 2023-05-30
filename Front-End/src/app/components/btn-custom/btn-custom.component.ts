@@ -10,7 +10,7 @@ import { GabDialogComponent } from '../gab-dialog/gab-dialog.component';
   selector: 'app-btn-custom',
   template: `
   <span>
-    <button (click)="openDialog()" style="width:100%" [ngClass]="'btn-sm btn-' + cellColor" >{{this.cellValue}}</button>
+    <button (click)="openDialog()" style="width:100%" [ngClass]="'btn-sm btn-' + cellColor" >{{this.getStatusGab()}}</button>
   </span>`,
   styleUrls: ['./btn-custom.component.scss']
 })
@@ -33,18 +33,24 @@ export class BtnCustomComponent implements OnInit {
     return params.valueFormatted ? params.valueFormatted : params.value;
   }
   getColorToDisplay(){
-    switch (this.cellValue.toLowerCase()) {
-      case "out_of_service":
+    switch (this.cellValue) {
+      case "2":
         return "danger"
       
-      case "in_service":
+      case "1":
         return "success"
         
-      case "functional":
-        return "primary"
-      
-      default:
+      case "4":
         return "warning"
+      
+      case "3":
+          return "info"
+
+      case "6":
+            return "primary"
+        
+      default:
+        return "danger"
 
   } 
   }
@@ -58,5 +64,31 @@ export class BtnCustomComponent implements OnInit {
       }
     });
   }
-x
+  getStatusGab() {
+    if(this.data.statutGab.toLowerCase()==='1' && Number(this.data.etatSuppCoffre) > 1  || Number(this.data.JDAB) > 1 || Number(this.data.etatCoffre) >1){
+      return 'Critical' ;
+    }
+    switch (this.data.statutGab) {
+      case "1":
+        return "IN SERVICE"
+      
+      case "2":
+        return "OUT OF SERVICE"
+        
+      case "3":
+        return "SUSPENDED"
+  
+      case "4":
+        return "SUPERVISOR"
+        
+      case "6":
+         return "OFF LINE"
+         
+      
+      default:
+        return ""
+  
+  } 
+  
+  }
 }
