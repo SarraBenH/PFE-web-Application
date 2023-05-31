@@ -52,7 +52,7 @@ public class CassetteController {
 	    void deleteGab(@PathVariable Long id) {
 	    	cassetteService.deleteCassetteById(id);
 	    }
-	    @DeleteMapping("/cassette")
+	    @DeleteMapping("/cassettes")
 	    void deleteGabs(@RequestBody ArrayList<Long> ids) {
 	    	cassetteService.deleteCassettesByIds(ids) ;
 	    }
