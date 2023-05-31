@@ -35,7 +35,7 @@ mostRepresentedTypeValue=0;
   selectedRows = [];
   rowData: any[]=[];
   selectedRowsIds = [];
-  pageSize =1000;
+  pageSize =500;
 	columnDefs = [
     {headerName: 'id', field: 'id' , resizable: true, minWidth: 200,  tooltipField: 'id', sortable: true, filter: true , hide: true,suppressToolPanel: true} ,
 		{headerName: 'Credit card number', field: 'numeroCarte' , resizable: true, minWidth: 200,  tooltipField: 'numeroCarte', sortable: true, filter: true , editable : true},
