@@ -24,7 +24,7 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { InterfacesComponent } from 'src/app/pages/interfaces/interfaces.component';
 import { MessageDialogComponent } from 'src/app/components/message-dialog/message-dialog.component';
-import { CassetteComponent } from 'src/app/components/cassette/cassette.component';
+import { CassetteComponent } from 'src/app/pages/cassette/cassette.component';
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ToastrModule } from 'ngx-toastr';
 
