@@ -15,10 +15,8 @@ export const ROUTES: RouteInfo[] = [
     { path: '/transactions', title: 'Transactions',  icon:'fas fa-sharp fa-light fa-chart-mixed-up-circle-dollar text-blue', class: ''},
     { path: '/interfaces', title: 'Interfaces',  icon:'', class: ''},
     { path: '/maps', title: 'Map View',  icon:'ni-pin-3 text-orange', class: '' },
-
-    //{ path: '/login', title: 'Response Code',  icon:'ni-key-25 text-info', class: '' },
-    //{ path: '/register', title: 'Cash balance',  icon:'ni-circle-08 text-pink', class: '' }, 
-    //{ path: '/register', title: 'TPE Gateway',  icon:'ni-circle-08 text-pink', class: ''}
+    { path: '/cassette', title: 'Cash balance',  icon:'fas fa-money-bill-wave text-blue', class: '' }
+ 
 ];
 
 @Component({

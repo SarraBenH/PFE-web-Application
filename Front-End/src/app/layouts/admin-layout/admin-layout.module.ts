@@ -58,6 +58,7 @@ import { CassetteComponent } from 'src/app/pages/cassette/cassette.component';
     UserProfileComponent,
     ProfileComponent,
     GabsComponent,
+    CassetteComponent ,
     InterfacesComponent,
     IconsComponent,
     MapsComponent,
