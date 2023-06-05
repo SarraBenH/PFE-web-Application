@@ -97,7 +97,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12">
       <mat-card class="card1" style="height:250px; display: grid; margin:7px 0px 7px 0px !important;">
         <mat-card-header>
-          Number of Transactions for last 6 months
+          Number of Transactions for last 9 months
         </mat-card-header>
         <mat-spinner color="accent" *ngIf="!isDataLoaded" diameter="40"></mat-spinner>
         <mat-card-content  style="padding-bottom: 0px">
@@ -145,7 +145,7 @@
         <mat-card-content style="padding-bottom: 0px">
           <ngx-charts-pie-chart
             [view]="view"
-            [scheme]="colorScheme"
+            [scheme]="colorInterfaceScheme"
             [results]="chart3Values"
             [gradient]="gradient3"
             [legend]="showLegend3"

@@ -72,51 +72,51 @@ public class CassetteServiceImpl implements CassetteService {
                 if (cassetteRequest.getEnseigneGab() != null && !cassetteRequest.getEnseigneGab().isEmpty()) {
                     cassetteToUpdate.setEnseigneGab(cassetteRequest.getEnseigneGab());
                 }
-                if (cassetteRequest.getLastDateCharged() != null && cassetteRequest.getLastDateCharged().isEmpty()) {
+                if (cassetteRequest.getLastDateCharged() != null && !cassetteRequest.getLastDateCharged().isEmpty()) {
                     cassetteToUpdate.setLastDateCharged(cassetteRequest.getLastDateCharged());
                 }
-                if (cassetteRequest.getMontantCharged() != null && cassetteRequest.getMontantCharged().isEmpty()) {
+                if (cassetteRequest.getMontantCharged() != null && !cassetteRequest.getMontantCharged().isEmpty()) {
                     cassetteToUpdate.setMontantCharged(cassetteRequest.getMontantCharged());
                 }
-                if (cassetteRequest.getMontantDecharged() != null && cassetteRequest.getMontantDecharged().isEmpty()) {
+                if (cassetteRequest.getMontantDecharged() != null && !cassetteRequest.getMontantDecharged().isEmpty()) {
                     cassetteToUpdate.setMontantDecharged(cassetteRequest.getMontantDecharged());
                 }
-                if (cassetteRequest.getMontantDe() != null && cassetteRequest.getMontantDe().isEmpty()) {
+                if (cassetteRequest.getMontantDe() != null && !cassetteRequest.getMontantDe().isEmpty()) {
                     cassetteToUpdate.setMontantDe(cassetteRequest.getMontantDe());
                 }
-                if (cassetteRequest.getMontantEx() != null && cassetteRequest.getMontantEx().isEmpty()) {
+                if (cassetteRequest.getMontantEx() != null && !cassetteRequest.getMontantEx().isEmpty()) {
                     cassetteToUpdate.setMontantEx(cassetteRequest.getMontantEx());
                 }
                 
-                if (cassetteRequest.getNumGab() != null && cassetteRequest.getNumGab().isEmpty()) {
+                if (cassetteRequest.getNumGab() != null && !cassetteRequest.getNumGab().isEmpty()) {
                     cassetteToUpdate.setNumGab(cassetteRequest.getNumGab());
                 }
-                if (cassetteRequest.getSoldeK71() != null && cassetteRequest.getSoldeK71().isEmpty()) {
+                if (cassetteRequest.getSoldeK71() != null && !cassetteRequest.getSoldeK71().isEmpty()) {
                     cassetteToUpdate.setSoldeK71(cassetteRequest.getSoldeK71());
                 }
-                if (cassetteRequest.getSoldeK72() != null && cassetteRequest.getSoldeK72().isEmpty()) {
+                if (cassetteRequest.getSoldeK72() != null && !cassetteRequest.getSoldeK72().isEmpty()) {
                     cassetteToUpdate.setSoldeK72(cassetteRequest.getSoldeK72());
                 }
-                if (cassetteRequest.getSoldeK73() != null && cassetteRequest.getSoldeK73().isEmpty()) {
+                if (cassetteRequest.getSoldeK73() != null && !cassetteRequest.getSoldeK73().isEmpty()) {
                     cassetteToUpdate.setSoldeK73(cassetteRequest.getSoldeK73());
                 }
-                if (cassetteRequest.getSoldeK74() != null && cassetteRequest.getSoldeK74().isEmpty()) {
+                if (cassetteRequest.getSoldeK74() != null && !cassetteRequest.getSoldeK74().isEmpty()) {
                     cassetteToUpdate.setSoldeK74(cassetteRequest.getSoldeK74());
                 }
-                if (cassetteRequest.getValeurk71() != null && cassetteRequest.getValeurk71().isEmpty()) {
+                if (cassetteRequest.getValeurk71() != null && !cassetteRequest.getValeurk71().isEmpty()) {
                     cassetteToUpdate.setValeurk71(cassetteRequest.getValeurk71());
                 }
-                if (cassetteRequest.getValeurK72() != null && cassetteRequest.getValeurK72().isEmpty()) {
+                if (cassetteRequest.getValeurK72() != null && !cassetteRequest.getValeurK72().isEmpty()) {
                     cassetteToUpdate.setValeurK72(cassetteRequest.getValeurK72());
                 }
-                if (cassetteRequest.getValeurK73() != null && cassetteRequest.getValeurK73().isEmpty()) {
+                if (cassetteRequest.getValeurK73() != null && !cassetteRequest.getValeurK73().isEmpty()) {
                     cassetteToUpdate.setValeurK73(cassetteRequest.getValeurK73());
                 }
-                if (cassetteRequest.getValeurK74() != null && cassetteRequest.getValeurK74().isEmpty()) {
+                if (cassetteRequest.getValeurK74() != null && !cassetteRequest.getValeurK74().isEmpty()) {
                     cassetteToUpdate.setValeurK74(cassetteRequest.getValeurK74());
                 }
                 
-                if (cassetteRequest.getTotalCoffre() != null && cassetteRequest.getTotalCoffre().isEmpty()) {
+                if (cassetteRequest.getTotalCoffre() != null && !cassetteRequest.getTotalCoffre().isEmpty()) {
                     cassetteToUpdate.setTotalCoffre(cassetteRequest.getTotalCoffre());
                 }
                 

@@ -2,11 +2,13 @@ package com.pfe.projet.mappers;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Component;
 
 import com.pfe.projet.dtos.requests.CassetteRequest;
 import com.pfe.projet.dtos.responses.CassetteResponse;
 import com.pfe.projet.models.Cassette;
 
+@Component
 public class CassetteMapper {
 
 	  public static Optional<Cassette>  convertCassetteRequestToCassette(CassetteRequest casetteRequest) {

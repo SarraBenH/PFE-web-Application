@@ -7,7 +7,7 @@ export class Gab {
     statutGab: string;
     enseigne: string;
     longitude: string;
-    JDAB: string;
+    jdab: string;
     etatCommunication: string;
     etatK1: string;
     etatK2: string;
@@ -22,7 +22,8 @@ export class Gab {
     etatSuppTicket: string;
     etatSuppJournal: string;
     etatCoffre:string ;
-    etatSuppCoffre:string
+    etatSuppCoffre:string ;
+    city:string;
 
 
     alerts: Alert[];
@@ -32,7 +33,8 @@ export class Gab {
       latitude: string,
       enseigne: string,
       longitude: string,
-      JDAB: string,
+      jdab: string,
+      city : string,
       etatCommunication: string,
       etatK1: string,
       etatK2: string,
@@ -54,12 +56,13 @@ export class Gab {
       this.latitude = latitude;
       this.enseigne = enseigne;
       this.longitude = longitude;
-      this.JDAB = JDAB;
+      this.jdab = jdab;
       this.etatCommunication = etatCommunication;
       this.etatK1 = etatK1;
       this.etatK2 = etatK2;
       this.etatK3 = etatK3;
       this.etatK4 = etatK4;
+      this.city = city;
       this.etatTicketClient = etatTicketClient;
       this.etatSuppK1 = etatSuppK1;
       this.etatSuppK2 = etatSuppK2;
@@ -76,10 +79,12 @@ export class Gab {
     public static fromJson(jsonObj: any): Gab {
       return new Gab(
         jsonObj['statutGab'],
+        jsonObj['city'],
+
         jsonObj['latitude'],
         jsonObj['enseigne'],
         jsonObj['longitude'],
-        jsonObj['JDAB'],
+        jsonObj['jdab'],
         jsonObj['etatCommunication'],
         jsonObj['etatCoffre'],
         jsonObj['etatSuppCoffre'],

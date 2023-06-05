@@ -28,9 +28,9 @@ public class TransactionController {
         }
         return ResponseEntity.ok(transactionResponses);
     }
-    @GetMapping("/transactions/six-last-months")
-    public ResponseEntity<Map<String,Integer>> getTransactionCountForLastSixMonths() {
-        Map<String,Integer> count = transactionService.getTransactionCountForLastSixMonths();
+    @GetMapping("/transactions/nine-last-months")
+    public ResponseEntity<Map<String,Integer>> getTransactionCountForLast9Months() {
+        Map<String,Integer> count = transactionService.getTransactionCountForLast9Months();
         if (count == null) {
             return ResponseEntity.notFound().build();
         }

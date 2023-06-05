@@ -2,10 +2,12 @@ package com.pfe.projet.mappers;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Component;
+
 import com.pfe.projet.dtos.requests.InterfaceRequest;
 import com.pfe.projet.dtos.responses.InterfaceResponse;
 import com.pfe.projet.models.Interface;
-
+@Component
 public class InterfaceMapper {
 
     public static Optional<Interface> convertInterfaceRequestToInterface(InterfaceRequest interfaceRequest) {

@@ -14,12 +14,12 @@ public class GabResponse {
 	   private String identifiant ;
 	    private String  statutGab;
 	    private String enseigne;
-	    private String JDAB;
+	    private String jdab;
 	    private String etatCommunication;
 	    private String address ;
 	    private String latitude;
 	    private String longitude;
-	    
+	    private String city;
 	    private String etatK1;
 	    private String etatK2;
 	    private String etatK3;

@@ -81,6 +81,10 @@ public class GabServiceImpl implements GabService {
     	           if (gabRequest.getEtatCommunication() != null && !gabRequest.getEtatCommunication().isEmpty()) {
     	        	   gabToUpdate.setEtatCommunication(gabRequest.getEtatCommunication());
     	           }
+    	           
+    	           if (gabRequest.getCity() != null && !gabRequest.getCity().isEmpty()) {
+    	        	   gabToUpdate.setCity(gabRequest.getCity());
+    	           }
     	           if (gabRequest.getStatutGab() != null && !gabRequest.getStatutGab().equals("")) {
     	        	   gabToUpdate.setStatutGab(gabRequest.getStatutGab());
     	           }
@@ -118,8 +122,8 @@ public class GabServiceImpl implements GabService {
     	           if (gabRequest.getIdentifiant() != null && !gabRequest.getIdentifiant().isEmpty()) {
     	        	   gabToUpdate.setIdentifiant(gabRequest.getIdentifiant());
     	           }
-    	           if (gabRequest.getJDAB() != null && !gabRequest.getJDAB().isEmpty()) {
-    	        	   gabToUpdate.setJDAB(gabRequest.getJDAB());
+    	           if (gabRequest.getJdab() != null && !gabRequest.getJdab().isEmpty()) {
+    	        	   gabToUpdate.setJdab(gabRequest.getJdab());
     	           }
     	           if (gabRequest.getAddress() != null && !gabRequest.getAddress().isEmpty()) {
     	        	   gabToUpdate.setAddress(gabRequest.getAddress());

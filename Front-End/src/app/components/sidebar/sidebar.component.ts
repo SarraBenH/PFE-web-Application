@@ -15,7 +15,9 @@ export const ROUTES: RouteInfo[] = [
     { path: '/transactions', title: 'Transactions',  icon:'fas fa-sharp fa-light fa-chart-mixed-up-circle-dollar text-blue', class: ''},
     { path: '/interfaces', title: 'Interfaces',  icon:'', class: ''},
     { path: '/maps', title: 'Map View',  icon:'ni-pin-3 text-orange', class: '' },
-    { path: '/cassette', title: 'Cash balance',  icon:'fas fa-money-bill-wave text-blue', class: '' }
+    { path: '/cassette', title: 'Cash balance',  icon:'fas fa-money-bill-wave text-blue', class: '' },
+    { path: '/tpe', title: 'Gateway TPE',  icon:'far fa-credit-card text-pink', class: '' }
+
  
 ];
 

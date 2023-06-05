@@ -36,6 +36,7 @@ user :User ;
     {headerName: 'Etat Suppl Journal', field: 'etatSuppJournal', resizable: true, minWidth: 140,  tooltipField: 'etatSuppJournal', sortable: true, filter: true, editable : true },
     {headerName: 'Etat Hard Journal', field: 'jdab', resizable: true, minWidth: 140,  tooltipField: 'jdab', sortable: true, filter: true , editable : true },
     {headerName: 'Etat Communication', field: 'etatCommunication', resizable: true, minWidth: 140,  tooltipField: 'etatCommunication', sortable: true, filter: true, editable : true },
+    {headerName: 'City', field: 'city', resizable: true, minWidth: 140,  tooltipField: 'city', sortable: true, filter: true, editable : true },
 
 	];
   frameworkComponents = {
@@ -69,13 +70,13 @@ user :User ;
 
     this.gabService.getMostSuccessfulCity().subscribe((result)=>{
       if(result){
-        this.mostSuccessfulCity = result[0].enseigne;
+        this.mostSuccessfulCity = result[0].city;
         this.mostSuccessfulCityValue = result[0].count
       }
     })
     this.gabService.getWorstCity().subscribe((result)=>{
       if(result){
-        this.worstCity = result[0].enseigne;
+        this.worstCity = result[0].city;
         this.worstCityValue = result[0].count
       }
     })

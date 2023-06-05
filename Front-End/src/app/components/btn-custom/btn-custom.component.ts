@@ -26,13 +26,18 @@ export class BtnCustomComponent implements OnInit {
   }
   agInit(params: ICellRendererParams): void {
     this.cellValue=this.getValueToDisplay(params);
-    this.cellColor=this.getColorToDisplay();
     this.data =params.data ;
+    this.cellColor=this.getColorToDisplay();
+
   }
   getValueToDisplay(params: ICellRendererParams): any {
     return params.valueFormatted ? params.valueFormatted : params.value;
   }
   getColorToDisplay(){
+
+    if(this.data.statutGab.toLowerCase()==='1' && Number(this.data.etatSuppCoffre) > 1  && Number(this.data.jdab) > 1 && Number(this.data.etatCoffre) >1){
+      return 'black' ;
+    }
     switch (this.cellValue) {
       case "2":
         return "danger"
@@ -65,7 +70,7 @@ export class BtnCustomComponent implements OnInit {
     });
   }
   getStatusGab() {
-    if(this.data.statutGab.toLowerCase()==='1' && Number(this.data.etatSuppCoffre) > 1  || Number(this.data.JDAB) > 1 || Number(this.data.etatCoffre) >1){
+    if(this.data.statutGab.toLowerCase()==='1' && Number(this.data.etatSuppCoffre) > 1  && Number(this.data.jdab) > 1 && Number(this.data.etatCoffre) >1){
       return 'Critical' ;
     }
     switch (this.data.statutGab) {

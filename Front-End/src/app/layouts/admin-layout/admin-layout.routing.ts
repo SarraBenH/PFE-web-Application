@@ -10,6 +10,7 @@ import { AuthGuard } from 'src/app/services/auth.guard';
 import { TransactionsComponent } from 'src/app/pages/transactions/transactions.component';
 import { InterfacesComponent } from 'src/app/pages/interfaces/interfaces.component';
 import { CassetteComponent } from 'src/app/pages/cassette/cassette.component';
+import { TpeComponent } from 'src/app/pages/tpe/tpe.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',
@@ -20,10 +21,10 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'profile/:id',   component: ProfileComponent,     canActivate: [AuthGuard]},
     { path: 'gabs',         component: GabsComponent ,     canActivate: [AuthGuard]},
     { path: 'cassette',         component: CassetteComponent ,     canActivate: [AuthGuard]},
+    { path: 'tpe',         component: TpeComponent ,     canActivate: [AuthGuard]},
     { path: 'transactions',         component: TransactionsComponent ,     canActivate: [AuthGuard]},
     { path: 'interfaces',         component: InterfacesComponent ,     canActivate: [AuthGuard]},
-    { path: 'icons',          component: IconsComponent,     canActivate: [AuthGuard]
-},
+    { path: 'icons',          component: IconsComponent,     canActivate: [AuthGuard]},
     { path: 'maps',           component: MapsComponent ,     canActivate: [AuthGuard]
 }
 ];

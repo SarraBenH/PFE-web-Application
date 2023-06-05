@@ -153,10 +153,14 @@ export class DashboardComponent implements OnInit {
   legendPosition3: string = 'below';
 
  chart1ColorScheme = {
-    domain: ['#b3b2ad', '#f0ed92', '#f7b972', '#b572f7',"#bafca2","#aef1f5","#f5aeef"]
+    domain: ['#b3b2ad',"#bafca2",'#f0ed92', '#f7b972', '#b572f7',"#aef1f5","#f5aeef" ,'#0000FF','#A10A28']
   };
   colorScheme = {
-    domain: ['#f0ab3c', '#5AA454','#f5e042','#A10A28' ,'#f5aeef' , '#bafca2' ]
+    domain: ['#f0ab3c', '#5AA454','#f5aeef','#0000FF','#A10A28']
+  };
+
+  colorInterfaceScheme = {
+    domain: ['#f0ab3c', '#5AA454' ,'#aef1f5','#A10A28' ]
   };
 constructor(private router :Router , private gabService:GabService, private transactionService: TransactionService, private userService :UserService,
    private route: ActivatedRoute , private interfaceService :InterfaceService ){
@@ -187,7 +191,7 @@ onDeactivate(data): void {
 
     }
 
-    const transactionCount$ = this.transactionService.getTransactionCountForLastThreeMonths();
+    const transactionCount$ = this.transactionService.getTransactionCountForLast9Months();
     const gabCount$ = this.gabService.getGabs();
     const interfaceCount$ = this.interfaceService.getInterfaces() ;
     

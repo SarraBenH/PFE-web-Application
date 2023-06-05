@@ -10,6 +10,9 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class GabMapper {
 
     public static Optional<Gab>  convertGabRequestToGab(GabRequest gabRequest) {
@@ -27,7 +30,7 @@ public class GabMapper {
         gab.setEtatK2(gabRequest.getEtatK2());
         gab.setEtatK3(gabRequest.getEtatK3());
         gab.setEtatK4(gabRequest.getEtatK4());
-        
+        gab.setCity(gabRequest.getCity());
         gab.setEtatSuppK1(gabRequest.getEtatSuppK1());
         gab.setEtatSuppK2(gabRequest.getEtatSuppK2());
         gab.setEtatSuppK3(gabRequest.getEtatSuppK3());
@@ -40,7 +43,7 @@ public class GabMapper {
         gab.setEtatSuppCoffre(gabRequest.getEtatSuppCoffre());
 
 
-        gab.setJDAB(gabRequest.getJDAB());
+        gab.setJdab(gabRequest.getJdab());
         gab.setEtatCommunication(gabRequest.getEtatCommunication());
         gab.setIdentifiant(gabRequest.getIdentifiant());
         Set<Alert> alerts = new HashSet<>();
@@ -63,7 +66,7 @@ public class GabMapper {
         gabResponse.setIdentifiant(gab.getIdentifiant());
         gabResponse.setStatutGab(gab.getStatutGab());
         gabResponse.setEnseigne(gab.getEnseigne());
-        gabResponse.setJDAB(gab.getJDAB());
+        gabResponse.setJdab(gab.getJdab());
         gabResponse.setEtatCommunication(gab.getEtatCommunication());
         gabResponse.setAddress(gab.getAddress());
         gabResponse.setLatitude(gab.getLatitude());
@@ -73,7 +76,8 @@ public class GabMapper {
         gabResponse.setEtatK2(gab.getEtatK2());
         gabResponse.setEtatK3(gab.getEtatK3());
         gabResponse.setEtatK4(gab.getEtatK4());
-        
+        gabResponse.setCity(gab.getCity());
+
         gabResponse.setEtatSuppJournal(gab.getEtatSuppJournal());
         gabResponse.setEtatSuppK1(gab.getEtatSuppK1());
         gabResponse.setEtatSuppK2(gab.getEtatSuppK2());

@@ -25,6 +25,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { InterfacesComponent } from 'src/app/pages/interfaces/interfaces.component';
 import { MessageDialogComponent } from 'src/app/components/message-dialog/message-dialog.component';
 import { CassetteComponent } from 'src/app/pages/cassette/cassette.component';
+import { TpeComponent } from 'src/app/pages/tpe/tpe.component';
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ToastrModule } from 'ngx-toastr';
 
@@ -62,6 +63,7 @@ import { CassetteComponent } from 'src/app/pages/cassette/cassette.component';
     InterfacesComponent,
     IconsComponent,
     MapsComponent,
+    TpeComponent ,
     TransactionsComponent ,
     GabDialogComponent,
     MessageDialogComponent

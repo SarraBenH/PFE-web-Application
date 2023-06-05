@@ -43,11 +43,11 @@ public class TransactionServiceImpl implements TransactionService {
         return response;
     }
     @Override
-    public Map<String, Integer> getTransactionCountForLastSixMonths() {
+    public Map<String, Integer> getTransactionCountForLast9Months() {
         Map<String, Integer> transactionCountByMonth = new HashMap<>();
 
         LocalDate now = LocalDate.now();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 9; i++) {
             String month = String.valueOf(String.format("%02d", now.minusMonths(i).getMonth().ordinal()+1));
             String pattern = month+"/"+ now.minusMonths(i).getYear();
             int transactionCount = transactionRepository.countByMonth(pattern);

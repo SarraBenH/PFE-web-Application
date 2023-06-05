@@ -36,7 +36,7 @@ public class Gab {
     
     
     @Column(name = "ETAT_HARD_JOURNAL")
-    private String JDAB;
+    private String jdab;
     
     @Column(name = "ETAT_COMMUNICATION")
     private String etatCommunication;
@@ -90,6 +90,9 @@ public class Gab {
 
     @Column(name = "ETAT_SUPPL_JOURNAL")
     private String etatSuppJournal;
+    
+    @Column(name = "city")
+    private String city;
 
     
  /*   

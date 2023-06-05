@@ -37,8 +37,11 @@ export class MapsComponent implements OnInit {
     this.loadMap();
   }
   
-  getColorToDisplay(etat: string){
-    switch (etat.toLowerCase()) {
+  getColorToDisplay(gab: Gab){
+    if(gab.statutGab.toLowerCase()==='1' && Number(gab.etatSuppCoffre) > 1  && Number(gab.jdab) > 1 && Number(gab.etatCoffre) >1){
+      return 'black' ;
+    }
+    switch (gab.statutGab.toLowerCase()) {
       case "2":
         return "red"
       
@@ -100,7 +103,7 @@ export class MapsComponent implements OnInit {
               this.map.setView(e.latlng, 15);
             });
             this.markers.push(marker)
-            const colorGab =  this.getColorToDisplay(gab.statutGab)
+            const colorGab =  this.getColorToDisplay(gab)
             marker.bindPopup(  "Gab ID : <b>" +
             gab.identifiant +
             "</b><br>"+
@@ -124,7 +127,7 @@ export class MapsComponent implements OnInit {
       }
 
       getStatusGab(gab:Gab) {
-        if(gab.statutGab.toLowerCase()==='1' && Number(gab.etatSuppCoffre) > 1  || Number(gab.JDAB) > 1 || Number(gab.etatCoffre) >1){
+        if(gab.statutGab.toLowerCase()==='1' && Number(gab.etatSuppCoffre) > 1  && Number(gab.jdab) > 1 && Number(gab.etatCoffre) >1){
           return 'Critical' ;
         }
         switch (gab.statutGab) {
